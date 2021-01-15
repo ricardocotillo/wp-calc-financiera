@@ -8,7 +8,7 @@
       :class="value == i ? 'bg-blue-900' : null"
     >
       <img
-        :src="require(`../assets/${opt.icon}`)"
+        :src="opt.icon"
         :style="{ filter: `brightness(${value == i ? 100 : 1})` }"
       />
       <span

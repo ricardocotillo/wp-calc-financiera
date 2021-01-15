@@ -11,8 +11,8 @@
       <table class="w-full text-blue-900 font-bold">
         <tbody>
           <tr v-for="i in (periods + 1) * 12" :key="i" class="text-lg">
-            <td class="text-center">Mes {{ i }}</td>
-            <td class="text-center">S/ {{ formatAmount(cuota, 2) }}</td>
+            <td class="text-center py-1">Mes {{ i }}</td>
+            <td class="text-center py-1">S/ {{ formatAmount(cuota, 2) }}</td>
           </tr>
         </tbody>
       </table>

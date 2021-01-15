@@ -53,9 +53,7 @@
           Continuar
           <img
             class="w-5 h-5 inline-block transform -rotate-90"
-            src="@/assets/arrow-white.svg"
-            alt=""
-            srcset=""
+            src="/wp-content/plugins/calc-financiera/public/resources/dist/img/arrow-white.svg"
           />
         </button>
       </div>
@@ -124,7 +122,7 @@
           @click="step = 0"
         >
           <img
-            src="@/assets/arrow.svg"
+            src="/wp-content/plugins/calc-financiera/public/resources/dist/img/arrow.svg"
             class="w-5 h-6 transform rotate-90 mr-2"
           />
           <span>Paso 1</span>
@@ -169,27 +167,27 @@ export default {
       propertyTypes: [
         {
           key: 1,
-          icon: "building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/building.svg",
           title: "Casa",
         },
         {
           key: 2,
-          icon: "building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/building.svg",
           title: "Dpto",
         },
         {
           key: 3,
-          icon: "land.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/land.svg",
           title: "Terreno",
         },
         {
           key: 4,
-          icon: "local.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/local.svg",
           title: "Local",
         },
         {
           key: 5,
-          icon: "big-building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/big-building.svg",
           title: "Edificio",
         },
       ],

@@ -10,7 +10,7 @@
         aria-expanded="true"
       >
         {{ value !== null ? options[value].title : selected }}
-        <img class="-mr-1 ml-2 h-5 w-5" src="@/assets/arrow.svg" alt="" />
+        <img class="-mr-1 ml-2 h-5 w-5" src="/wp-content/plugins/calc-financiera/public/resources/dist/img/arrow.svg" alt="" />
       </button>
     </div>
     <transition

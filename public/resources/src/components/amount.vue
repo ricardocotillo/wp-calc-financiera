@@ -13,7 +13,7 @@
           @click="toggleInputs"
           :value="formattedAmount"
           type="text"
-          class="border border-gray-300 focus:outline-none focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
+          class="border border-white-300 bg-white focus:outline-none focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
         />
         <input
           ref="amountInput"
@@ -23,7 +23,7 @@
           @blur="showFormatted = !showFormatted"
           v-model.number="ramount"
           @input="handleInput"
-          class="border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
+          class="border border-gray-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
         />
       </div>
       <button @click="increase" class="amount-btn">+</button>
