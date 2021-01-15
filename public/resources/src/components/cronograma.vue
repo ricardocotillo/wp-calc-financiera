@@ -19,7 +19,7 @@
     </template>
     <template v-slot:footer>
       <div class="flex flex-col items-center">
-        <button @click="$emit('solicitar')" class="btn mb-5">Solicita tu prestamo</button>
+        <button @click="$emit('solicitar')" class="rounded bg-blue-900 text-white font-bold px-4 py-2 mb-5">Solicita tu prestamo</button>
         <p class="text-md text-gray-500">
           Tasa Efectiva Annual (TEA) del 36% promedio, sujeto a calificación
           crediticia en el sistema financiero.

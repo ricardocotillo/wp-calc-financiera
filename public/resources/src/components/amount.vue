@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-row flex-nowrap justify-center items-center">
-      <button @click="decrease" class="amount-btn">-</button>
+      <button @click="decrease" class="rounded-full bg-blue-900 w-7 h-7 text-white focus:outline-none cursor-pointer">-</button>
       <div class="mt-1 relative inline-block rounded-md shadow-sm">
         <div
           class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none"
@@ -26,7 +26,7 @@
           class="border border-gray-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
         />
       </div>
-      <button @click="increase" class="amount-btn">+</button>
+      <button @click="increase" class="rounded-full bg-blue-900 w-7 h-7 text-white focus:outline-none cursor-pointer">+</button>
     </div>
     <p class="text-xs text-center font-bold mt-2 text-gray-400">
       Desde S/ {{ formatAmount(min) }}

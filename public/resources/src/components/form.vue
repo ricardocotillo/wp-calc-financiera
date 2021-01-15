@@ -12,17 +12,17 @@
       <input
         type="text"
         name="dni"
-        class="input my-1"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="dni"
         @keypress="isNumber"
       />
       <label for="nombre" class="font-bold text-base">Nombres</label>
-      <input type="text" name="nombre" class="input my-1" v-model="nombre" />
+      <input type="text" name="nombre" class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1" v-model="nombre" />
       <label for="apellido" class="font-bold text-base">Apellidos</label>
       <input
         type="text"
         name="apellido"
-        class="input my-1"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="apellido"
       />
       <h1 class="text-xl font-bold text-center my-7">Datos de contacto</h1>
@@ -32,7 +32,7 @@
       <input
         type="tel"
         name="telefono1"
-        class="input my-1"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="phone1"
         @keypress="isNumber"
       />
@@ -42,18 +42,18 @@
       <input
         type="tel"
         name="telefono2"
-        class="input my-1"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model.number="phone2"
         @keypress="isNumber"
       />
       <label for="email" class="font-bold text-base">Correo electrónico</label>
-      <input type="email" name="email" class="input my-1" v-model="email" />
+      <input type="email" name="email" class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1" v-model="email" />
       <div class="flex justify-center mt-7">
-        <button class="btn" @click="step = 1">
+        <button class="rounded bg-blue-900 text-white font-bold px-4 py-2" @click="step = 1">
           Continuar
           <img
             class="w-5 h-5 inline-block transform -rotate-90"
-            src="/wp-content/plugins/calc-financiera/public/resources/dist/img/arrow-white.svg"
+            src="/wp-content/plugins/calc-financiera/public/img/arrow-white.svg"
           />
         </button>
       </div>
@@ -96,7 +96,7 @@
         type="text"
         name="area"
         v-model.number="area"
-        class="input my-1"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         placeholder="m²"
         @keypress="isNumber"
       />
@@ -122,12 +122,12 @@
           @click="step = 0"
         >
           <img
-            src="/wp-content/plugins/calc-financiera/public/resources/dist/img/arrow.svg"
+            src="/wp-content/plugins/calc-financiera/public/img/arrow.svg"
             class="w-5 h-6 transform rotate-90 mr-2"
           />
           <span>Paso 1</span>
         </div>
-        <button class="btn inline-block col-span-2">Enviar datos</button>
+        <button class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-2">Enviar datos</button>
       </div>
     </template>
   </div>
@@ -167,27 +167,27 @@ export default {
       propertyTypes: [
         {
           key: 1,
-          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/img/building.svg",
           title: "Casa",
         },
         {
           key: 2,
-          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/img/building.svg",
           title: "Dpto",
         },
         {
           key: 3,
-          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/land.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/img/land.svg",
           title: "Terreno",
         },
         {
           key: 4,
-          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/local.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/img/local.svg",
           title: "Local",
         },
         {
           key: 5,
-          icon: "/wp-content/plugins/calc-financiera/public/resources/dist/img/big-building.svg",
+          icon: "/wp-content/plugins/calc-financiera/public/img/big-building.svg",
           title: "Edificio",
         },
       ],

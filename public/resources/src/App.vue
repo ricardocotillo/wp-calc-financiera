@@ -8,6 +8,3 @@ export default {
   components: { Calculadora },
 };
 </script>
-
-<style>
-</style>
