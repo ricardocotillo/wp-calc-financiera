@@ -17,7 +17,12 @@
         @keypress="isNumber"
       />
       <label for="nombre" class="font-bold text-base">Nombres</label>
-      <input type="text" name="nombre" class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1" v-model="nombre" />
+      <input
+        type="text"
+        name="nombre"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        v-model="nombre"
+      />
       <label for="apellido" class="font-bold text-base">Apellidos</label>
       <input
         type="text"
@@ -47,13 +52,21 @@
         @keypress="isNumber"
       />
       <label for="email" class="font-bold text-base">Correo electrónico</label>
-      <input type="email" name="email" class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1" v-model="email" />
+      <input
+        type="email"
+        name="email"
+        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        v-model="email"
+      />
       <div class="flex justify-center mt-7">
-        <button class="rounded bg-blue-900 text-white font-bold px-4 py-2" @click="step = 1">
+        <button
+          class="rounded bg-blue-900 text-white font-bold px-4 py-2"
+          @click="step = 1"
+        >
           Continuar
           <img
             class="w-5 h-5 inline-block transform -rotate-90"
-            src="/wp-content/plugins/calc-financiera/public/img/arrow-white.svg"
+            :src="`${baseUrl}/img/arrow-white.svg`"
           />
         </button>
       </div>
@@ -79,10 +92,29 @@
         >Ubicación de la propiedad que puedes poner en garantía</label
       >
       <Dropdown
-        v-if="departamentos"
+        v-if="departamentos.length > 0"
         v-model="departamento"
+        @input="
+          provincia = null;
+          distrito = null;
+        "
         w="full"
         :options="departamentos"
+      />
+      <div class="h-4"></div>
+      <Dropdown
+        v-model="provincia"
+        @input="distrito = null"
+        w="full"
+        :options="provincias"
+        label="Seleccionar provincia"
+      />
+      <div class="h-4"></div>
+      <Dropdown
+        v-model="distrito"
+        w="full"
+        :options="distritos"
+        label="Seleccionar distrito"
       />
       <label for="type-of-property" class="font-bold text-sm block my-3"
         >Tipo de propiedad</label
@@ -122,12 +154,16 @@
           @click="step = 0"
         >
           <img
-            src="/wp-content/plugins/calc-financiera/public/img/arrow.svg"
+            :src="`${baseUrl}/img/arrow.svg`"
             class="w-5 h-6 transform rotate-90 mr-2"
           />
           <span>Paso 1</span>
         </div>
-        <button class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-2">Enviar datos</button>
+        <button
+          class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-2"
+        >
+          Enviar datos
+        </button>
       </div>
     </template>
   </div>
@@ -138,10 +174,13 @@ import Dropdown from "./dropdown";
 import CardOptions from "./cardOptions";
 import PillOptions from "./pillOptions";
 import { isNumber } from "../mixins/isNumer";
-import { departamentos } from "../mixins/departamentos";
 export default {
   data() {
     return {
+      baseUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://f4c9e4162ca7.ngrok.io/wp-content/plugins/calc-financiera/public"
+          : "/wp-content/plugins/calc-financiera/public/misc",
       step: 0,
       dni: "",
       nombre: "",
@@ -154,47 +193,97 @@ export default {
       hipoteca: null,
       area: null,
       typeOfProperty: null,
-      departamento: 14,
-      departamentos: departamentos.map((v, i) => {
-        return { key: i, title: v };
-      }),
+      departamento: 15,
+      provincia: null,
+      distrito: null,
+      departamentos: [],
       owner: null,
       ownerOptions: [
         { key: 1, title: "Sólo yo" },
         { key: 2, title: "Otras personas y yo" },
         { key: 3, title: "Otras personas" },
       ],
-      propertyTypes: [
-        {
-          key: 1,
-          icon: "/wp-content/plugins/calc-financiera/public/img/building.svg",
-          title: "Casa",
-        },
-        {
-          key: 2,
-          icon: "/wp-content/plugins/calc-financiera/public/img/building.svg",
-          title: "Dpto",
-        },
-        {
-          key: 3,
-          icon: "/wp-content/plugins/calc-financiera/public/img/land.svg",
-          title: "Terreno",
-        },
-        {
-          key: 4,
-          icon: "/wp-content/plugins/calc-financiera/public/img/local.svg",
-          title: "Local",
-        },
-        {
-          key: 5,
-          icon: "/wp-content/plugins/calc-financiera/public/img/big-building.svg",
-          title: "Edificio",
-        },
-      ],
+      propertyTypes: [],
+      ubigeo: [],
     };
+  },
+  computed: {
+    provincias() {
+      if (this.departamento) {
+        return this.ubigeo
+          .filter(
+            (u) =>
+              u.departamento === this.departamentos[this.departamento].key &&
+              u.distrito === 0 &&
+              u.provincia !== 0
+          )
+          .map((p) => {
+            return { key: p.provincia, title: p.nombre };
+          });
+      }
+      return [];
+    },
+    distritos() {
+      if (this.provincia !== null) {
+        return this.ubigeo
+          .filter(
+            (u) =>
+              u.departamento === this.departamentos[this.departamento].key &&
+              u.provincia === this.provincias[this.provincia].key &&
+              u.distrito !== 0
+          )
+          .map((d) => {
+            return { key: d.distrito, title: d.nombre };
+          });
+      }
+      return [];
+    },
   },
   methods: {
     isNumber,
+    filterDepartamentos() {
+      return this.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
+    },
+    send() {
+      
+    }
+  },
+  created() {
+    this.propertyTypes = [
+      {
+        key: 1,
+        icon: `${this.baseUrl}/img/building.svg`,
+        title: "Casa",
+      },
+      {
+        key: 2,
+        icon: `${this.baseUrl}/img/building.svg`,
+        title: "Dpto",
+      },
+      {
+        key: 3,
+        icon: `${this.baseUrl}/img/land.svg`,
+        title: "Terreno",
+      },
+      {
+        key: 4,
+        icon: `${this.baseUrl}/img/local.svg`,
+        title: "Local",
+      },
+      {
+        key: 5,
+        icon: `${this.baseUrl}/img/big-building.svg`,
+        title: "Edificio",
+      },
+    ];
+    fetch(`${this.baseUrl}/misc/ubigeo.json`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.ubigeo = data;
+        this.departamentos = this.filterDepartamentos().map((d) => {
+          return { key: d.departamento, title: d.nombre };
+        });
+      });
   },
   components: { Dropdown, CardOptions, PillOptions },
 };

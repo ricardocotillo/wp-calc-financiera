@@ -9,8 +9,12 @@
         aria-haspopup="true"
         aria-expanded="true"
       >
-        {{ value !== null ? options[value].title : selected }}
-        <img class="-mr-1 ml-2 h-5 w-5" src="/wp-content/plugins/calc-financiera/public/img/arrow.svg" alt="" />
+        {{ value !== null ? options[value].title : label }}
+        <img
+          class="-mr-1 ml-2 h-5 w-5"
+          :src="`${baseUrl}/img/arrow.svg`"
+          alt=""
+        />
       </button>
     </div>
     <transition
@@ -28,7 +32,7 @@
         <div class="py-1">
           <div
             v-for="(opt, i) in options"
-            :key="opt.key"
+            :key="opt.key + '-' + opt.title"
             class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem"
             @click="select(i)"
@@ -53,10 +57,17 @@ export default {
       type: String,
       default: "60",
     },
+    label: {
+      type: String,
+      default: "Seleccionar",
+    },
   },
   data() {
     return {
-      selected: "Seleccionar",
+      baseUrl:
+        process.env.NODE_ENV === "development"
+          ? "http://f4c9e4162ca7.ngrok.io/wp-content/plugins/calc-financiera/public"
+          : "/wp-content/plugins/calc-financiera/public/misc",
       isOpen: false,
     };
   },
