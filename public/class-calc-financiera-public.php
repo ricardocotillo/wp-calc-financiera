@@ -75,7 +75,7 @@ class Calc_Financiera_Public {
 		 */
 
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calc-financiera-public.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'resources/dist/css/app.c6cc2ddf.css', array(), $this->version, 'all' );
 		}
 
 	}
@@ -99,7 +99,8 @@ class Calc_Financiera_Public {
 		 * class.
 		 */
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calc-financiera-public.js', array( 'jquery' ), $this->version, false );
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'resources/dist/js/app.66fc7cb9.js', null, $this->version, false );
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'resources/dist/js/chunk-vendors.baa6b58e.js', null, $this->version, false );
 		}
 
 	}
@@ -110,49 +111,7 @@ class Calc_Financiera_Public {
 	 * @since    1.0.0
 	 */
 	public function dotiavatar_function() {
-		return 
-		'<div id="calculadora-financiera">
-			<div class="center">
-				<div class="property-card">
-					<div class="tipo-de-inversion">
-						<h6>Tipo de inversión</h6>
-						<div class="tipos">
-							<div class="tipo">
-								<input name="tipo" value="0" type="radio" checked />
-								<label><strong>Préstamo con garatía hipotecaria</strong></label>
-							</div>
-							<div class="tipo">
-								<input name="tipo" value="1" type="radio" />
-								<label><strong>Factoring</strong></label>
-							</div>
-						</div>
-					</div>
-					<div class="amount">
-						<h6>Monto de inversión</h6>
-						<div id="amount">
-							<div id="remove" class="amount-btn cursor-pointer">-</div>
-							<input data-min="20000" data-step="100" data-value="1000" value="20000"  id="amount-input">
-							<div id="add" class="amount-btn cursor-pointer">+</div>
-						</div>
-					</div>
-					<div class="periodo">
-						<h6>Período de inversión</h6>
-						<select>
-							<option selected value="1">1 año</option>
-							<option value="2">2 años</option>
-							<option value="3">3 años</option>
-							<option value="4">4 años</option>
-						</select>
-					</div>
-					<div style="width: 20px"></div>
-					<div class="ganancia">
-						<h6>En 1 año ganarías</h6>
-						<h3><strong>S/ 23</strong></h3>
-						<button class="btn-register">Regístrate</button>
-					</div>
-				</div>
-			</div>
-	  	</div>';
+		return '<div id="app"></div>';
    	}
 
 }
