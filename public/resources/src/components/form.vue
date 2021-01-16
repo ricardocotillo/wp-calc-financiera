@@ -104,7 +104,7 @@
       <div
         class="flex flex-row justify-between items-center py-10 px-5 bg-gray-100 rounded mb-5"
       >
-        <img src="@/assets/info.svg" class="w-10 mr-3" alt="" srcset="" />
+        <img :src="`${baseUrl}/img/info.svg`" class="w-10 mr-3" alt="" srcset="" />
         <span
           >Recuerda que <b>para obtener el préstamo necesitas</b> contar con<b>
             una propiedad para poner en garantía.</b
@@ -226,6 +226,7 @@ import Dropdown from "./dropdown";
 import CardOptions from "./cardOptions";
 import PillOptions from "./pillOptions";
 import { isNumber } from "../mixins/isNumer";
+import { baseUrl } from "../mixins/calcData";
 import {
   required,
   email,
@@ -236,27 +237,24 @@ import {
 export default {
   data() {
     return {
-      baseUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://af17bba27b48.ngrok.io/wp-content/plugins/calc-financiera/public"
-          : "/wp-content/plugins/calc-financiera/public",
+      baseUrl,
       step: 0,
-      dni: "",
-      nombre: "",
-      apellido: "",
-      phone1: "",
+      dni: "44792873",
+      nombre: "Ricardo",
+      apellido: "Cotillo",
+      phone1: "970001095",
       phone2: "",
-      email: "",
-      sunarp: null,
-      embargo: null,
-      hipoteca: null,
-      area: null,
-      typeOfProperty: null,
+      email: "ricardo.cotillo@gmail.com",
+      sunarp: 0,
+      embargo: 1,
+      hipoteca: 1,
+      area: "120",
+      typeOfProperty: 0,
       departamento: 15,
-      provincia: null,
-      distrito: null,
+      provincia: 1,
+      distrito: 1,
       departamentos: [],
-      owner: null,
+      owner: 1,
       ownerOptions: [
         { key: 1, title: "Sólo yo" },
         { key: 2, title: "Otras personas y yo" },
@@ -339,9 +337,30 @@ export default {
     validateSecond() {
       if (this.$v.$invalid) {
         this.incomplete = true;
+      } else {
+        this.send();
       }
     },
-    send() {},
+    send() {
+      const solicitud = {
+        nombres: this.nombre,
+        appellidos: this.appellido,
+        dni: this.dni,
+        telefono1: this.phone1,
+        telefono2: this.phone2,
+        email: this.email,
+        departamento: this.departamentos[this.departamento].title,
+        provincia: this.provincias[this.provincia].title,
+        distrito: this.distritos[this.distrito].title,
+        tipoDePropiedad: this.typeOfProperty,
+        area: this.area,
+        dueno: this.owner,
+        sunarp: this.sunarp,
+        embargo: this.embargo,
+        hipoteca: this.hipoteca,
+      };
+      this.$emit("submit", solicitud);
+    },
   },
   created() {
     this.propertyTypes = [

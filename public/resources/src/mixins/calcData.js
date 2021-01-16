@@ -1,3 +1,6 @@
+const baseUrl = process.env.NODE_ENV === "development"
+  ? "http://financiera.local/wp-content/plugins/calc-financiera/public"
+  : "/wp-content/plugins/calc-financiera/public";
 const initialMsg = "La simulación de la cuota y el cronograma puede variar según tu evaluación.";
 const msgs = {
   0: "Las cuotas incluyen interés y amortización . La simulación de la cuota y el cronograma puede variar según tu evaluación.",
@@ -21,4 +24,4 @@ const periods = {
   2: [{ key: 1, title: "1 año" }],
 };
 
-export { initialMsg, msgs, typeOfPayments, periods, }
+export { initialMsg, msgs, typeOfPayments, periods, baseUrl }

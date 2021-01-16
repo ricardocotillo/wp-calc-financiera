@@ -19,7 +19,7 @@
         <tbody>
           <tr v-for="i in (periods + 1) * 12" :key="i" class="text-lg">
             <td class="text-center py-1">Mes {{ i }}</td>
-            <td colspan="2" class="text-center py-1 lg:px-16 text-center">
+            <td colspan="2" class="text-center py-1 lg:px-16">
               S/
               {{
                 type == 1 && i == 12

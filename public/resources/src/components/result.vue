@@ -14,38 +14,40 @@
         }}
       </h1>
       <a href="#" @click.prevent="showPayTable = true">Ver cronograma</a>
-      <Cronograma
-        @close="showPayTable = false"
-        @solicitar="
-          showPayTable = false;
-          showSolicitar = true;
-        "
-        :isOpen="showPayTable"
-        :typeText="typeText"
-        :type="type"
-        :cuota="cuota"
-        :amount="amount"
-        :periods="periods"
-      />
-      <FormModal
-        :isOpen="showSolicitar"
-        :amount="amount"
-        :type="type"
-        :period="periods"
-        :cuota="cuota"
-        @close="showSolicitar = false"
-        @change:amount="$emit('change:amount', $event)"
-        @change:type="$emit('change:type', $event)"
-        @change:period="$emit('change:period', $event)"
-      />
-      <FormModal :isOpen="showForm" />
     </div>
+    <Cronograma
+      @close="showPayTable = false"
+      @solicitar="
+        showPayTable = false;
+        showSolicitar = true;
+      "
+      :isOpen="showPayTable"
+      :typeText="typeText"
+      :type="type"
+      :cuota="cuota"
+      :amount="amount"
+      :periods="periods"
+    />
+    <FormModal
+      :isOpen="showSolicitar"
+      :amount="amount"
+      :type="type"
+      :period="periods"
+      :cuota="cuota"
+      @close="showSolicitar = false"
+      @change:amount="$emit('change:amount', $event)"
+      @change:type="$emit('change:type', $event)"
+      @change:period="$emit('change:period', $event)"
+      @submit="submit"
+    />
+    <Waiting :isOpen="loading" />
   </div>
 </template>
 
 <script>
 import Cronograma from "./cronograma";
 import FormModal from "./formModal";
+import Waiting from "./waiting";
 import { formatAmount } from "../mixins/formatAmount";
 export default {
   props: {
@@ -61,6 +63,7 @@ export default {
       showSolicitar: false,
       showForm: false,
       tea: 0.36,
+      loading: false,
     };
   },
   methods: {
@@ -80,6 +83,11 @@ export default {
       return t;
     },
     formatAmount,
+    submit(e) {
+      console.log(e);
+      this.showSolicitar = false;
+      this.loading = true;
+    },
   },
   computed: {
     cuota() {
@@ -100,7 +108,7 @@ export default {
       return c;
     },
   },
-  components: { Cronograma, FormModal },
+  components: { Cronograma, FormModal, Waiting },
 };
 </script>
 

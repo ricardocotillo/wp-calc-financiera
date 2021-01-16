@@ -1,6 +1,8 @@
 <template>
   <div class="p-10">
-    <div class="rounded shadow-lg grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-4 lg:grid-rows-2">
+    <div
+      class="rounded shadow-lg grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-4 lg:grid-rows-2"
+    >
       <div class="px-3 pt-4 pb-2">
         <Amount v-model="amount" />
       </div>

@@ -1,7 +1,11 @@
 <template>
-  <div v-if="isOpen" class="fixed inset-0 overflow-y-auto" style="z-index: 9999;">
+  <div
+    v-if="isOpen"
+    class="fixed inset-0 overflow-y-auto"
+    style="z-index: 9999"
+  >
     <div
-      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 sm:block sm:p-0"
+      class="calculadora-modal"
     >
       <transition
         enter-active-class="ease-out duration-300"
@@ -37,6 +41,7 @@
           aria-labelledby="modal-headline"
         >
           <div
+            v-if="showClose"
             class="font-bold text-4xl inline-block absolute right-2 transform rotate-45 cursor-pointer"
             @click="close"
           >
@@ -66,6 +71,10 @@ export default {
   props: {
     isOpen: Boolean,
     width: Number,
+    showClose: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -80,5 +89,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.calculadora-modal {
+  @apply flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0;
+}
 </style>

@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { baseUrl } from "../mixins/calcData";
 export default {
   props: {
     value: Number,
@@ -64,10 +65,7 @@ export default {
   },
   data() {
     return {
-      baseUrl:
-        process.env.NODE_ENV === "development"
-          ? "http://af17bba27b48.ngrok.io/wp-content/plugins/calc-financiera/public"
-          : "/wp-content/plugins/calc-financiera/public",
+      baseUrl,
       isOpen: false,
     };
   },
