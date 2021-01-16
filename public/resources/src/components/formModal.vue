@@ -13,7 +13,7 @@
               :options="typeOfPayments"
             />
           </div>
-          <div class="pt-4 pb-2 flex justify-center items-start">
+          <div class="px-3 pt-4 pb-2 flex justify-center items-start">
             <Dropdown
               :value="period"
               @input="$emit('change:period', $event)"

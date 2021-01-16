@@ -55,7 +55,7 @@ export default {
     },
     w: {
       type: String,
-      default: "60",
+      default: "full",
     },
     label: {
       type: String,
@@ -66,7 +66,7 @@ export default {
     return {
       baseUrl:
         process.env.NODE_ENV === "development"
-          ? "http://f4c9e4162ca7.ngrok.io/wp-content/plugins/calc-financiera/public"
+          ? "http://af17bba27b48.ngrok.io/wp-content/plugins/calc-financiera/public"
           : "/wp-content/plugins/calc-financiera/public/misc",
       isOpen: false,
     };
