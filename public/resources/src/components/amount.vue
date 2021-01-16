@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="flex flex-row flex-nowrap justify-center items-center">
+    <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
         class="rounded-full bg-blue-900 w-7 h-7 text-white focus:outline-none cursor-pointer flex justify-center items-center font-bold select-none"
       >
         -
       </div>
-      <div class="mt-1 relative inline-block rounded-md shadow-sm">
+      <div class="mt-1 relative inline-block rounded-md shadow-sm col-span-4 w-full">
         <div
           class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none"
         >
@@ -18,7 +18,7 @@
           @click="toggleInputs"
           :value="formattedAmount"
           type="text"
-          class="border border-white-300 bg-white focus:outline-none focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
+          class="border border-white-300 bg-white focus:outline-none focus:border-transparent block w-full py-2 pl-7 pr-7 sm:text-sm rounded text-center"
         />
         <input
           ref="amountInput"
@@ -28,7 +28,7 @@
           @blur="showFormatted = !showFormatted"
           v-model.number="ramount"
           @input="handleInput"
-          class="border border-gray-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block w-40 py-2 pl-7 pr-12 sm:text-sm rounded mx-2 text-center"
+          class="border border-gray-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block w-full py-2 pl-7 pr-7 sm:text-sm rounded text-center"
         />
       </div>
       <div

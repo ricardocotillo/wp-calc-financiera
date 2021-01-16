@@ -5,7 +5,14 @@
     </p>
     <div v-else class="text-center">
       <p class="font-bold text-gray-600">Mi cuota mensual sería</p>
-      <h1 class="text-2xl font-bold">S/ {{ formatAmount(cuota, 2) }}</h1>
+      <h1 class="text-2xl font-bold">
+        S/
+        {{
+          type == 2
+            ? formatAmount(cuota * (periods + 1) * 12 + amount, 2)
+            : formatAmount(cuota, 2)
+        }}
+      </h1>
       <a href="#" @click.prevent="showPayTable = true">Ver cronograma</a>
       <Cronograma
         @close="showPayTable = false"
@@ -14,7 +21,8 @@
           showSolicitar = true;
         "
         :isOpen="showPayTable"
-        :type="typeText"
+        :typeText="typeText"
+        :type="type"
         :cuota="cuota"
         :amount="amount"
         :periods="periods"
@@ -57,19 +65,42 @@ export default {
   },
   methods: {
     tem() {
-      return Math.pow(1 + this.tea, 1 / 12) - 1;
+      let t;
+      switch (this.type) {
+        case 0:
+          t = Math.pow(1 + this.tea, 1 / 12) - 1;
+          break;
+        case 1:
+          t = 0.025;
+          break;
+        default:
+          t = 0.032;
+          break;
+      }
+      return t;
     },
     formatAmount,
   },
   computed: {
     cuota() {
-      return (
-        (this.tem() * this.amount) /
-        (1 - Math.pow(1 + this.tem(), (this.periods + 1) * 12 * -1))
-      );
+      let c;
+      switch (this.type) {
+        case 0:
+          c =
+            (this.tem() * this.amount) /
+            (1 - Math.pow(1 + this.tem(), (this.periods + 1) * 12 * -1));
+          break;
+        case 1:
+          c = this.amount * this.tem();
+          break;
+        default:
+          c = this.amount * this.tem() * (this.periods + 1);
+          break;
+      }
+      return c;
     },
   },
-  components: { Cronograma, FormModal},
+  components: { Cronograma, FormModal },
 };
 </script>
 
