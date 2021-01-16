@@ -29,7 +29,7 @@
         v-show="isOpen"
         class="origin-top-right absolute right-0 mt-2 w-full ounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
       >
-        <div class="py-1">
+        <div class="py-1 max-h-80 overflow-y-scroll">
           <div
             v-for="(opt, i) in options"
             :key="opt.key + '-' + opt.title"

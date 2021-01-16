@@ -1,7 +1,7 @@
 <template>
   <div v-if="isOpen" class="fixed inset-0 overflow-y-auto" style="z-index: 9999;">
     <div
-      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 sm:block sm:p-0"
     >
       <transition
         enter-active-class="ease-out duration-300"
@@ -44,7 +44,7 @@
           </div>
           <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="sm:flex sm:items-start justify-center">
-              <div class="mt-3 text-center sm:mt-0 sm:text-left">
+              <div class="mt-3 sm:mt-0">
                 <slot name="header"></slot>
                 <div class="mt-2">
                   <slot name="body"></slot>

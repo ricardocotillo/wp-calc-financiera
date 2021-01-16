@@ -196,9 +196,9 @@
           >Por favor completa los campos requeridos</small
         >
       </div>
-      <div class="grid grid-cols-6 mt-4">
+      <div class="grid grid-cols-7 lg:grid-cols-6 gap-2 mt-4">
         <div
-          class="flex flex-row items-center cursor-pointer pr-4 py-2 mr-5 col-span-2"
+          class="flex flex-row items-center cursor-pointer pr-4 py-2 col-span-2 lg:col-span-2"
           @click="
             step = 0;
             incomplete = false;
@@ -206,13 +206,13 @@
         >
           <img
             :src="`${baseUrl}/img/arrow.svg`"
-            class="w-5 h-6 transform rotate-90 mr-2"
+            class="w-5 h-6 transform rotate-90 mr-1 lg:mr-2"
           />
           <span>Paso 1</span>
         </div>
         <button
           @click="validateSecond"
-          class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-2"
+          class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-3 lg:col-span-2 focus:outline-none"
         >
           Enviar datos
         </button>
@@ -383,6 +383,3 @@ export default {
   components: { Dropdown, CardOptions, PillOptions },
 };
 </script>
-
-<style>
-</style>

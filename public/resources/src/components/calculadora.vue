@@ -1,6 +1,6 @@
 <template>
   <div class="p-10">
-    <div class="rounded shadow-lg grid grid-cols-4 gap-4 grid-rows-2">
+    <div class="rounded shadow-lg grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-4 lg:grid-rows-2">
       <div class="px-3 pt-4 pb-2 flex justify-center items-start">
         <Amount v-model="amount" />
       </div>
@@ -18,7 +18,7 @@
         />
       </div>
       <div
-        class="px-3 pt-4 pb-2 bg-gray-200 flex justify-center items-center col-stat-4 col-end-5 row-start-1 row-end-3"
+        class="px-3 pt-4 pb-2 bg-gray-200 flex justify-center items-center h-44 lg:h-auto lg:col-stat-4 lg:col-end-5 lg:row-start-1 lg:row-end-3"
       >
         <Result
           :amount="amount"
@@ -45,7 +45,7 @@
       </div>
       <div
         class="px-3 pt-4 pb-2 flex justify-center items-center"
-        :class="selectedPeriod === null ? 'col-span-3' : 'col-span-2'"
+        :class="selectedPeriod === null ? 'lg:col-span-3' : 'lg:col-span-2'"
       >
         <p class="text-gray-400 text-xs">
           <strong v-if="selectedType !== null"

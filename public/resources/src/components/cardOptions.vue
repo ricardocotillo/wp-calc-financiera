@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-5 gap-3">
+  <div class="grid grid-cols-3 lg:grid-cols-5 lg:gap-3 gap-2">
     <div
       v-for="(opt, i) in options"
       :key="opt.key"
