@@ -98,9 +98,19 @@ class Calc_Financiera_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
 			wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'resources/dist/js/app.js', null, $this->version, true );
 			wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'resources/dist/js/chunk-vendors.js', null, $this->version, true );
+			wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				/**
+				 * Create nonce for security.
+				 *
+				 * @link https://codex.wordpress.org/Function_Reference/wp_create_nonce
+				 */
+				'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0' ),
+			) );
 		}
 
 	}
@@ -112,6 +122,18 @@ class Calc_Financiera_Public {
 	 */
 	public function dotiavatar_function() {
 		return '<div id="app"></div>';
-   	}
+	}
+	   
+	public function calc_ajax_solicitud() {
+		$args = array(
+			'post_title'	=> $_POST['nombres'] . ' ' . $_POST['apellidos'],
+			'post_type' 	=> 'solicitud',
+		);
+		$s_id = wp_insert_post($args);
+		update_post_meta($s_id, $this->plugin_name . '-meta', $_POST);
+		$meta = get_post_meta( $s_id, $this->plugin_name . '-meta', false );
+		die( json_encode( $meta[0] ) );
+	
+	}
 
 }

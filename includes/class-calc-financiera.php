@@ -171,6 +171,7 @@ class Calc_Financiera {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$plugin_post_types = new Calc_Financiera_Post_Types();
+
 		$this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'create_menu', 999 );
@@ -196,6 +197,9 @@ class Calc_Financiera {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$this->loader->add_action('wp_ajax_calc_ajax_solicitud', $plugin_public, 'calc_ajax_solicitud');
+    	$this->loader->add_action('wp_ajax_nopriv_calc_ajax_solicitud', $plugin_public, 'calc_ajax_solicitud');
 
 	}
 

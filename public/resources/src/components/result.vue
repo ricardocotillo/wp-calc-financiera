@@ -45,6 +45,7 @@
 </template>
 
 <script>
+/*global wp_ajax*/
 import Cronograma from "./cronograma";
 import FormModal from "./formModal";
 import Waiting from "./waiting";
@@ -83,10 +84,22 @@ export default {
       return t;
     },
     formatAmount,
-    submit(e) {
-      console.log(e);
-      this.showSolicitar = false;
+    submit(solicitud) {
       this.loading = true;
+      this.showSolicitar = false;
+      const form = new FormData();
+      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]));
+      form.append("action", "calc_ajax_solicitud");
+      fetch(wp_ajax.ajax_url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+        body: form,
+      }).then((res) => {
+        setTimeout(() => (this.loading = false), 3000);
+      });
     },
   },
   computed: {

@@ -104,7 +104,12 @@
       <div
         class="flex flex-row justify-between items-center py-10 px-5 bg-gray-100 rounded mb-5"
       >
-        <img :src="`${baseUrl}/img/info.svg`" class="w-10 mr-3" alt="" srcset="" />
+        <img
+          :src="`${baseUrl}/img/info.svg`"
+          class="w-10 mr-3"
+          alt=""
+          srcset=""
+        />
         <span
           >Recuerda que <b>para obtener el préstamo necesitas</b> contar con<b>
             una propiedad para poner en garantía.</b
@@ -344,7 +349,7 @@ export default {
     send() {
       const solicitud = {
         nombres: this.nombre,
-        appellidos: this.appellido,
+        apellidos: this.apellido,
         dni: this.dni,
         telefono1: this.phone1,
         telefono2: this.phone2,

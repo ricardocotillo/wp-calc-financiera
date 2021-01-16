@@ -75,9 +75,11 @@ class Calc_Financiera_Post_Types {
                     'page-attributes',
                     'post-formats',
             ),
-            'menu_position'      => ( isset( $fields['menu_position'] ) ) ? $fields['menu_position'] : 21,
-            'menu_icon'          => ( isset( $fields['menu_icon'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
-            'show_in_nav_menus'  => ( isset( $fields['show_in_nav_menus'] ) ) ? $fields['show_in_nav_menus'] : true,
+            'menu_position'     => ( isset( $fields['menu_position'] ) ) ? $fields['menu_position'] : 21,
+            'menu_icon'         => ( isset( $fields['menu_icon'] ) ) ? $fields['menu_icon']: 'dashicons-admin-generic',
+            'show_in_nav_menus' => ( isset( $fields['show_in_nav_menus'] ) ) ? $fields['show_in_nav_menus'] : true,
+            'show_in_rest'      => ( isset( $fields['show_in_rest'] ) ) ? $fields['show_in_rest'] : true,
+            'rest_controller_class' => 'WP_REST_Posts_Controller',
         );
 
         if ( isset( $fields['rewrite'] ) ) {
@@ -261,6 +263,7 @@ class Calc_Financiera_Post_Types {
                 'public'                => true,
                 'publicly_queryable'    => true,
                 'exclude_from_search'   => true,
+                'show_in_rest'          => true,
                 'show_ui'               => true,
                 'show_in_menu'          => true,
                 'query_var'             => true,
