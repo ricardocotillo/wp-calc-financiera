@@ -30,7 +30,12 @@ class Calc_Financiera_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		/**
+		 * Custom Post Types
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-plugin-name-post_types.php';
+		$plugin_post_types = new Plugin_Name_Post_Types();
+		$plugin_post_types->create_custom_post_type();
 	}
 
 }

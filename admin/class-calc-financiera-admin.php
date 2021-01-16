@@ -100,4 +100,195 @@ class Calc_Financiera_Admin {
 
 	}
 
+	public function create_menu() {
+
+		/*
+		* To add a metabox.
+		* This normally go to your functions.php or another hook
+		*/
+		$config_metabox = array(
+	
+			/*
+			* METABOX
+			*/
+			'type'              => 'metabox',                       // Required, menu or metabox
+			'id'                => $this->plugin_name . '-meta',    // Required, meta box id, unique, for saving meta: id[field-id]
+			// 'post_types'        => array( 'page' ),                 // Post types to display meta box
+			'post_types'        => array( 'solicitud' ),         // Post types to display meta box
+			'context'           => 'advanced',
+			'priority'          => 'default',
+			'title'             => 'Datos del solicitante',                  // The name of this page
+			'capability'        => 'edit_posts',                    // The capability needed to view the page
+			'tabbed'            => false,
+	
+		);
+	
+		$fields[] = array(
+			'name'   => 'datos_solicitante',
+			'title'  => 'Datos del solicitante',
+			'fields' => array(
+	
+				/**
+				 * Available fields:
+				 * - ACE field
+				 * - attached
+				 * - backup
+				 * - button
+				 * - botton_bar
+				 * - card
+				 * - checkbox
+				 * - color
+				 * - content
+				 * - date
+				 * - editor
+				 * - group
+				 * - hidden
+				 * - image
+				 * - image_select
+				 * - meta
+				 * - notice
+				 * - number
+				 * - password
+				 * - radio
+				 * - range
+				 * - select
+				 * - switcher
+				 * - tap_list
+				 * - text
+				 * - textarea
+				 * - upload
+				 * - video mp4/oembed
+				 *
+				 * Add your fields, eg.:
+				 */
+	
+				array(
+					'id'	=> 'nombres',
+					'type'	=> 'text',
+					'title'	=> 'Nombres',
+					'class'	=> 'text-class',
+				),
+	
+				array(
+					'id'     => 'apellidos',
+					'type'   => 'text',
+					'title'  => 'Apellidos',
+				),
+	
+	
+				array(
+					'id'     => 'dni',
+					'type'   => 'text',
+					'title'  => 'DNI',
+				),
+	
+				array(
+					'id'     => 'telefono1',
+					'type'   => 'text',
+					'title'  => 'Teléfono',
+				),
+	
+				array(
+					'id'     => 'telefono2',
+					'type'   => 'text',
+					'title'  => 'Teléfono 2',
+				),
+	
+				array(
+					'id'    => 'email',
+					'type'  => 'text',
+					'title' => 'Email',
+				),
+	
+				array(
+					'id'	=> 'departamento',
+					'type'	=> 'text',
+					'title'	=> 'Departamento',
+				),
+				array(
+					'id'	=> 'provincia',
+					'type'	=> 'text',
+					'title'	=> 'Provincia',
+				),
+				array(
+					'id'	=> 'distrito',
+					'type'	=> 'text',
+					'title'	=> 'Distrito',
+				),
+				array(
+					'id'	=> 'tipo_de_propiedad',
+					'type'	=> 'text',
+					'title'	=> 'Tipo de propiedad',
+				),
+				array(
+					'id'	=> 'area',
+					'type'	=> 'text',
+					'title'	=> 'Área de la propiedad (m²)',
+				),
+				array(
+					'id'	=> 'dueno',
+					'type'	=> 'text',
+					'title'	=> 'Dueño de la propiedad',
+				),
+				array(
+					'id'	=> 'sunarp',
+					'type'	=> 'text',
+					'title'	=> '¿La propiedad está inscrita en SUNARP',
+				),
+				array(
+					'id'	=> 'embargo',
+					'type'	=> 'text',
+					'title'	=> '¿Cuenta con un embargo vigente?',
+				),
+				array(
+					'id'	=> 'hipoteca',
+					'type'	=> 'text',
+					'title'	=> '¿Cuenta con una hipoteca vigente?',
+				),
+			),
+		);
+	
+		/**
+		 * Second Tab
+		 */
+		// $fields[] = array(
+		// 	'name'   => 'second',
+		// 	'title'  => 'Second',
+		// 	'icon'   => 'dashicons-portfolio',
+		// 	'fields' => array(
+	
+		// 		array(
+		// 			'type'    => 'content_second',
+		// 			'content' => 'Second Section',
+	
+		// 		),
+	
+		// 	)
+		// );
+	
+		/**
+		 * Third Tab
+		 */
+		// $fields[] = array(
+		// 	'name'   => 'third',
+		// 	'title'  => 'Third',
+		// 	'icon'   => 'dashicons-portfolio',
+		// 	'fields' => array(
+	
+		// 		array(
+		// 			'type'    => 'content_third',
+		// 			'content' => 'Third Section',
+	
+		// 		),
+	
+		// 	)
+		// );
+	
+		/**
+		 * instantiate your admin page
+		 */
+		$metabox_panel = new Exopite_Simple_Options_Framework( $config_metabox, $fields );
+	
+	}
+
 }

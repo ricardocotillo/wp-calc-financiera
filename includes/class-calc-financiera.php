@@ -122,6 +122,19 @@ class Calc_Financiera {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-calc-financiera-public.php';
 
+		/**
+		 * Custom Post Types
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-calc-financiera-post_types.php';
+
+		/**
+		 * Exopite Simple Options Framework
+		 *
+		 * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
+		 * @author Joe Szalai
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
+
 		$this->loader = new Calc_Financiera_Loader();
 
 	}
@@ -157,6 +170,10 @@ class Calc_Financiera {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$plugin_post_types = new Calc_Financiera_Post_Types();
+		$this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
+
+		$this->loader->add_action( 'init', $plugin_admin, 'create_menu', 999 );
 	}
 
 	/**
