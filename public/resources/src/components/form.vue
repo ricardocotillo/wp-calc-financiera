@@ -239,7 +239,7 @@ export default {
       baseUrl:
         process.env.NODE_ENV === "development"
           ? "http://af17bba27b48.ngrok.io/wp-content/plugins/calc-financiera/public"
-          : "/wp-content/plugins/calc-financiera/public/misc",
+          : "/wp-content/plugins/calc-financiera/public",
       step: 0,
       dni: "",
       nombre: "",
