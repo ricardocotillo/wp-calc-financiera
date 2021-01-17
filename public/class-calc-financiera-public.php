@@ -62,18 +62,6 @@ class Calc_Financiera_Public {
 	public function enqueue_styles() {
 		global $post;
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Calc_Financiera_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Calc_Financiera_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'resources/dist/css/app.css', array(), $this->version, 'all' );
 		}
@@ -87,28 +75,12 @@ class Calc_Financiera_Public {
 	 */
 	public function enqueue_scripts() {
 		global $post;
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Calc_Financiera_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Calc_Financiera_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 		
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
 			wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'resources/dist/js/app.js', null, $this->version, true );
 			wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'resources/dist/js/chunk-vendors.js', null, $this->version, true );
 			wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				/**
-				 * Create nonce for security.
-				 *
-				 * @link https://codex.wordpress.org/Function_Reference/wp_create_nonce
-				 */
 				'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0' ),
 			) );
 		}
@@ -122,11 +94,6 @@ class Calc_Financiera_Public {
 		return '<div id="app" data-direccion="'. $direccion . '"></div>';
 	}
 
-	// public function calc_ajax_option() {
-	// 	$option = get_option( $this->plugin_name . '-option' );
-	// 	die( json_encode($option) );
-	// }
-	   
 	public function calc_ajax_solicitud() {
 		$args = array(
 			'post_title'	=> $_POST['nombres'] . ' ' . $_POST['apellidos'],
