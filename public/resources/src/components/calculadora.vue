@@ -1,7 +1,7 @@
 <template>
   <div class="p-10">
     <div
-      class="rounded shadow-lg grid grid-cols-1 gap-2"
+      class="rounded shadow-lg bg-white grid grid-cols-1 gap-2"
       :class="direction === 0 ? 'lg:grid-cols-4 lg:gap-4 lg:grid-rows-2' : ''"
     >
       <div class="px-3 pt-4 pb-2">
