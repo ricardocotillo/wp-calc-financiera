@@ -86,198 +86,140 @@ class Calc_Financiera_Admin {
 		}
 	}
 
-	public function create_option() {
-		$config_submenu = array(
-			'type'              => 'menu',                          // Required, menu or metabox
-			'id'                => $this->plugin_name . '-option',              // Required, meta box id,
-																	// unique per page, to save:
-																	// get_option( id )
-			'menu_title' 		=> 'Calc config',
-			'parent'            => 0,               // Required, sub page to your options page
-			'position'			=> 20,
-			'submenu'           => false,                            // Required for submenu
-			'title'             => 'Calculadora Config',               // The name in the WordPress menu and the title of the Option page
-			'option_title'      => 'Configuración de la calculadora',               // The title of the Option page, this will override 'title'
-			'capability'        => 'manage_options',                // The capability needed to view the page
-			'plugin_basename'   =>  plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' ),
-			'tabbed'            => false,                        // is tabbed or not
-																	// Note: if only one section then
-																	// Tabs are disabled.
-			'multilang'         => false                         // Disable mutilang support, default: true
-		
-		);
+	// public function create_option() {
 
-		$fields[] = array(
-			'name'   => 'configuracion',
-			'title'  => 'Configuración',
-			'fields' => array(
-				array(
-					'id'      => 'direccion',
-					'type'    => 'select',
-					'title'   => 'Dirección del layout de la calculadora',
-					'options' => array('Horizontal', 'Vertical'),
-					'default' => 0,
-				),
-		
-			),
-		);
+	// 	$cmb_options = new_cmb2_box( array(
+	// 		'type' 			=> 'menu',
+	// 		'id'           	=> $this->plugin_name . '-option',
+	// 		'title'        	=> 'Calc config',
+	// 		'object_types'	=> array( 'options-page' ),
+	// 		'option_key'    => 'rc' . $this->plugin_name . '-option', // The option key and admin menu page slug.
+	// 		'icon_url'      => 'dashicons-admin-generic', // Menu icon.
+	// 		'capability'    => 'manage_options', // Capability required to view this options page.
+	// 		'position'      => 3, // Menu position.
+	// 		'save_button'   => 'Save',
+	// 	) );
 
-		$options_panel = new Exopite_Simple_Options_Framework( $config_submenu, $fields );
-	}
+	// 	$cmb_options->add_field( array(
+	// 		'name' 				=> 'Dirección',
+	// 		'desc' 				=> 'Dirección del layout de la calculadora',
+	// 		'id'   				=> 'direccion',
+	// 		'type' 				=> 'select',
+	// 		'show_option_none'	=> false,
+	// 		'default'			=> 0,
+	// 		'options'          	=> array('Horizontal', 'Vertical'),
+	// 	) );
+	// }
 
 	public function create_metabox() {
 
-		/*
-		* To add a metabox.
-		* This normally go to your functions.php or another hook
-		*/
-		$config_metabox = array(
-	
-			/*
-			* METABOX
-			*/
-			'type'              => 'metabox',                       // Required, menu or metabox
-			'id'                => $this->plugin_name . '-meta',    // Required, meta box id, unique, for saving meta: id[field-id]
-			// 'post_types'        => array( 'page' ),                 // Post types to display meta box
-			'post_types'        => array( 'solicitud' ),         // Post types to display meta box
-			'context'           => 'advanced',
-			'priority'          => 'default',
-			'title'             => 'Datos del solicitante',                  // The name of this page
-			'capability'        => 'edit_posts',                    // The capability needed to view the page
-			'tabbed'            => false,
-	
-		);
-	
-		$fields[] = array(
-			'name'   => 'datos_solicitante',
-			'title'  => 'Datos del solicitante',
-			'fields' => array(
-	
-				/**
-				 * Available fields:
-				 * - ACE field
-				 * - attached
-				 * - backup
-				 * - button
-				 * - botton_bar
-				 * - card
-				 * - checkbox
-				 * - color
-				 * - content
-				 * - date
-				 * - editor
-				 * - group
-				 * - hidden
-				 * - image
-				 * - image_select
-				 * - meta
-				 * - notice
-				 * - number
-				 * - password
-				 * - radio
-				 * - range
-				 * - select
-				 * - switcher
-				 * - tap_list
-				 * - text
-				 * - textarea
-				 * - upload
-				 * - video mp4/oembed
-				 *
-				 * Add your fields, eg.:
-				 */
-	
-				array(
-					'id'	=> 'nombres',
-					'type'	=> 'text',
-					'title'	=> 'Nombres',
-					'class'	=> 'text-class',
-				),
-	
-				array(
-					'id'     => 'apellidos',
-					'type'   => 'text',
-					'title'  => 'Apellidos',
-				),
-	
-	
-				array(
-					'id'     => 'dni',
-					'type'   => 'text',
-					'title'  => 'DNI',
-				),
-	
-				array(
-					'id'     => 'telefono1',
-					'type'   => 'text',
-					'title'  => 'Teléfono',
-				),
-	
-				array(
-					'id'     => 'telefono2',
-					'type'   => 'text',
-					'title'  => 'Teléfono 2',
-				),
-	
-				array(
-					'id'    => 'email',
-					'type'  => 'text',
-					'title' => 'Email',
-				),
-	
-				array(
-					'id'	=> 'departamento',
-					'type'	=> 'text',
-					'title'	=> 'Departamento',
-				),
-				array(
-					'id'	=> 'provincia',
-					'type'	=> 'text',
-					'title'	=> 'Provincia',
-				),
-				array(
-					'id'	=> 'distrito',
-					'type'	=> 'text',
-					'title'	=> 'Distrito',
-				),
-				array(
-					'id'		=> 'tipo_de_propiedad',
-					'type'		=> 'select',
-					'title'		=> 'Tipo de propiedad',
-					'options'	=> array( 'Casa', 'Dpto', 'Terreno', 'Local', 'Edificio' ),
-				),
-				array(
-					'id'	=> 'area',
-					'type'	=> 'text',
-					'title'	=> 'Área de la propiedad (m²)',
-				),
-				array(
-					'id'		=> 'dueno',
-					'type'		=> 'select',
-					'title'		=> 'Dueño de la propiedad',
-					'options'	=> array( 'Sólo yo', 'Otras personas y yo', 'Otras personas' ),
-				),
-				array(
-					'id'		=> 'sunarp',
-					'type'		=> 'select',
-					'title'		=> '¿La propiedad está inscrita en SUNARP?',
-					'options'	=> array( 'Si', 'No' ),
-				),
-				array(
-					'id'		=> 'embargo',
-					'type'		=> 'select',
-					'title'		=> '¿Cuenta con un embargo vigente?',
-					'options'	=> array( 'Si', 'No', 'No sé' ),
-				),
-				array(
-					'id'		=> 'hipoteca',
-					'type'		=> 'select',
-					'title'		=> '¿Cuenta con una hipoteca vigente?',
-					'options'	=> array( 'Si', 'No', 'No sé' ),
-				),
-			),
-		);
-		$metabox_panel = new Exopite_Simple_Options_Framework( $config_metabox, $fields );
+		$cmb = new_cmb2_box( array(
+			'id'            => $this->plugin_name . '-meta',
+			'title'         => 'Datos del solicitante',
+			'object_types'  => array( 'solicitud', ), // Post type
+			'context'       => 'normal',
+			'priority'      => 'high',
+			'show_names'    => true, // Show field names on the left
+			// 'cmb_styles' => false, // false to disable the CMB stylesheet
+			// 'closed'     => true, // Keep the metabox closed by default
+		) );
+
+		$cmb->add_field( array(
+			'name'       => 'Nombres',
+			'id'         => $this->plugin_name . 'nombres',
+			'type'       => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'apellidos',
+			'type'   => 'text',
+			'name'  => 'Apellidos',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'dni',
+			'type'   => 'text',
+			'name'  => 'DNI',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'telefono1',
+			'type'   => 'text',
+			'name'  => 'Teléfono',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'telefono2',
+			'type'   => 'text',
+			'name'  => 'Teléfono 2',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'email',
+			'type'   => 'text_email',
+			'name'  => 'Email',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'departamento',
+			'type'   => 'text',
+			'name'  => 'Departamento',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'provincia',
+			'type'   => 'text',
+			'name'  => 'Provincia',
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'distrito',
+			'type'   => 'text',
+			'name'  => 'Distrito',
+		) );
+
+		$cmb->add_field( array(
+			'name'             => 'Tipo de propiedad',
+			'id'               => $this->plugin_name . 'tipo_de_propiedad',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options'          => array( 'Casa', 'Dpto', 'Terreno', 'Local', 'Edificio' ),
+		) );
+
+		$cmb->add_field( array(
+			'id'     => $this->plugin_name . 'area',
+			'type'   => 'text',
+			'name'  => 'Área',
+		) );
+
+		$cmb->add_field( array(
+			'name'             => 'Dueño',
+			'id'               => $this->plugin_name . 'dueno',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options'          => array( 'Sólo yo', 'Otras personas y yo', 'Otras personas' ),
+		) );
+		$cmb->add_field( array(
+			'name'             => '¿La propiedad está inscrita en SUNARP?',
+			'id'               => $this->plugin_name . 'sunarp',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options'          => array( 'Si', 'No' ),
+		) );
+		$cmb->add_field( array(
+			'name'             => '¿Cuenta con un embargo vigente?',
+			'id'               => $this->plugin_name . 'embargo',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options'          => array( 'Si', 'No', 'No sé' ),
+		) );
+		$cmb->add_field( array(
+			'name'             => '¿Cuenta con una hipoteca vigente?',
+			'id'               => $this->plugin_name . 'hipoteca',
+			'type'             => 'select',
+			'show_option_none' => true,
+			'options'          => array( 'Si', 'No', 'No sé' ),
+		) );
 	
 	}
 

@@ -1,0 +1,14 @@
+{
+    "name": "ricardo/calc-financiera",
+    "description": "Calculadora financiera para cuotas de préstamo",
+    "type": "wordpress-plugin",
+    "require": {
+        "cmb2/cmb2": "^2.7"
+    },
+    "authors": [
+        {
+            "name": "Ricardo Cotillo",
+            "email": "rcotillo@cotillo.tech"
+        }
+    ]
+}

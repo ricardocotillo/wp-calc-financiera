@@ -363,7 +363,7 @@ export default {
         departamento: this.departamentos[this.departamento].title,
         provincia: this.provincias[this.provincia].title,
         distrito: this.distritos[this.distrito].title,
-        tipoDePropiedad: this.typeOfProperty,
+        tipo_de_propiedad: this.typeOfProperty,
         area: this.area,
         dueno: this.owner,
         sunarp: this.sunarp,

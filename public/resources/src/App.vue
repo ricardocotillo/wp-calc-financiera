@@ -10,7 +10,6 @@
 <script>
 import Calculadora from "./components/calculadora.vue";
 import { baseUrl } from "./mixins/calcData";
-/*global wp_ajax*/
 export default {
   data() {
     return {
@@ -19,9 +18,9 @@ export default {
     };
   },
   created() {
-    fetch(`${wp_ajax.ajax_url}?action=calc_ajax_option`)
-      .then((res) => res.json())
-      .then((data) => (this.direction = Number(data.direccion)));
+    const direccion = document.querySelector("#app").dataset.direccion;
+    this.direction =
+      direccion === "horizontal" ? 0 : direccion === "vertical" ? 1 : 0;
   },
   components: { Calculadora },
 };

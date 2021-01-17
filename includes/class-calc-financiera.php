@@ -127,13 +127,7 @@ class Calc_Financiera {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-calc-financiera-post_types.php';
 
-		/**
-		 * Exopite Simple Options Framework
-		 *
-		 * @link https://github.com/JoeSz/Exopite-Simple-Options-Framework
-		 * @author Joe Szalai
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/exopite-simple-options/exopite-simple-options-framework-class.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/cmb2/cmb2/init.php';
 
 		$this->loader = new Calc_Financiera_Loader();
 
@@ -174,9 +168,9 @@ class Calc_Financiera {
 
 		$this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
 
-		$this->loader->add_action( 'init', $plugin_admin, 'create_metabox', 999 );
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_metabox', 999 );
 
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_option', 0 );
+		// $this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_option', 0 );
 
 		$this->loader->add_action('manage_posts_extra_tablenav', $plugin_admin, 'add_export_button', 20);
 	}
@@ -197,7 +191,7 @@ class Calc_Financiera {
          *
          * Use: [short-code-name args]
          */
-		$this->loader->add_shortcode( 'calculadora-financiera', $plugin_public, 'dotiavatar_function' );
+		$this->loader->add_shortcode( 'calculadora-financiera', $plugin_public, 'shortcode_function' );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
