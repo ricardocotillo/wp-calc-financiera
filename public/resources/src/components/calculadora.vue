@@ -1,7 +1,8 @@
 <template>
   <div class="p-10">
     <div
-      class="rounded shadow-lg grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-4 lg:grid-rows-2"
+      class="rounded shadow-lg grid grid-cols-1 gap-2"
+      :class="direction === 0 ? 'lg:grid-cols-4 lg:gap-4 lg:grid-rows-2' : ''"
     >
       <div class="px-3 pt-4 pb-2">
         <Amount v-model="amount" />
@@ -20,7 +21,12 @@
         />
       </div>
       <div
-        class="px-3 pt-4 pb-2 bg-gray-200 flex justify-center items-center h-44 lg:h-auto lg:col-stat-4 lg:col-end-5 lg:row-start-1 lg:row-end-3"
+        class="px-3 pt-4 pb-2 bg-gray-200 flex justify-center items-center h-44"
+        :class="
+          direction === 0
+            ? 'lg:h-auto lg:col-stat-4 lg:col-end-5 lg:row-start-1 lg:row-end-3'
+            : ''
+        "
       >
         <Result
           :amount="amount"
@@ -47,7 +53,13 @@
       </div>
       <div
         class="px-3 pt-4 pb-2 flex justify-center items-center"
-        :class="selectedPeriod === null ? 'lg:col-span-3' : 'lg:col-span-2'"
+        :class="
+          direction === 0
+            ? selectedPeriod === null
+              ? 'lg:col-span-3'
+              : 'lg:col-span-2'
+            : ''
+        "
       >
         <p class="text-gray-400 text-xs">
           <strong v-if="selectedType !== null"
@@ -64,6 +76,12 @@ import Dropdown from "./dropdown";
 import Amount from "./amount";
 import Result from "./result";
 export default {
+  props: {
+    direction: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       initialMsg:

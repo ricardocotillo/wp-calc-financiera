@@ -40,7 +40,11 @@
       @change:period="$emit('change:period', $event)"
       @submit="submit"
     />
-    <Waiting :isOpen="loading" />
+    <Waiting
+      :isOpen="showWating"
+      :loading="loading"
+      @close="showWating = false"
+    />
   </div>
 </template>
 
@@ -63,8 +67,9 @@ export default {
       showPayTable: false,
       showSolicitar: false,
       showForm: false,
+      showWating: false,
       tea: 0.36,
-      loading: false,
+      loading: true,
     };
   },
   methods: {
@@ -85,6 +90,7 @@ export default {
     },
     formatAmount,
     submit(solicitud) {
+      this.showWating = true;
       this.loading = true;
       this.showSolicitar = false;
       const form = new FormData();
@@ -98,7 +104,7 @@ export default {
         },
         body: form,
       }).then(() => {
-        setTimeout(() => (this.loading = false), 3000);
+        this.loading = false;
       });
     },
   },

@@ -123,6 +123,11 @@ class Calc_Financiera_Public {
 	public function dotiavatar_function() {
 		return '<div id="app"></div>';
 	}
+
+	public function calc_ajax_option() {
+		$option = get_option( $this->plugin_name . '-option' );
+		die( json_encode($option) );
+	}
 	   
 	public function calc_ajax_solicitud() {
 		$args = array(

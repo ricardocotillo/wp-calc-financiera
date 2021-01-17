@@ -1,19 +1,32 @@
 <template>
-  <Modal :isOpen="isOpen" :showClose="false">
+  <Modal :isOpen="isOpen" :showClose="!loading" @close="$emit('close')">
     <template v-slot:header>
       <div class="flex flex-col items-center text-center">
-        <img :src="`${baseUrl}/img/loader.svg`" class="w-10 mb-3" />
+        <img
+          v-if="loading"
+          :src="`${baseUrl}/img/loader.svg`"
+          class="w-10 mb-3"
+        />
+        <img v-else :src="`${baseUrl}/img/check.svg`" class="w-10 mb-3" />
       </div>
     </template>
     <template v-slot:body>
-      <h1 class="text-lg text-blue-900 font-bold text-center max-w-md">
-        Estamos procesando tu solicitud
+      <template v-if="loading">
+        <h1 class="text-lg text-blue-900 font-bold text-center max-w-md">
+          Estamos procesando tu solicitud
+        </h1>
+        <p class="text-center max-w-md">
+          No cierras la ventana.<br />
+          ¡En cuestión de segundos sabrás si pre calificas!<br />
+          No cierres la ventana.
+        </p>
+      </template>
+      <h1 v-else class="text-lg text-blue-900 font-bold text-center max-w-md">
+        !Excelente!
       </h1>
-      <p class="text-center max-w-md">
-        Excelente, en las próximas horas un asesor especializado se comunicará
+      <p class="text-center max-w-md">En las próximas horas un asesor especializado se comunicará
         contigo para brindarte todos los detalles de tu solicitud.
       </p>
-      <p class="text-center max-w-md">No cierres la ventana.</p>
     </template>
   </Modal>
 </template>
@@ -26,6 +39,10 @@ export default {
     isOpen: {
       type: Boolean,
       default: false,
+    },
+    loading: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

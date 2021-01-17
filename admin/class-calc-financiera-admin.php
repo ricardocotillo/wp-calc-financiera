@@ -86,7 +86,46 @@ class Calc_Financiera_Admin {
 		}
 	}
 
-	public function create_menu() {
+	public function create_option() {
+		$config_submenu = array(
+			'type'              => 'menu',                          // Required, menu or metabox
+			'id'                => $this->plugin_name . '-option',              // Required, meta box id,
+																	// unique per page, to save:
+																	// get_option( id )
+			'menu_title' 		=> 'Calc config',
+			'parent'            => 0,               // Required, sub page to your options page
+			'position'			=> 20,
+			'submenu'           => false,                            // Required for submenu
+			'title'             => 'Calculadora Config',               // The name in the WordPress menu and the title of the Option page
+			'option_title'      => 'Configuración de la calculadora',               // The title of the Option page, this will override 'title'
+			'capability'        => 'manage_options',                // The capability needed to view the page
+			'plugin_basename'   =>  plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' ),
+			'tabbed'            => false,                        // is tabbed or not
+																	// Note: if only one section then
+																	// Tabs are disabled.
+			'multilang'         => false                         // Disable mutilang support, default: true
+		
+		);
+
+		$fields[] = array(
+			'name'   => 'configuracion',
+			'title'  => 'Configuración',
+			'fields' => array(
+				array(
+					'id'      => 'direccion',
+					'type'    => 'select',
+					'title'   => 'Dirección del layout de la calculadora',
+					'options' => array('Horizontal', 'Vertical'),
+					'default' => 0,
+				),
+		
+			),
+		);
+
+		$options_panel = new Exopite_Simple_Options_Framework( $config_submenu, $fields );
+	}
+
+	public function create_metabox() {
 
 		/*
 		* To add a metabox.
