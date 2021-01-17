@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       calculadora financiera
  * Plugin URI:        https://portafolio.cotillo.tech/calc-financiera
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Calculadora de cuotas de préstamo.
  * Version:           1.0.0
  * Author:            Ricardo Cotillo
  * Author URI:        https://portafolio.cotillo.tech
