@@ -238,6 +238,7 @@ import {
   numeric,
   maxLength,
   between,
+  minLength,
 } from "vuelidate/lib/validators";
 export default {
   data() {
@@ -273,7 +274,12 @@ export default {
   validations: {
     phone1: { required, numeric, maxLength: maxLength(9) },
     phone2: { numeric, maxLength: maxLength(9) },
-    dni: { required, numeric, maxLength: maxLength(8) },
+    dni: {
+      required,
+      numeric,
+      maxLength: maxLength(8),
+      minLength: minLength(8),
+    },
     nombre: { required },
     apellido: { required },
     email: { required, email },
