@@ -61,18 +61,6 @@ class Calc_Financiera_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Calc_Financiera_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Calc_Financiera_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calc-financiera-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -84,20 +72,18 @@ class Calc_Financiera_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Calc_Financiera_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Calc_Financiera_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calc-financiera-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function add_export_button( $which ) {
+		global $typenow;
+  
+		if ( 'solicitud' === $typenow && 'top' === $which ) {
+			?>
+			<a href="<?php echo admin_url( 'admin-post.php?action=csv_export' ); ?>" target="_blank" class="button button-primary"><?php _e('Exportar Solicitudes'); ?></a>
+			<?php
+		}
 	}
 
 	public function create_menu() {
@@ -235,7 +221,7 @@ class Calc_Financiera_Admin {
 				array(
 					'id'		=> 'sunarp',
 					'type'		=> 'select',
-					'title'		=> '¿La propiedad está inscrita en SUNARP',
+					'title'		=> '¿La propiedad está inscrita en SUNARP?',
 					'options'	=> array( 'Si', 'No' ),
 				),
 				array(
@@ -252,46 +238,6 @@ class Calc_Financiera_Admin {
 				),
 			),
 		);
-	
-		/**
-		 * Second Tab
-		 */
-		// $fields[] = array(
-		// 	'name'   => 'second',
-		// 	'title'  => 'Second',
-		// 	'icon'   => 'dashicons-portfolio',
-		// 	'fields' => array(
-	
-		// 		array(
-		// 			'type'    => 'content_second',
-		// 			'content' => 'Second Section',
-	
-		// 		),
-	
-		// 	)
-		// );
-	
-		/**
-		 * Third Tab
-		 */
-		// $fields[] = array(
-		// 	'name'   => 'third',
-		// 	'title'  => 'Third',
-		// 	'icon'   => 'dashicons-portfolio',
-		// 	'fields' => array(
-	
-		// 		array(
-		// 			'type'    => 'content_third',
-		// 			'content' => 'Third Section',
-	
-		// 		),
-	
-		// 	)
-		// );
-	
-		/**
-		 * instantiate your admin page
-		 */
 		$metabox_panel = new Exopite_Simple_Options_Framework( $config_metabox, $fields );
 	
 	}

@@ -14,3 +14,4 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<a href="<?php echo admin_url( 'admin-post.php?action=csv_export' ); ?>" class="button button-primary" target="_blank">Export CSV</a>

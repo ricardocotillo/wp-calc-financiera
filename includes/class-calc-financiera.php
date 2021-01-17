@@ -175,6 +175,8 @@ class Calc_Financiera {
 		$this->loader->add_action( 'init', $plugin_post_types, 'create_custom_post_type', 999 );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'create_menu', 999 );
+
+		$this->loader->add_action('manage_posts_extra_tablenav', $plugin_admin, 'add_export_button', 20);
 	}
 
 	/**
@@ -199,7 +201,10 @@ class Calc_Financiera {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		$this->loader->add_action('wp_ajax_calc_ajax_solicitud', $plugin_public, 'calc_ajax_solicitud');
-    	$this->loader->add_action('wp_ajax_nopriv_calc_ajax_solicitud', $plugin_public, 'calc_ajax_solicitud');
+		$this->loader->add_action('wp_ajax_nopriv_calc_ajax_solicitud', $plugin_public, 'calc_ajax_solicitud');
+		
+		$this->loader->add_action( 'admin_post_csv_export', $plugin_public, 'csv_export' );
+		$this->loader->add_action( 'admin_post_nopriv_csv_export', $plugin_public, 'csv_export' );
 
 	}
 

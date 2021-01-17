@@ -128,6 +128,7 @@ class Calc_Financiera_Public {
 		$args = array(
 			'post_title'	=> $_POST['nombres'] . ' ' . $_POST['apellidos'],
 			'post_type' 	=> 'solicitud',
+			'post_status'	=> 'publish',
 		);
 		$s_id = wp_insert_post($args);
 		update_post_meta($s_id, $this->plugin_name . '-meta', $_POST);
@@ -135,5 +136,211 @@ class Calc_Financiera_Public {
 		die( json_encode( $meta[0] ) );
 	
 	}
+
+	public function array_to_csv( $array ) {
+
+        if (count($array) == 0) {
+            return null;
+        }
+
+        ob_start();
+
+        $df = fopen("php://output", 'w');
+
+        foreach ( $array as $row ) {
+            fputcsv( $df, $row );
+        }
+
+        fclose($df);
+
+        return ob_get_clean();
+
+	}
+	
+	public function set_csv_header( $extra_file_name = 'csv_export' ) {
+
+        $sitename = sanitize_key( get_bloginfo( 'name' ) );
+
+        if ( ! empty( $sitename ) ) {
+            $sitename .= '.';
+        }
+
+        $filename = $sitename . $extra_file_name . '.' . date( 'Y-m-d-H-i-s' ) . '.csv';
+        $now = gmdate( "D, d M Y H:i:s" );
+
+        // disable caching
+        header( "Expires: Tue, 01 Jan 2000 00:00:00 GMT" );
+        header( "Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate" );
+        header( "Last-Modified: ". $now . " GMT" );
+        header( "Content-Description: File Transfer" );
+        header( "Pragma: no-cache" );
+
+        // force download
+        header( "Content-Type: application/force-download" );
+        header( "Content-Type: application/octet-stream" );
+        header( "Content-Type: application/download" );
+
+        header( "Content-Disposition: attachment; filename=" . $filename );
+        header( "Content-Transfer-Encoding: binary" );
+        header( "Content-Type: text/csv; charset=" . get_option( 'blog_charset' ), true );
+
+	}
+
+	public function csv_export() {
+
+        $this->set_csv_header( 'Calc-Financiera Solicitudes' );
+
+        /**
+         * PROCESS YOUR VALUES EXAMPLE
+         */
+        // Add header to csv
+        $header_values = array(
+            array(
+                'Nombres',
+                'Apellidos',
+				'DNI',
+				'Teléfono',
+				'Teléfono 2',
+				'Email',
+				'Departamento',
+				'Provincia',
+				'Distrito',
+				'Tipo de propiedad',
+				'Área de propiedad (m²)',
+				'Dueño de propiedad',
+				'¿La propiedad está inscrita en SUNARP?',
+				'¿Cuenta con un embargo vigente?',
+				'¿Cuenta con una hipoteca vigente?',
+			),
+        );
+
+        // Get only IDs from all test post type sort by title.
+        $args = array(
+			'posts_per_page'	=> -1,
+			'post_status' 		=> 'publish',
+            'post_type'        	=> 'solicitud',
+	        'order'            	=> 'ASC',
+        );
+        $solicitudes = get_posts( $args );
+
+        // Loop IDs and get valuses what we want.
+        $solicitudes_values = array();
+        foreach ( $solicitudes as $solicitud ) {
+			$solicitud_meta = get_post_meta( $solicitud->ID, $this->plugin_name . '-meta', false );
+			if ($solicitud_meta) {
+				$solicitud_meta = $solicitud_meta[0];
+				$tipo_de_propiedad;
+				$dueno;
+				$sunarp;
+				$embargo;
+				$hipoteca;
+				if (isset($solicitud_meta['tipo_de_propiedad'])) {
+					switch ($solicitud_meta['tipo_de_propiedad']) {
+						case 0:
+							$tipo_de_propiedad = 'Casa';
+							break;
+						case 1:
+							$tipo_de_propiedad = 'Dpto';
+							break;
+						case 2:
+							$tipo_de_propiedad = 'Terreno';
+							break;
+						case 3:
+							$tipo_de_propiedad = 'Local';
+							break;
+						case 4:
+							$tipo_de_propiedad = 'Edificio';
+							break;
+						default:
+							$tipo_de_propiedad = 'No especificado';
+							break;
+					}
+				}
+				if (isset($solicitud_meta['dueno'])) {
+					switch ($solicitud_meta['dueno']) {
+						case 0:
+							$dueno = 'Solo yo';
+							break;
+						case 1:
+							$dueno = 'Otras personas y yo';
+							break;
+						case 2:
+							$dueno = 'Otras personas';
+						default:
+							$dueno = 'No especificado';
+							break;
+					}
+				}
+
+				if (isset($solicitud_meta['sunarp'])) {
+					switch ($solicitud_meta['sunarp']) {
+						case 0:
+							$sunarp = 'Si';
+							break;
+						case 1:
+							$sunarp = 'No';
+							break;
+						default:
+							$sunarp = 'No sé';
+							break;
+					}
+				}
+
+				if (isset($solicitud_meta['embargo'])) {
+					switch ($solicitud_meta['embargo']) {
+						case 0:
+							$embargo = 'Si';
+							break;
+						case 1:
+							$embargo = 'No';
+							break;
+						default:
+							$embargo = 'No sé';
+							break;
+					}
+				}
+
+				if (isset($solicitud_meta['hipoteca'])) {
+					switch ($solicitud_meta['hipoteca']) {
+						case 0:
+							$hipoteca = 'Si';
+							break;
+						case 1:
+							$hipoteca = 'No';
+							break;
+						default:
+							$hipoteca = 'No sé';
+							break;
+					}
+				}
+
+				array_push($solicitudes_values, array(
+					$solicitud_meta['nombres'] ? $solicitud_meta['nombres'] : '',
+					$solicitud_meta['apellidos'] ? $solicitud_meta['apellidos'] : '',
+					$solicitud_meta['dni'] ? $solicitud_meta['dni'] : '',
+					$solicitud_meta['telefono1'] ? $solicitud_meta['telefono1'] : '',
+					$solicitud_meta['telefono2'] ? $solicitud_meta['telefono2'] : '',
+					$solicitud_meta['email'] ? $solicitud_meta['email'] : '',
+					$solicitud_meta['departamento'] ? $solicitud_meta['departamento'] : '',
+					$solicitud_meta['provincia'] ? $solicitud_meta['provincia'] : '',
+					$solicitud_meta['distrito'] ? $solicitud_meta['distrito'] : '',
+					$tipo_de_propiedad,
+					$solicitud_meta['area'] ? $solicitud_meta['area'] : '',
+					$dueno,
+					$sunarp,
+					$embargo,
+					$hipoteca,
+				));
+			}
+        }
+
+        // // Merge them together.
+        $fields = array_merge( $header_values, $solicitudes_values );
+        /**
+         * END PROCESS YOUR VALUES EXAMPLE
+         */
+
+        die($this->array_to_csv( $fields ));
+    }
 
 }

@@ -97,7 +97,7 @@ export default {
           "Cache-Control": "no-cache",
         },
         body: form,
-      }).then((res) => {
+      }).then(() => {
         setTimeout(() => (this.loading = false), 3000);
       });
     },
