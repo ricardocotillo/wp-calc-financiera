@@ -70,7 +70,7 @@ class Calc_Financiera {
 		if ( defined( 'CALC_FINANCIERA_VERSION' ) ) {
 			$this->version = CALC_FINANCIERA_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.0.1';
 		}
 		$this->plugin_name = 'calc-financiera';
 
