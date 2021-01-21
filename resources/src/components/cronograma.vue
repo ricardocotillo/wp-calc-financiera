@@ -20,8 +20,8 @@
         </thead>
         <tbody>
           <tr v-for="i in (periods + 1) * 12" :key="i" class="text-base">
-            <td class="text-center py-1">Mes {{ i }}</td>
-            <td class="text-center py-1">
+            <td class="text-center py-1 border-none">Mes {{ i }}</td>
+            <td class="text-center py-1 border-none">
               S/
               {{
                 type == 1 && i == 12
@@ -29,7 +29,7 @@
                   : formatAmount(cuota, 2)
               }}
             </td>
-            <td v-if="type == 2">S/ 0</td>
+            <td class="border-none text-center py-1" v-if="type == 2">S/ 0</td>
           </tr>
         </tbody>
       </table>
@@ -37,15 +37,15 @@
     <template v-slot:footer>
       <div class="flex flex-col items-center max-w-sm">
         <template v-if="type == 2">
-          <p class="text-sm">
+          <div class="text-sm">
             Total mes 12: S/
             <strong>{{
               formatAmount(cuota * (periods + 1) * 12 + amount, 2)
             }}</strong>
-          </p>
-          <p class="text-sm mb-2">
+          </div>
+          <div class="text-sm mb-2">
             <strong>(Intereses acumulados + capital)</strong>
-          </p>
+          </div>
         </template>
         <div
           @click="$emit('solicitar')"
