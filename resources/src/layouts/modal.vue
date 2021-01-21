@@ -5,7 +5,7 @@
     style="z-index: 9999"
   >
     <div
-      class="calculadora-modal"
+      class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0"
     >
       <transition
         enter-active-class="ease-out duration-300"
@@ -94,8 +94,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.calculadora-modal {
-  @apply flex items-center justify-center min-h-screen pt-4 px-4 pb-20 sm:p-0;
-}
+<style>
 </style>

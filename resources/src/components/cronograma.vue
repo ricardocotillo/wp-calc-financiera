@@ -10,18 +10,18 @@
       </div>
     </template>
     <template v-slot:body>
-      <table class="text-blue-900 font-bold max-w-sm border-none">
+      <table class="text-blue-900 font-bold w-full border-none">
         <thead v-if="type == 2">
           <tr>
             <th colspan="1"></th>
             <th class="text-center">Intereses generados</th>
-            <th>Cuota</th>
+            <th class="pl-7">Cuota</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="i in (periods + 1) * 12" :key="i" class="text-base">
-            <td class="text-center py-1 border-none">Mes {{ i }}</td>
-            <td class="text-center py-1 border-none">
+            <td class="text-right pr-7 py-1 border-none">Mes {{ i }}</td>
+            <td class=" py-1 border-none" :class="type == 2 ? 'text-center' : 'text-left pl-7'">
               S/
               {{
                 type == 1 && i == 12
@@ -29,7 +29,7 @@
                   : formatAmount(cuota, 2)
               }}
             </td>
-            <td class="border-none text-center py-1" v-if="type == 2">S/ 0</td>
+            <td class="border-none text-left pl-7 py-1" v-if="type == 2">S/ 0</td>
           </tr>
         </tbody>
       </table>
