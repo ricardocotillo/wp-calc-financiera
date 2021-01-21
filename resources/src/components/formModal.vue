@@ -4,7 +4,7 @@
       <template v-slot:body>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <div>
-            <div class="pt-4 pb-2">
+            <div class="pt-4 pb-2 px-3">
               <Amount :value="amount" @input="$emit('change:amount', $event)" />
             </div>
             <div class="px-3 pt-4 pb-2 flex justify-center items-start">

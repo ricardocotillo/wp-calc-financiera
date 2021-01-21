@@ -14,14 +14,14 @@
         <thead v-if="type == 2">
           <tr>
             <th colspan="1"></th>
-            <th colspan="2" class="text-center">Intereses generados</th>
+            <th class="text-center">Intereses generados</th>
             <th>Cuota</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="i in (periods + 1) * 12" :key="i" class="text-base">
             <td class="text-center py-1">Mes {{ i }}</td>
-            <td colspan="2" class="text-center py-1 lg:px-16">
+            <td class="text-center py-1">
               S/
               {{
                 type == 1 && i == 12
