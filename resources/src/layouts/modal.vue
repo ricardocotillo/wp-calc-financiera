@@ -35,7 +35,8 @@
         leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       >
         <div
-          class="inline-block align-bottom bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl"
+          class="inline-block align-bottom bg-white text-left shadow-xl transform transition-all sm:my-8 sm:align-middle rounded-lg"
+          :class="mw"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-headline"
@@ -47,7 +48,8 @@
           >
             +
           </div>
-          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          
+          <div class="px-4 pt-5 pb-4 sm:px-8 sm:pt-6">
             <div class="sm:flex sm:items-start justify-center">
               <div class="mt-3 sm:mt-0">
                 <slot name="header"></slot>
@@ -57,7 +59,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-gray-50 px-4 py-3 sm:px-6">
+          <div class="px-4 py-3 sm:px-8">
             <slot name="footer"></slot>
           </div>
         </div>
@@ -70,7 +72,10 @@
 export default {
   props: {
     isOpen: Boolean,
-    width: Number,
+    mw: {
+      type: String,
+      default: '',
+    },
     showClose: {
       type: Boolean,
       default: true,
