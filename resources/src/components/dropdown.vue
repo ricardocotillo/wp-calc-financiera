@@ -1,15 +1,27 @@
 <template>
   <div class="relative text-left" :class="`w-${w}`" @blur="close">
+    <div
+      v-if="label"
+      class="text-center font-bold py-2 rounded-t-md"
+      :class="focused ? 'bg-yellow-400 text-white' : ' text-gray-600'"
+    >
+      {{ label }}
+    </div>
     <div>
       <button
         @click="isOpen = !isOpen"
         type="button"
-        class="inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+        class="inline-flex justify-between w-full border shadow-sm px-4 py-3 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+        :class="
+          focused
+            ? 'border-yellow-400 rounded-b-md'
+            : 'border-gray-300 rounded-md'
+        "
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
       >
-        {{ value !== null ? options[value].title : label }}
+        {{ value !== null ? options[value].title : placeholder }}
         <img
           class="-mr-1 ml-2 h-5 w-5"
           :src="`${baseUrl}/img/arrow.svg`"
@@ -58,9 +70,14 @@ export default {
       type: String,
       default: "full",
     },
-    label: {
+    placeholder: {
       type: String,
       default: "Seleccionar",
+    },
+    label: String,
+    focused: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

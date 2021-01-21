@@ -135,14 +135,14 @@
         @input="distrito = null"
         w="full"
         :options="provincias"
-        label="Seleccionar provincia"
+        placeholder="Seleccionar provincia"
       />
       <div class="h-4"></div>
       <Dropdown
         v-model="$v.distrito.$model"
         w="full"
         :options="distritos"
-        label="Seleccionar distrito"
+        placeholder="Seleccionar distrito"
       />
       <label for="type-of-property" class="font-bold text-sm block my-3"
         >Tipo de propiedad *</label

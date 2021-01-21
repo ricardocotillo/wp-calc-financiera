@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="text-center font-bold text-gray-600 py-2 ">Quiero</div>
     <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
@@ -18,7 +19,7 @@
           @click="toggleInputs"
           :value="formattedAmount"
           type="text"
-          class="border border-white-300 bg-white focus:outline-none focus:border-transparent block w-full py-2 pl-7 pr-7 sm:text-sm rounded text-center"
+          class="border border-gray-300 bg-white focus:outline-none focus:border-transparent block w-full py-2 pl-7 pr-7 sm:text-sm rounded text-center"
         />
         <input
           ref="amountInput"
@@ -38,7 +39,7 @@
         +
       </div>
     </div>
-    <p class="text-xs text-center font-bold mt-2 text-gray-400">
+    <p class="text-xs text-center font-bold mt-2 text-gray-700">
       Desde S/ {{ formatAmount(min) }}
     </p>
   </div>

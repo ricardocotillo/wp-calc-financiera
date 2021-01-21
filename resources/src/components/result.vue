@@ -1,18 +1,19 @@
 <template>
   <div class="text-xs">
-    <p v-if="type === null || periods === null" class="text-center">
-      <strong>{{ msg }}</strong>
-    </p>
+    <div v-if="type === null || periods === null" class="text-center font-bold text-gray-500">
+      {{ msg }}
+    </div>
     <div v-else class="text-center">
-      <p class="font-bold text-gray-600">Mi cuota mensual sería</p>
-      <h1 class="text-2xl font-bold">
+      <div class="font-bold text-gray-600">Mi cuota mensual sería</div>
+      <div class="text-2xl font-bold mb-1 mt-2">
         S/
         {{
           type == 2
             ? formatAmount(cuota * (periods + 1) * 12 + amount, 2)
             : formatAmount(cuota, 2)
         }}
-      </h1>
+      </div>
+      <div @click="showSolicitar = true" class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold my-3">Precalifica aquí</div>
       <a href="#" @click.prevent="showPayTable = true">Ver cronograma</a>
     </div>
     <Cronograma

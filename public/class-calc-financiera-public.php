@@ -63,7 +63,7 @@ class Calc_Financiera_Public {
 		global $post;
 
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'resources/dist/css/app.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/css/app.css', array(), $this->version, 'all' );
 		}
 
 	}
@@ -77,8 +77,8 @@ class Calc_Financiera_Public {
 		global $post;
 		
 		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'resources/dist/js/app.js', null, $this->version, true );
-			wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'resources/dist/js/chunk-vendors.js', null, $this->version, true );
+			wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'dist/js/app.js', null, $this->version, true );
+			wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'dist/js/chunk-vendors.js', null, $this->version, true );
 			wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0' ),
