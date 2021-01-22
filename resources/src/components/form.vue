@@ -181,8 +181,8 @@
         @keypress="isNumber"
       />
       <small v-if="$v.area.$error" class="text-xs text-red-500 block"
-        >Por favor ingresa un Área válida</small
-      >
+        >El dato desde ser mayor o igual a 1 m².
+      </small>
       <label
         for="type-of-property"
         class="font-black text-black text-sm block my-3"
@@ -237,10 +237,7 @@
       <div class="grid grid-cols-7 lg:grid-cols-6 gap-2 mt-4">
         <div
           class="flex flex-row items-center cursor-pointer pr-4 py-2 col-span-2 lg:col-span-2"
-          @click="
-            step = 0;
-            incomplete = false;
-          "
+          @click="goBack"
         >
           <img
             :src="`${baseUrl}/img/arrow.svg`"
@@ -317,7 +314,7 @@ export default {
     apellido: { required },
     email: { required, email },
     typeOfProperty: { required, between: between(0, 5) },
-    area: { required, numeric },
+    area: { required, numeric, minLength: minLength(1) },
     owner: { required, between: between(0, 2) },
     sunarp: { required, between: between(0, 1) },
     embargo: { required, between: between(0, 2) },
@@ -360,6 +357,11 @@ export default {
   },
   methods: {
     isNumber,
+    goBack() {
+      this.step = 0;
+      this.incomplete = false;
+      this.$emit("step", 0);
+    },
     filterDepartamentos() {
       return this.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
     },
@@ -378,6 +380,7 @@ export default {
       //   this.incomplete = false;
       //   this.step = 1;
       // }
+      this.$emit("step", 1);
     },
     validateSecond() {
       if (this.$v.$invalid) {

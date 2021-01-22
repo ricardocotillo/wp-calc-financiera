@@ -43,17 +43,18 @@
         >
           <div
             v-if="showClose"
-            class="font-bold text-4xl inline-block absolute right-2 transform rotate-45 cursor-pointer"
+            class="font-bold text-4xl inline-block absolute right-2 transform rotate-45 cursor-pointer z-20"
             @click="close"
           >
             +
           </div>
-          
-          <div class="px-4 pt-5 pb-4 sm:px-8 sm:pt-6">
+
+          <div class="pb-4" :class="padding">
+            <slot name="border-top"> </slot>
             <div class="sm:flex sm:items-start justify-center">
               <div class="mt-3 sm:mt-0">
                 <slot name="header"></slot>
-                <div class="mt-2">
+                <div>
                   <slot name="body"></slot>
                 </div>
               </div>
@@ -74,11 +75,15 @@ export default {
     isOpen: Boolean,
     mw: {
       type: String,
-      default: '',
+      default: "",
     },
     showClose: {
       type: Boolean,
       default: true,
+    },
+    padding: {
+      type: String,
+      default: "px-4 sm:px-8 sm:pt-6",
     },
   },
   data() {

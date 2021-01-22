@@ -22,7 +22,9 @@
           <thead v-if="type == 2">
             <tr>
               <th class="w-3/12 border-none"></th>
-              <th class="text-center w-5/12 border-none">Intereses generados</th>
+              <th class="text-center w-5/12 border-none">
+                Intereses generados
+              </th>
               <th class="text-center w-4/12 border-none">Cuota</th>
             </tr>
           </thead>
