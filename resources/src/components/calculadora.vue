@@ -5,7 +5,7 @@
       :class="direction === 0 ? 'lg:grid-cols-4 lg:gap-4 lg:grid-rows-2' : ''"
     >
       <div class="px-3 pt-4 pb-2">
-        <Amount v-model="amount" />
+        <Amount v-model="amount" label="Quiero" />
       </div>
       <div class="px-3 pt-4 pb-2 flex justify-center items-start">
         <Dropdown

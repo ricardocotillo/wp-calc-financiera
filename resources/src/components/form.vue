@@ -8,7 +8,7 @@
       <h6 class="text-gray-400 text-sm text-center mb-7">
         De la persona que solicita el préstamo
       </h6>
-      <label for="dni" class="font-bold text-base">DNI *</label>
+      <label for="dni" class="font-black text-black text-base">DNI *</label>
       <input
         required
         type="text"
@@ -21,7 +21,9 @@
         >Por favor ingresa un DNI válido</small
       >
 
-      <label for="nombre" class="font-bold text-base">Nombres *</label>
+      <label for="nombre" class="font-black text-black text-base"
+        >Nombres *</label
+      >
       <input
         required
         type="text"
@@ -32,7 +34,9 @@
       <small v-if="$v.nombre.$error" class="text-xs text-red-500 block"
         >Por favor ingresa un Nombre válido</small
       >
-      <label for="apellido" class="font-bold text-base">Apellidos *</label>
+      <label for="apellido" class="font-black text-black text-base"
+        >Apellidos *</label
+      >
       <input
         required
         type="text"
@@ -44,8 +48,11 @@
         >Por favor ingresa un Apellido válido</small
       >
       <h1 class="text-xl font-bold text-center my-7">Datos de contacto</h1>
-      <label for="telefono1" class="font-bold text-base"
+      <label for="telefono1" class="font-black text-black text-base block mb-0"
         >Teléfono de contacto *</label
+      >
+      <small class="text-xs block"
+        >Te llamaremos para continuar con el proceso de solicitud</small
       >
       <input
         required
@@ -55,7 +62,7 @@
         v-model="$v.phone1.$model"
         @keypress="isNumber"
       />
-      <label for="telefono2" class="font-bold text-base"
+      <label for="telefono2" class="font-black text-black text-base"
         >Otro teléfono de contacto</label
       >
       <input
@@ -66,9 +73,10 @@
         placeholder="(Opcional)"
         @keypress="isNumber"
       />
-      <label for="email" class="font-bold text-base"
+      <label for="email" class="font-black text-black text-base block mb-0"
         >Correo electrónico *</label
       >
+      <small class="text-xs block">Coloca un correo electrónico vigente</small>
       <input
         required
         type="email"
@@ -111,12 +119,16 @@
           srcset=""
         />
         <span
-          >Recuerda que <b>para obtener el préstamo necesitas</b> contar con<b>
-            una propiedad para poner en garantía.</b
+          >Recuerda que
+          <span class="font-bold text-black"
+            >para obtener el préstamo necesitas</span
+          >
+          contar con<span class="font-bold text-black">
+            una propiedad para poner en garantía.</span
           ></span
         >
       </div>
-      <label for="location" class="font-bold text-sm block my-3"
+      <label for="location" class="font-black text-black text-sm block my-3"
         >Ubicación de la propiedad que puedes poner en garantía *</label
       >
       <Dropdown
@@ -144,7 +156,9 @@
         :options="distritos"
         placeholder="Seleccionar distrito"
       />
-      <label for="type-of-property" class="font-bold text-sm block my-3"
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
         >Tipo de propiedad *</label
       >
       <p class="mb-3">Selecciona un tipo de propiedad</p>
@@ -152,8 +166,10 @@
         v-model="$v.typeOfProperty.$model"
         :options="propertyTypes"
       />
-      <label for="type-of-property" class="font-bold text-sm block my-3"
-        >Área total de la propiedad *</label
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
+        >Área total de la propiedad en m² *</label
       >
       <input
         required
@@ -167,14 +183,23 @@
       <small v-if="$v.area.$error" class="text-xs text-red-500 block"
         >Por favor ingresa un Área válida</small
       >
-      <label for="type-of-property" class="font-bold text-sm block my-3"
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
         >Dueño(s) de la propiedad *</label
       >
-      <Dropdown :options="ownerOptions" w="full" v-model="$v.owner.$model" />
+      <Dropdown
+        :options="ownerOptions"
+        w="full"
+        v-model="$v.owner.$model"
+        placeholder="¿Quién es dueño de la propiedad?"
+      />
       <small v-if="$v.owner.$error" class="text-xs text-red-500 block"
         >Por favor escoge una opción</small
       >
-      <label for="type-of-property" class="font-bold text-sm block my-3"
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
         >¿La propiedad está inscrita en SUNARP? *</label
       >
       <PillOptions v-model="$v.sunarp.$model" />
@@ -182,17 +207,25 @@
         >Por favor escoge una opción</small
       >
 
-      <label for="type-of-property" class="font-bold text-sm block my-3"
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
         >¿Cuenta con un embargo vigente? *</label
       >
       <PillOptions v-model="$v.embargo.$model" :showThird="true" />
       <small v-if="$v.embargo.$error" class="text-xs text-red-500 block"
         >Por favor escoge una opción</small
       >
-      <label for="type-of-property" class="font-bold text-sm block my-3"
+      <label
+        for="type-of-property"
+        class="font-black text-black text-sm block my-3"
         >¿Cuenta con una hipoteca vigente? *</label
       >
       <PillOptions v-model="$v.hipoteca.$model" :showThird="true" />
+      <small class="text-xs block mt-1" v-if="hipoteca == 0"
+        >Recuerda que parte del préstamo será destinado a la cancelación total
+        de la hipoteca.</small
+      >
       <small v-if="$v.hipoteca.$error" class="text-xs text-red-500 block"
         >Por favor escoge una opción</small
       >
@@ -331,19 +364,20 @@ export default {
       return this.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
     },
     validateFirst() {
-      if (
-        this.$v.dni.$invalid ||
-        this.$v.nombre.$invalid ||
-        this.$v.apellido.$invalid ||
-        this.$v.phone1.$invalid ||
-        this.$v.phone2.$invalid ||
-        this.$v.email.$invalid
-      ) {
-        this.incomplete = true;
-      } else {
-        this.incomplete = false;
-        this.step = 1;
-      }
+      this.step = 1;
+      // if (
+      //   this.$v.dni.$invalid ||
+      //   this.$v.nombre.$invalid ||
+      //   this.$v.apellido.$invalid ||
+      //   this.$v.phone1.$invalid ||
+      //   this.$v.phone2.$invalid ||
+      //   this.$v.email.$invalid
+      // ) {
+      //   this.incomplete = true;
+      // } else {
+      //   this.incomplete = false;
+      //   this.step = 1;
+      // }
     },
     validateSecond() {
       if (this.$v.$invalid) {

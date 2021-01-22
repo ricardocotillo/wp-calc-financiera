@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-center font-bold text-gray-600 py-2">Quiero</div>
+    <div v-if="label" class="text-center font-bold text-gray-600 py-2">{{label}}</div>
     <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
@@ -44,6 +44,7 @@ import { isNumber } from "../mixins/isNumer";
 export default {
   props: {
     value: Number,
+    label: String,
   },
   data() {
     return {
