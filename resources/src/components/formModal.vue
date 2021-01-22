@@ -2,19 +2,19 @@
   <div>
     <Modal :isOpen="isOpen" @close="$emit('close')" @>
       <template v-slot:body>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 max-w-screen-lg">
           <div>
-            <div class="pt-4 pb-2 px-3">
+            <div class="pt-4 pb-2">
               <Amount :value="amount" @input="$emit('change:amount', $event)" />
             </div>
-            <div class="px-3 pt-4 pb-2 flex justify-center items-start">
+            <div class="pt-4 pb-2 flex justify-center items-start">
               <Dropdown
                 :value="type"
                 @input="$emit('change:type', $event)"
                 :options="typeOfPayments"
               />
             </div>
-            <div class="px-3 pt-4 pb-2 flex justify-center items-start">
+            <div class="pt-4 pb-2 flex justify-center items-start">
               <Dropdown
                 :value="period"
                 @input="$emit('change:period', $event)"
@@ -31,7 +31,7 @@
                     : formatAmount(cuota, 2)
                 }}
               </h2>
-              <p class="text-gray-500 p-2 bg-blue-200 mt-2">
+              <p class="text-gray-500 p-2 bg-blue-200 mt-2 rounded">
                 Tasa de interés mensual desde 1.6%
               </p>
               <p class="text-gray-500 text-xs mt-3">
@@ -39,8 +39,19 @@
                 perfil crediticio y otros factores.
               </p>
             </div>
+            <div class="flex items-center mb-5 mt-7">
+              <img class="w-5 mr-4" :src="`${baseUrl}/img/lock.svg`" />
+              <div class="font-bold text-gray-700 text-sm">
+                ¿Es seguro dar mis datos a Grupo Imagen?
+              </div>
+            </div>
+            <div class="text-xs mb-4">
+              Sí. Grupo Imagen es una empresa registrada en la Superintendencia
+              de Banca y Seguros (SBS – Resolución Nº00046-2020), y se rige por
+              la Ley de Protección de Datos Personales.
+            </div>
           </div>
-          <div>
+          <div class="col-span-2 md:pl-32 md:pr-28">
             <Form @submit="$emit('submit', $event)" />
           </div>
         </div>
@@ -54,6 +65,7 @@ import Modal from "../layouts/modal";
 import Amount from "./amount";
 import Dropdown from "./dropdown";
 import Form from "./form";
+import { baseUrl } from "../mixins/calcData";
 import { formatAmount } from "../mixins/formatAmount";
 
 import { initialMsg, msgs, typeOfPayments, periods } from "../mixins/calcData";
@@ -79,6 +91,7 @@ export default {
   },
   data() {
     return {
+      baseUrl,
       initialMsg,
       msgs,
       typeOfPayments,
