@@ -4,6 +4,9 @@ module.exports = {
   important: true,
   theme: {
     extend: {},
+    fontFamily: {
+      'montserrat': ['Montserrat'],
+    }
   },
   variants: {
     extend: {},
