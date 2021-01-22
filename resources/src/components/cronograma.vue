@@ -3,7 +3,7 @@
     <template v-slot:header>
       <div class="max-w-sm">
         <h3
-          class="font-black text-5xl text-gray-900 text-center mb-2 font-montserrat"
+          class="font-black text-5xl text-blue-900 text-center mb-2 font-montserrat"
         >
           Cronograma de pagos
         </h3>

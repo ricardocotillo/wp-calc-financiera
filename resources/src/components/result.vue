@@ -1,6 +1,9 @@
 <template>
   <div class="text-xs">
-    <div v-if="type === null || periods === null" class="text-center font-bold text-gray-500">
+    <div
+      v-if="type === null || periods === null"
+      class="text-center font-bold text-gray-500"
+    >
       {{ msg }}
     </div>
     <div v-else class="text-center">
@@ -13,7 +16,12 @@
             : formatAmount(cuota, 2)
         }}
       </div>
-      <div @click="showSolicitar = true" class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3">Precalifica aquí</div>
+      <div
+        @click="showSolicitar = true"
+        class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
+      >
+        Precalifica aquí
+      </div>
       <a href="#" @click.prevent="showPayTable = true">Ver cronograma</a>
     </div>
     <Cronograma
@@ -70,6 +78,8 @@ export default {
       showForm: false,
       showWating: false,
       tea: 0.36,
+      sitm: 0.025,
+      pptm: 0.032,
       loading: true,
     };
   },
@@ -96,19 +106,7 @@ export default {
   },
   computed: {
     tem() {
-      let t;
-      switch (this.type) {
-        case 0:
-          t = Math.pow(1 + this.tea, 1 / 12) - 1;
-          break;
-        case 1:
-          t = 0.025;
-          break;
-        default:
-          t = 0.032;
-          break;
-      }
-      return t;
+      return Math.pow(1 + this.tea, 1 / 12) - 1;
     },
     ramount() {
       return this.amount < 20000 ? 20000 : this.amount;
@@ -122,14 +120,20 @@ export default {
             (1 - Math.pow(1 + this.tem, (this.periods + 1) * 12 * -1));
           break;
         case 1:
-          c = this.ramount * this.tem;
+          c = this.ramount * this.sitm;
           break;
         default:
-          c = this.ramount * this.tem * (this.periods + 1);
+          c = this.ramount * this.pptm * (this.periods + 1);
           break;
       }
       return c;
     },
+  },
+  created() {
+    const app = document.querySelector("#app");
+    this.tea = Number(app.dataset.tea);
+    this.sitm = Number(app.dataset.sitm);
+    this.pptm = Number(app.dataset.pptm);
   },
   components: { Cronograma, FormModal, Waiting },
 };
