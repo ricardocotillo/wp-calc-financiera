@@ -3,13 +3,14 @@
     <template v-slot:header>
       <div class="max-w-sm">
         <h3
-          class="font-black text-5xl text-blue-900 text-center mb-2 font-montserrat"
+          class="font-black text-3xl lg:text-5xl text-blue-900 text-center mb-2 font-montserrat"
         >
           Cronograma de pagos
         </h3>
-        <p class="text-center text-xl mb-2">{{ typeText }}</p>
-        <p class="text-center">
-          Monto solicitado S/ {{ formatAmount(amount) }}
+        <p class="text-center text-xs lg:text-xl mb-2">{{ typeText }}</p>
+        <p class="text-center mb-2">
+          <span class="font-bold text-black">Monto solicitado</span> S/
+          {{ formatAmount(amount) }}
         </p>
       </div>
     </template>

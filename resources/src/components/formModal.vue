@@ -70,11 +70,11 @@
           >
             <div
               class="h-3 w-1/2 inline-block"
-              :class="step == 0 ? 'bg-green-500' : 'bg-gray-100'"
+              :class="step == 0 ? 'bg-yellow-400' : 'bg-gray-100'"
             ></div>
             <div
               class="h-3 w-1/2 inline-block lg:rounded-tr-lg"
-              :class="step == 1 ? 'bg-green-500' : 'bg-gray-100'"
+              :class="step == 1 ? 'bg-yellow-400' : 'bg-gray-100'"
             ></div>
           </div>
         </div>

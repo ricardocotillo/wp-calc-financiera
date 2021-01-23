@@ -5,7 +5,11 @@
       :key="opt.key"
       @click="$emit('input', i)"
       class="w-full p-2 border border-gray-300 rounded flex flex-col items-center justify-center cursor-pointer"
-      :class="value == i ? 'bg-blue-900' : null"
+      :class="{
+        'bg-blue-900': value == i,
+        'border-gray-300': !error,
+        'border-red-500': error,
+      }"
     >
       <img
         :src="opt.icon"
@@ -29,6 +33,10 @@ export default {
       default() {
         return [];
       },
+    },
+    error: {
+      type: Boolean,
+      default: false,
     },
   },
 };

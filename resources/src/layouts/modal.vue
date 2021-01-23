@@ -35,7 +35,7 @@
         leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       >
         <div
-          class="inline-block align-bottom bg-white text-left shadow-xl transform transition-all sm:my-8 sm:align-middle rounded-lg"
+          class="inline-block align-bottom bg-white shadow-xl transform transition-all sm:my-8 sm:align-middle rounded-lg"
           :class="mw"
           role="dialog"
           aria-modal="true"
@@ -43,7 +43,7 @@
         >
           <div
             v-if="showClose"
-            class="font-bold text-4xl inline-block absolute right-2 transform rotate-45 cursor-pointer z-20"
+            class="font-bold text-4xl inline-block absolute right-3 top-2 transform rotate-45 cursor-pointer z-20"
             @click="close"
           >
             +

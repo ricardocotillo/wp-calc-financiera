@@ -17,9 +17,15 @@
         v-model="$v.dni.$model"
         @keypress="isNumber"
       />
-      <small v-if="$v.dni.$error" class="text-xs text-red-500 block"
-        >Por favor ingresa un DNI válido</small
-      >
+      <small v-if="$v.dni.$error || incomplete" class="text-red-500 block">{{
+        !$v.dni.required
+          ? "Este campo es requerido"
+          : !$v.dni.minLength
+          ? "Mínimo 8 dígitos"
+          : !$v.dni.maxLength
+          ? "Máximo 8 dígitos"
+          : ""
+      }}</small>
 
       <label for="nombre" class="font-black text-black text-base"
         >Nombres *</label
@@ -31,9 +37,13 @@
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="$v.nombre.$model"
       />
-      <small v-if="$v.nombre.$error" class="text-xs text-red-500 block"
-        >Por favor ingresa un Nombre válido</small
-      >
+      <small v-if="$v.nombre.$error || incomplete" class="text-red-500 block">{{
+        !$v.nombre.required
+          ? "Este campo es requerido"
+          : !$v.nombre.minLength
+          ? "Mínimo 2 caracteres"
+          : ""
+      }}</small>
       <label for="apellido" class="font-black text-black text-base"
         >Apellidos *</label
       >
@@ -44,8 +54,16 @@
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="$v.apellido.$model"
       />
-      <small v-if="$v.apellido.$error" class="text-xs text-red-500 block"
-        >Por favor ingresa un Apellido válido</small
+      <small
+        v-if="$v.apellido.$error || incomplete"
+        class="text-red-500 block"
+        >{{
+          !$v.apellido.required
+            ? "Este campo es requerido"
+            : !$v.apellido.minLength
+            ? "Mínimo 2 caracteres"
+            : ""
+        }}</small
       >
       <h1 class="text-xl font-bold text-center my-7">Datos de contacto</h1>
       <label for="telefono1" class="font-black text-black text-base block mb-0"
@@ -62,6 +80,13 @@
         v-model="$v.phone1.$model"
         @keypress="isNumber"
       />
+      <small v-if="$v.phone1.$error || incomplete" class="text-red-500 block">{{
+        !$v.phone1.required
+          ? "Este campo es requerido"
+          : !$v.phone1.minLength
+          ? "Mínimo 7 dígitos"
+          : ""
+      }}</small>
       <label for="telefono2" class="font-black text-black text-base"
         >Otro teléfono de contacto</label
       >
@@ -73,6 +98,9 @@
         placeholder="(Opcional)"
         @keypress="isNumber"
       />
+      <small v-if="$v.phone2.$error || incomplete" class="text-red-500 block">{{
+        !$v.phone2.minLength ? "Mínimo 7 dígitos" : ""
+      }}</small>
       <label for="email" class="font-black text-black text-base block mb-0"
         >Correo electrónico *</label
       >
@@ -84,11 +112,13 @@
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="email"
       />
-      <div class="text-center" v-if="incomplete">
-        <small class="text-red-500"
-          >Por favor completa los campos requeridos</small
-        >
-      </div>
+      <small v-if="$v.email.$error || incomplete" class="text-red-500 block">{{
+        !$v.email.required
+          ? "Este campo es requerido"
+          : !$v.email.email
+          ? "El correo no es válido"
+          : ""
+      }}</small>
       <div class="flex justify-center mt-7">
         <button
           class="rounded bg-blue-900 text-white font-bold px-4 py-2"
@@ -141,6 +171,13 @@
         w="full"
         :options="departamentos"
       />
+      <small
+        v-if="$v.departamento.$error || incomplete"
+        class="text-red-500 block"
+        >{{
+          !$v.departamento.required ? "Seleccione un departamento" : ""
+        }}</small
+      >
       <div class="h-4"></div>
       <Dropdown
         v-model="$v.provincia.$model"
@@ -149,6 +186,11 @@
         :options="provincias"
         placeholder="Seleccionar provincia"
       />
+      <small
+        v-if="$v.provincia.$error || incomplete"
+        class="text-red-500 block"
+        >{{ !$v.provincia.required ? "Seleccione una provincia" : "" }}</small
+      >
       <div class="h-4"></div>
       <Dropdown
         v-model="$v.distrito.$model"
@@ -156,6 +198,11 @@
         :options="distritos"
         placeholder="Seleccionar distrito"
       />
+      <small
+        v-if="$v.distrito.$error || incomplete"
+        class="text-red-500 block"
+        >{{ !$v.distrito.required ? "Seleccione un distrito" : "" }}</small
+      >
       <label
         for="type-of-property"
         class="font-black text-black text-sm block my-3"
@@ -163,6 +210,7 @@
       >
       <p class="mb-3">Selecciona un tipo de propiedad</p>
       <CardOptions
+        :error="incomplete && !$v.typeOfProperty.required"
         v-model="$v.typeOfProperty.$model"
         :options="propertyTypes"
       />
@@ -180,8 +228,8 @@
         placeholder="m²"
         @keypress="isNumber"
       />
-      <small v-if="$v.area.$error" class="text-xs text-red-500 block"
-        >El dato desde ser mayor o igual a 1 m².
+      <small v-if="$v.area.$error || incomplete" class="text-red-500 block"
+        >{{ !$v.area.required ? "El dato desde ser mayor o igual a 1 m²" : "" }}
       </small>
       <label
         for="type-of-property"
@@ -194,46 +242,43 @@
         v-model="$v.owner.$model"
         placeholder="¿Quién es dueño de la propiedad?"
       />
-      <small v-if="$v.owner.$error" class="text-xs text-red-500 block"
-        >Por favor escoge una opción</small
-      >
+      <small v-if="$v.owner.$error || incomplete" class="text-red-500 block">{{
+        !$v.owner.required ? "Seleccione una opción" : ""
+      }}</small>
       <label
         for="type-of-property"
         class="font-black text-black text-sm block my-3"
         >¿La propiedad está inscrita en SUNARP? *</label
       >
-      <PillOptions v-model="$v.sunarp.$model" />
-      <small v-if="$v.sunarp.$error" class="text-xs text-red-500 block"
-        >Por favor escoge una opción</small
-      >
+      <PillOptions
+        v-model="$v.sunarp.$model"
+        :error="incomplete && !$v.sunarp.required"
+      />
 
       <label
         for="type-of-property"
         class="font-black text-black text-sm block my-3"
         >¿Cuenta con un embargo vigente? *</label
       >
-      <PillOptions v-model="$v.embargo.$model" :showThird="true" />
-      <small v-if="$v.embargo.$error" class="text-xs text-red-500 block"
-        >Por favor escoge una opción</small
-      >
+      <PillOptions
+        v-model="$v.embargo.$model"
+        :showThird="true"
+        :error="incomplete && !$v.embargo.required"
+      />
       <label
         for="type-of-property"
         class="font-black text-black text-sm block my-3"
         >¿Cuenta con una hipoteca vigente? *</label
       >
-      <PillOptions v-model="$v.hipoteca.$model" :showThird="true" />
-      <small class="text-xs block mt-1" v-if="hipoteca == 0"
+      <PillOptions
+        v-model="$v.hipoteca.$model"
+        :showThird="true"
+        :error="incomplete && !$v.hipoteca.required"
+      />
+      <small class="block mt-1" v-if="hipoteca == 0"
         >Recuerda que parte del préstamo será destinado a la cancelación total
         de la hipoteca.</small
       >
-      <small v-if="$v.hipoteca.$error" class="text-xs text-red-500 block"
-        >Por favor escoge una opción</small
-      >
-      <div class="text-center mt-2" v-if="incomplete">
-        <small class="text-red-500"
-          >Por favor completa los campos requeridos</small
-        >
-      </div>
       <div class="grid grid-cols-7 lg:grid-cols-6 gap-2 mt-4">
         <div
           class="flex flex-row items-center cursor-pointer pr-4 py-2 col-span-2 lg:col-span-2"
@@ -302,23 +347,23 @@ export default {
     };
   },
   validations: {
-    phone1: { required, numeric, maxLength: maxLength(9) },
-    phone2: { numeric, maxLength: maxLength(9) },
+    phone1: { required, numeric, minLength: minLength(7) },
+    phone2: { numeric, minLength: minLength(7) },
     dni: {
       required,
       numeric,
       maxLength: maxLength(8),
       minLength: minLength(8),
     },
-    nombre: { required },
-    apellido: { required },
+    nombre: { required, minLength: minLength(2) },
+    apellido: { required, minLength: minLength(2) },
     email: { required, email },
-    typeOfProperty: { required, between: between(0, 5) },
-    area: { required, numeric, minLength: minLength(1) },
-    owner: { required, between: between(0, 2) },
-    sunarp: { required, between: between(0, 1) },
-    embargo: { required, between: between(0, 2) },
-    hipoteca: { required, between: between(0, 2) },
+    typeOfProperty: { required },
+    area: { required },
+    owner: { required },
+    sunarp: { required },
+    embargo: { required },
+    hipoteca: { required },
     departamento: { required },
     provincia: { required },
     distrito: { required },
@@ -366,20 +411,19 @@ export default {
       return this.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
     },
     validateFirst() {
-      this.step = 1;
-      // if (
-      //   this.$v.dni.$invalid ||
-      //   this.$v.nombre.$invalid ||
-      //   this.$v.apellido.$invalid ||
-      //   this.$v.phone1.$invalid ||
-      //   this.$v.phone2.$invalid ||
-      //   this.$v.email.$invalid
-      // ) {
-      //   this.incomplete = true;
-      // } else {
-      //   this.incomplete = false;
-      //   this.step = 1;
-      // }
+      if (
+        this.$v.dni.$invalid ||
+        this.$v.nombre.$invalid ||
+        this.$v.apellido.$invalid ||
+        this.$v.phone1.$invalid ||
+        this.$v.phone2.$invalid ||
+        this.$v.email.$invalid
+      ) {
+        this.incomplete = true;
+      } else {
+        this.incomplete = false;
+        this.step = 1;
+      }
       this.$emit("step", 1);
     },
     validateSecond() {
