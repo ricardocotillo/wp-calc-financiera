@@ -312,7 +312,6 @@ import {
   email,
   numeric,
   maxLength,
-  between,
   minLength,
 } from "vuelidate/lib/validators";
 export default {
