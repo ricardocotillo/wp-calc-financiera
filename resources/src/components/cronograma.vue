@@ -77,7 +77,7 @@
         </div>
         <p class="text-md text-gray-500 text-center px-7">
           <template v-if="type == 0">
-            Tasa Efectiva Annual (TEA) del 36% promedio, sujeto a calificación
+            Tasa Efectiva Anual (TEA) del 36% promedio, sujeto a calificación
             crediticia en el sistema financiero.
             <br /><br />
             La cuota incluye amortización alcapital más el interés respectivo a
