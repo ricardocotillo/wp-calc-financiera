@@ -7,23 +7,25 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import Calculadora from "./components/calculadora.vue";
 import { baseUrl } from "./mixins/calcData";
-export default {
+
+export default defineComponent({
   data() {
     return {
-      direction: null,
+      direction: 0,
       baseUrl,
     };
   },
   created() {
-    const direccion = document.querySelector("#app").dataset.direccion;
+    const direccion = (document.querySelector("#app") as HTMLElement).dataset.direccion;
     this.direction =
       direccion === "horizontal" ? 0 : direccion === "vertical" ? 1 : 0;
   },
-  components: { Calculadora },
-};
+  components: {
+   Calculadora
+  }
+});
 </script>
-<style scoped>
-</style>

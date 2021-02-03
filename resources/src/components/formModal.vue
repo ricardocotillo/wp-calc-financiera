@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Modal from "../layouts/modal";
 import Amount from "./amount";
 import Dropdown from "./dropdown";
@@ -92,7 +93,7 @@ import { baseUrl } from "../mixins/calcData";
 import { formatAmount } from "../mixins/formatAmount";
 
 import { initialMsg, msgs, typeOfPayments, periods } from "../mixins/calcData";
-export default {
+export default defineComponent({
   props: {
     amount: {
       type: Number,
@@ -130,7 +131,7 @@ export default {
     },
   },
   components: { Modal, Amount, Dropdown, Form },
-};
+});
 </script>
 
 <style>

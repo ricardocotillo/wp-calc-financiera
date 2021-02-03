@@ -57,13 +57,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 /*global wp_ajax*/
+import { defineComponent } from "vue";
 import Cronograma from "./cronograma";
 import FormModal from "./formModal";
 import Waiting from "./waiting";
 import { formatAmount } from "../mixins/formatAmount";
-export default {
+export default defineComponent({
   props: {
     amount: Number,
     type: Number,
@@ -136,7 +137,7 @@ export default {
     this.pptm = Number(app.dataset.pptm);
   },
   components: { Cronograma, FormModal, Waiting },
-};
+});
 </script>
 
 <style>

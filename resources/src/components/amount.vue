@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="label" class="text-center font-bold text-gray-600 py-2">{{label}}</div>
+    <div v-if="label" class="text-center font-bold text-gray-600 py-2">
+      {{ label }}
+    </div>
     <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
@@ -32,16 +34,20 @@
         +
       </div>
     </div>
-    <p class="text-xs text-center font-bold mt-2" :class="ramount < min ? 'text-red-500' : 'text-gray-700'">
+    <p
+      class="text-xs text-center font-bold mt-2"
+      :class="ramount < min ? 'text-red-500' : 'text-gray-700'"
+    >
       Desde S/ {{ formatAmount(min) }}
     </p>
   </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import { formatAmount } from "../mixins/formatAmount";
 import { isNumber } from "../mixins/isNumer";
-export default {
+export default defineComponent({
   props: {
     value: Number,
     label: String,
@@ -90,7 +96,7 @@ export default {
       return this.ramount;
     },
   },
-};
+});
 </script>
 
 <style>

@@ -301,10 +301,11 @@
   </div>
 </template>
 
-<script>
-import Dropdown from "./dropdown";
-import CardOptions from "./cardOptions";
-import PillOptions from "./pillOptions";
+<script lang="ts">
+import { defineComponent } from "vue";
+import Dropdown from "./dropdown.vue";
+import CardOptions from "./cardOptions.vue";
+import PillOptions from "./pillOptions.vue";
 import { isNumber } from "../mixins/isNumer";
 import { baseUrl } from "../mixins/calcData";
 import {
@@ -313,8 +314,11 @@ import {
   numeric,
   maxLength,
   minLength,
-} from "vuelidate/lib/validators";
-export default {
+} from "@vuelidate/validators";
+import { Owner } from "../models/owner";
+import { Property } from "../models/property";
+import { Ubigeo } from "../models/ubigeo";
+export default defineComponent({
   data() {
     return {
       baseUrl,
@@ -333,15 +337,15 @@ export default {
       departamento: 15,
       provincia: null,
       distrito: null,
-      departamentos: [],
+      departamentos: [] as Array<Ubigeo>,
       owner: null,
       ownerOptions: [
         { key: 1, title: "Sólo yo" },
         { key: 2, title: "Otras personas y yo" },
         { key: 3, title: "Otras personas" },
-      ],
-      propertyTypes: [],
-      ubigeo: [],
+      ] as Array<Owner>,
+      propertyTypes: [] as Array<Property>,
+      ubigeo: [] as Array<Ubigeo>,
       incomplete: false,
     };
   },
@@ -491,5 +495,5 @@ export default {
       });
   },
   components: { Dropdown, CardOptions, PillOptions },
-};
+});
 </script>

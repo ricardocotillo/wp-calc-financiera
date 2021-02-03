@@ -119,9 +119,10 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Modal from "../layouts/modal";
 import { formatAmount } from "../mixins/formatAmount";
-export default {
+export default defineComponent({
   props: {
     isOpen: Boolean,
     amount: Number,
@@ -137,7 +138,7 @@ export default {
     formatAmount,
   },
   components: { Modal },
-};
+});
 </script>
 
 <style>

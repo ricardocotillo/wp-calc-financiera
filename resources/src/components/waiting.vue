@@ -24,17 +24,19 @@
       <h1 v-else class="text-lg text-blue-900 font-bold text-center max-w-md">
         !Excelente!
       </h1>
-      <p class="text-center max-w-md">En las próximas horas un asesor especializado se comunicará
-        contigo para brindarte todos los detalles de tu solicitud.
+      <p class="text-center max-w-md">
+        En las próximas horas un asesor especializado se comunicará contigo para
+        brindarte todos los detalles de tu solicitud.
       </p>
     </template>
   </Modal>
 </template>
 
-<script>
-import Modal from "../layouts/modal";
+<script lang="ts">
+import { defineComponent } from "vue";
+import Modal from "../layouts/modal.vue";
 import { baseUrl } from "../mixins/calcData";
-export default {
+export default defineComponent({
   props: {
     isOpen: {
       type: Boolean,
@@ -51,7 +53,7 @@ export default {
     };
   },
   components: { Modal },
-};
+});
 </script>
 
 <style>

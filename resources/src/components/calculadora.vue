@@ -69,7 +69,10 @@
         "
       >
         <div class="text-gray-700 text-xs">
-          <div class="font-bold text-gray-800 inline-block" v-if="selectedType !== null">
+          <div
+            class="font-bold text-gray-800 inline-block"
+            v-if="selectedType !== null"
+          >
             {{ typeOfPayments[selectedType].title }}:
           </div>
           {{ selectedType === null ? initialMsg : msgs[selectedType] }}
@@ -79,11 +82,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Dropdown from "./dropdown";
 import Amount from "./amount";
 import Result from "./result";
-export default {
+export default defineComponent({
   props: {
     direction: {
       type: Number,
@@ -138,5 +142,5 @@ export default {
     },
   },
   components: { Dropdown, Amount, Result },
-};
+});
 </script>

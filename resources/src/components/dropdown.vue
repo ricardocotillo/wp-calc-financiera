@@ -57,9 +57,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { baseUrl } from "../mixins/calcData";
-export default {
+export default defineComponent({
   props: {
     value: Number,
     options: {
@@ -95,5 +96,5 @@ export default {
       this.close();
     },
   },
-};
+});
 </script>

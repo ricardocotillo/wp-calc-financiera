@@ -17,7 +17,8 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   props: {
     showThird: {
       type: Boolean,
@@ -39,8 +40,5 @@ export default {
       return this.options.filter((v, i) => i < 2 || this.showThird);
     },
   },
-};
+});
 </script>
-
-<style>
-</style>
