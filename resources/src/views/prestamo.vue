@@ -80,9 +80,9 @@
 </template>
 
 <script>
-import Dropdown from "./dropdown";
-import Amount from "./amount";
-import Result from "./result";
+import Dropdown from "../components/dropdown";
+import Amount from "../components/amount";
+import Result from "../components/result";
 export default {
   props: {
     direction: {

@@ -74,27 +74,31 @@ class Calc_Financiera_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		global $post;
-		
-		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'dist/js/app.js', null, $this->version, true );
-			wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'dist/js/chunk-vendors.js', null, $this->version, true );
-			wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0.3' ),
-			) );
-		}
+		wp_enqueue_script( $this->plugin_name . 'wp_vue1', plugin_dir_url( __FILE__ ) . 'dist/js/app.js', null, $this->version, true );
+		wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'dist/js/chunk-vendors.js', null, $this->version, true );
+		wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0.3' ),
+		) );
+	}
+
+	/**
+	 * Defer JavaScript files for the public-facing side of the site.
+	 *
+	 * @since    1.0.5
+	 */
+	public function script_defer() {
 
 	}
 
-	public function shortcode_function( $atts = array() ) {
+	public function shortcode_prestamo( $atts = array() ) {
 		extract(shortcode_atts(array(
 			'direccion' => 'horizontal',
 			'cuotas_fijas_tea' => 0.36,
 			'solo_intereses_tasa' => 0.025,
 			'prestamo_puente_tasa' => 0.032,
 		), $atts));
-		return '<div id="app" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
+		return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
 	}
 
 	public function calc_ajax_solicitud() {
