@@ -12,11 +12,21 @@
         Regístrate
       </div>
     </div>
-    <Registrarme :isOpen="registrarme" @close="registrarme = false" />
+    <Registrarme
+      :isOpen="registrarme"
+      @close="registrarme = false"
+      @submit="submit"
+    />
+    <Waiting
+      :isOpen="showWating"
+      :loading="loading"
+      @close="showWating = false"
+    />
   </div>
 </template>
 
 <script>
+/*global wp_ajax*/
 import { formatAmount } from "../mixins/formatAmount";
 import Registrarme from "./registrarme";
 export default {
@@ -30,6 +40,8 @@ export default {
     return {
       tea: 0.36,
       registrarme: false,
+      showWaiting: false,
+      loading: false,
     };
   },
   methods: {
@@ -50,6 +62,24 @@ export default {
         (this.tem * this.ramount) /
         (1 - Math.pow(1 + this.tem, this.period * 12 * -1))
       );
+    },
+    submit(solicitud) {
+      this.showWating = true;
+      this.loading = true;
+      this.registrarme = false;
+      const form = new FormData();
+      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]));
+      form.append("action", "calc_ajax_solicitud");
+      fetch(wp_ajax.ajax_url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+        body: form,
+      }).then(() => {
+        this.loading = false;
+      });
     },
   },
   created() {
