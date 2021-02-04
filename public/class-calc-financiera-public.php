@@ -60,12 +60,7 @@ class Calc_Financiera_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		global $post;
-
-		if (has_shortcode($post->post_content, 'calculadora-financiera')) {
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/css/app.css', array(), $this->version, 'all' );
-		}
-
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'dist/css/app.css', array(), $this->version, 'all' );
 	}
 
 	/**
