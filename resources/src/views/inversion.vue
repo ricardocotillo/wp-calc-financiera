@@ -5,10 +5,20 @@
       :class="direction === 0 ? 'lg:grid-cols-4 lg:gap-4 lg:grid-rows-2' : ''"
     >
       <div class="px-3 pt-3 pb-2">
-        <Checkboxes v-model="type" label="Tipo de inversión" />
+        <Checkboxes
+          v-model="type"
+          label="Tipo de inversión"
+          @input="period = 0"
+        />
       </div>
       <div class="px-3 pt-3 pb-2">
-        <Amount v-model="amount" label="Monto a invertir" />
+        <Amount
+          v-model="amount"
+          label="Monto a invertir"
+          :min="500"
+          :max="100000"
+          :step="10000"
+        />
       </div>
       <div class="px-3 pt-3 pb-2 flex justify-center items-start">
         <Dropdown
@@ -22,7 +32,8 @@
         :class="direction === 0 ? 'lg:col-start-1 lg:col-end-4' : ''"
       >
         <div class="text-xs text-gray-800">
-          Rentabilidad anual promedio: 19.67%<br />
+          Rentabilidad anual promedio: {{ type === 1 ? "19.67%" : "17.66%"
+          }}<br />
           La inversión conlleva un riesgo que el inversionista asume.
         </div>
       </div>

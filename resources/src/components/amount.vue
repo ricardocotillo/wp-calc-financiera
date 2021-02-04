@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="label" class="text-center font-bold text-gray-600 py-2">{{label}}</div>
+    <div v-if="label" class="text-center font-bold text-gray-600 py-2">
+      {{ label }}
+    </div>
     <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
@@ -32,7 +34,10 @@
         +
       </div>
     </div>
-    <p class="text-xs text-center font-bold mt-2" :class="ramount < min ? 'text-red-500' : 'text-gray-700'">
+    <p
+      class="text-xs text-center font-bold mt-2"
+      :class="ramount < min ? 'text-red-500' : 'text-gray-700'"
+    >
       Desde S/ {{ formatAmount(min) }}
     </p>
   </div>
@@ -45,14 +50,23 @@ export default {
   props: {
     value: Number,
     label: String,
+    min: {
+      type: Number,
+      default: 20000,
+    },
+    max: {
+      type: Number,
+      default: 1000000,
+    },
+    step: {
+      type: Number,
+      default: 100,
+    },
   },
   data() {
     return {
       showFormatted: true,
       ramount: this.value,
-      step: 100,
-      min: 20000,
-      max: 1000000,
     };
   },
   methods: {

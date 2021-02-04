@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="text-center">
+    <div class="text-center flex flex-col items-center">
       <div class="font-bold text-gray-600">En {{ label }} ganarías</div>
       <div class="text-2xl font-bold mb-1 mt-2">
         S/ {{ formatAmount(intereses, 2) }}
       </div>
       <div
         @click="registrarme = true"
-        class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
+        class="rounded-sm w-32 bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
       >
         Regístrate
       </div>
@@ -39,7 +39,8 @@ export default {
   },
   data() {
     return {
-      tea: 0.36,
+      prestamoTea: 0.36,
+      factoringTea: 0.39,
       registrarme: false,
       showWaiting: false,
       loading: false,
@@ -68,24 +69,26 @@ export default {
   },
   computed: {
     tem() {
-      return Math.pow(1 + this.tea, 1 / 12) - 1;
+      const tea = this.type === 1 ? this.prestamoTea : this.factoringTea;
+      return Math.pow(1 + tea, 1 / 12) - 1;
     },
-    ramount() {
-      return this.amount < 20000 ? 20000 : this.amount;
+    rperiod() {
+      return this.type === 1 ? this.period * 12 : this.period;
     },
     intereses() {
-      return this.cuota * this.period * 12 - this.ramount;
+      return this.cuota * this.rperiod - this.amount;
     },
     cuota() {
       return (
-        (this.tem * this.ramount) /
-        (1 - Math.pow(1 + this.tem, this.period * 12 * -1))
+        (this.tem * this.amount) /
+        (1 - Math.pow(1 + this.tem, this.rperiod * -1))
       );
     },
   },
   created() {
     const app = document.querySelector("#app");
-    this.tea = Number(app.dataset.tea);
+    this.prestamoTea = Number(app.dataset.prestamoTea);
+    this.factoringTea = Number(app.dataset.factoringTea);
   },
   components: { Registrarme, Waiting },
 };
