@@ -109,7 +109,7 @@ class Calc_Financiera_Public {
 			'prestamo_puente_tasa' => 0.032,
 		), $atts));
 
-		return '<div id="app" data-tipo="factoring" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
+		return '<div id="app" data-tipo="inversion" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
 	}
 
 	public function calc_ajax_solicitud() {
