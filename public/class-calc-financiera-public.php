@@ -115,6 +115,7 @@ class Calc_Financiera_Public {
 		);
 		$s_id = wp_insert_post($args);
 		$fields_to_update = array(
+			'tipo_de_solicitud',
 			'nombres',
 			'apellidos',
 			'dni',
