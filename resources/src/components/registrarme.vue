@@ -120,12 +120,28 @@
         </button>
       </div>
     </template>
+    <template v-slot:footer>
+      <div class="max-w-sm px-5">
+        <div class="flex items-center mb-5 mt-7">
+          <img class="w-5 mr-4" :src="`${baseUrl}/img/lock.svg`" />
+          <div class="font-bold text-gray-700 text-sm">
+            ¿Es seguro dar mis datos a Grupo Imagen?
+          </div>
+        </div>
+        <div class="text-xs mb-12">
+          Sí. Grupo Imagen es una empresa registrada en la Superintendencia de
+          Banca y Seguros (SBS – Resolución Nº00046-2020), y se rige por la Ley
+          de Protección de Datos Personales.
+        </div>
+      </div>
+    </template>
   </Modal>
 </template>
 
 <script>
 import Modal from "../layouts/modal";
 import { isNumber } from "../mixins/isNumer";
+import { baseUrl } from "../mixins/calcData";
 import {
   required,
   numeric,
@@ -146,6 +162,7 @@ export default {
       phone2: "",
       email: "",
       incomplete: false,
+      baseUrl,
     };
   },
   validations: {
@@ -165,6 +182,18 @@ export default {
     isNumber,
     close() {
       this.$emit("close");
+    },
+    send() {
+      const solicitud = {
+        tipo_de_solicitud: "inversion",
+        nombres: this.nombre,
+        apellidos: this.apellido,
+        dni: this.dni,
+        telefono1: this.phone1,
+        telefono2: this.phone2,
+        email: this.email,
+      };
+      this.$emit("submit", solicitud);
     },
     validate() {
       if (this.$v.$invalid) {

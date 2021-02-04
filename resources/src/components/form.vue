@@ -434,6 +434,7 @@ export default {
     },
     send() {
       const solicitud = {
+        tipo_de_solicitud: "prestamo",
         nombres: this.nombre,
         apellidos: this.apellido,
         dni: this.dni,

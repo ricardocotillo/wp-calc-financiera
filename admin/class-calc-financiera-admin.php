@@ -86,31 +86,6 @@ class Calc_Financiera_Admin {
 		}
 	}
 
-	// public function create_option() {
-
-	// 	$cmb_options = new_cmb2_box( array(
-	// 		'type' 			=> 'menu',
-	// 		'id'           	=> $this->plugin_name . '-option',
-	// 		'title'        	=> 'Calc config',
-	// 		'object_types'	=> array( 'options-page' ),
-	// 		'option_key'    => 'rc' . $this->plugin_name . '-option', // The option key and admin menu page slug.
-	// 		'icon_url'      => 'dashicons-admin-generic', // Menu icon.
-	// 		'capability'    => 'manage_options', // Capability required to view this options page.
-	// 		'position'      => 3, // Menu position.
-	// 		'save_button'   => 'Save',
-	// 	) );
-
-	// 	$cmb_options->add_field( array(
-	// 		'name' 				=> 'Dirección',
-	// 		'desc' 				=> 'Dirección del layout de la calculadora',
-	// 		'id'   				=> 'direccion',
-	// 		'type' 				=> 'select',
-	// 		'show_option_none'	=> false,
-	// 		'default'			=> 0,
-	// 		'options'          	=> array('Horizontal', 'Vertical'),
-	// 	) );
-	// }
-
 	public function create_metabox() {
 
 		$cmb = new_cmb2_box( array(
@@ -119,10 +94,19 @@ class Calc_Financiera_Admin {
 			'object_types'  => array( 'solicitud', ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'high',
-			'show_names'    => true, // Show field names on the left
-			// 'cmb_styles' => false, // false to disable the CMB stylesheet
-			// 'closed'     => true, // Keep the metabox closed by default
+			'show_names'    => true,
 		) );
+
+		$cmb->add_field( array(
+			'name'		=> 'Tipo de solicitud',
+			'id' 		=> $this->plugin_name . 'tipo_de_solicitud',
+			'type'		=> 'select',
+			'options'	=> array(
+				'prestamo' => 'Préstamo', 
+				'inversion' => 'Inversíon', 
+				'factoring' => 'Factoring',
+			),
+		));
 
 		$cmb->add_field( array(
 			'name'       => 'Nombres',
