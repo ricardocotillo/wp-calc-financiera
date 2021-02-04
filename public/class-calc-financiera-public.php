@@ -101,7 +101,7 @@ class Calc_Financiera_Public {
 		return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
 	}
 
-	public function shortcode_factoring( $atts = array() ) {
+	public function shortcode_inversion( $atts = array() ) {
 		extract(shortcode_atts(array(
 			'direccion' => 'horizontal',
 			'cuotas_fijas_tea' => 0.36,
