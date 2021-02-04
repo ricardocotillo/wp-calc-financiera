@@ -101,6 +101,17 @@ class Calc_Financiera_Public {
 		return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
 	}
 
+	public function shortcode_factoring( $atts = array() ) {
+		extract(shortcode_atts(array(
+			'direccion' => 'horizontal',
+			'cuotas_fijas_tea' => 0.36,
+			'solo_intereses_tasa' => 0.025,
+			'prestamo_puente_tasa' => 0.032,
+		), $atts));
+
+		return '<div id="app" data-tipo="factoring" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
+	}
+
 	public function calc_ajax_solicitud() {
 		$args = array(
 			'post_title'	=> $_POST['nombres'] . ' ' . $_POST['apellidos'],
