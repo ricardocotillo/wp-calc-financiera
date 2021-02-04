@@ -5,7 +5,7 @@
       :direction="direction"
     />
     <Inversion
-      v-if="direction !== null && type == 'inversion'"
+      v-else-if="direction !== null && type == 'inversion'"
       :direction="direction"
     />
     <div v-else class="flex justify-center items-center">
