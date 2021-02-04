@@ -200,6 +200,7 @@ export default {
         this.incomplete = true;
       } else {
         this.incomplete = false;
+        this.send();
       }
     },
   },

@@ -18,9 +18,9 @@
       @submit="submit"
     />
     <Waiting
-      :isOpen="showWating"
+      :isOpen="showWaiting"
       :loading="loading"
-      @close="showWating = false"
+      @close="showWaiting = false"
     />
   </div>
 </template>
@@ -29,6 +29,7 @@
 /*global wp_ajax*/
 import { formatAmount } from "../mixins/formatAmount";
 import Registrarme from "./registrarme";
+import Waiting from "./waiting";
 export default {
   props: {
     label: String,
@@ -46,25 +47,8 @@ export default {
   },
   methods: {
     formatAmount,
-  },
-  computed: {
-    tem() {
-      return Math.pow(1 + this.tea, 1 / 12) - 1;
-    },
-    ramount() {
-      return this.amount < 20000 ? 20000 : this.amount;
-    },
-    intereses() {
-      return this.cuota * this.period * 12 - this.ramount;
-    },
-    cuota() {
-      return (
-        (this.tem * this.ramount) /
-        (1 - Math.pow(1 + this.tem, this.period * 12 * -1))
-      );
-    },
     submit(solicitud) {
-      this.showWating = true;
+      this.showWaiting = true;
       this.loading = true;
       this.registrarme = false;
       const form = new FormData();
@@ -82,11 +66,28 @@ export default {
       });
     },
   },
+  computed: {
+    tem() {
+      return Math.pow(1 + this.tea, 1 / 12) - 1;
+    },
+    ramount() {
+      return this.amount < 20000 ? 20000 : this.amount;
+    },
+    intereses() {
+      return this.cuota * this.period * 12 - this.ramount;
+    },
+    cuota() {
+      return (
+        (this.tem * this.ramount) /
+        (1 - Math.pow(1 + this.tem, this.period * 12 * -1))
+      );
+    },
+  },
   created() {
     const app = document.querySelector("#app");
     this.tea = Number(app.dataset.tea);
   },
-  components: { Registrarme },
+  components: { Registrarme, Waiting },
 };
 </script>
 
