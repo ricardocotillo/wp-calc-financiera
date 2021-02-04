@@ -6,16 +6,19 @@
         S/ {{ formatAmount(intereses, 2) }}
       </div>
       <div
+        @click="registrarme = true"
         class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
       >
         Regístrate
       </div>
     </div>
+    <Registrarme :isOpen="registrarme" @close="registrarme = false" />
   </div>
 </template>
 
 <script>
 import { formatAmount } from "../mixins/formatAmount";
+import Registrarme from "./registrarme";
 export default {
   props: {
     label: String,
@@ -26,6 +29,7 @@ export default {
   data() {
     return {
       tea: 0.36,
+      registrarme: false,
     };
   },
   methods: {
@@ -52,6 +56,7 @@ export default {
     const app = document.querySelector("#app");
     this.tea = Number(app.dataset.tea);
   },
+  components: { Registrarme },
 };
 </script>
 
