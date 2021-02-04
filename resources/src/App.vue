@@ -1,6 +1,13 @@
 <template>
   <div>
-    <Prestamo v-if="direction !== null && type == 'prestamo'" :direction="direction" />
+    <Prestamo
+      v-if="direction !== null && type == 'prestamo'"
+      :direction="direction"
+    />
+    <Inversion
+      v-if="direction !== null && type == 'inversion'"
+      :direction="direction"
+    />
     <div v-else class="flex justify-center items-center">
       <img :src="`${baseUrl}/img/loader.svg`" class="w-16" />
     </div>
@@ -9,6 +16,7 @@
 
 <script>
 import Prestamo from "./views/prestamo";
+import Inversion from "./views/inversion";
 import { baseUrl } from "./mixins/calcData";
 export default {
   data() {
@@ -25,7 +33,7 @@ export default {
     this.direction =
       direccion === "horizontal" ? 0 : direccion === "vertical" ? 1 : 0;
   },
-  components: { Prestamo },
+  components: { Prestamo, Inversion },
 };
 </script>
 <style scoped>
