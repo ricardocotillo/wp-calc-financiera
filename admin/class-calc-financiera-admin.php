@@ -60,8 +60,12 @@ class Calc_Financiera_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
+		global $typenow;
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calc-financiera-admin.css', array(), $this->version, 'all' );
+		if ($typenow == 'solicitud') {
+			wp_enqueue_style('jquery-ui-css', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/calc-financiera-admin.css', array(), $this->version, 'all' );
+		}
 
 	}
 
@@ -71,17 +75,26 @@ class Calc_Financiera_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calc-financiera-admin.js', array( 'jquery' ), $this->version, false );
-
+		global $typenow;
+		if ($typenow === 'solicitud') {
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/calc-financiera-admin.js', array( 'jquery', 'jquery-ui-datepicker' ), $this->version, true );
+		}
 	}
 
 	public function add_export_button( $which ) {
 		global $typenow;
   
 		if ( 'solicitud' === $typenow && 'top' === $which ) {
+			$desde = date('Y-m-d', strtotime('-1 month'));
+			$hasta = date('Y-m-d', strtotime('now'));
 			?>
-			<a href="<?php echo admin_url( 'admin-post.php?action=csv_export' ); ?>" target="_blank" class="button button-primary"><?php _e('Exportar Solicitudes'); ?></a>
+				<select id="tipo-de-solicitud" name="tipo_de_solicitud">
+					<option value="prestamo" selected>Préstamo</option>
+					<option value="inversion">Inversión</option>
+				</select>
+				<input type="text" placeholder="Desde yyyy-mm-dd" id="desde" class="custom_date" name="start_date" value="<?php echo $desde; ?>"/>
+				<input type="text" placeholder="Hasta yyyy-mm-dd" id="hasta" class="custom_date" name="end_date" value="<?php echo $hasta; ?>"/>
+				<a id="export-btn" href="<?php echo admin_url( 'admin-post.php?action=csv_export&tipo_de_solicitud=prestamo&desde='.$desde.'&hasta='.$hasta ); ?>" target="_blank" class="button button-primary"><?php _e('Exportar Solicitudes'); ?></a>
 			<?php
 		}
 	}

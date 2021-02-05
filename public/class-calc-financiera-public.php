@@ -187,66 +187,115 @@ class Calc_Financiera_Public {
 	}
 
 	public function csv_export() {
+		$tipo_de_solicitud = $_GET['tipo_de_solicitud'];
+		$desde = $_GET['desde'];
+		$hasta = $_GET['hasta'];
 		$tipo = array( 'Casa', 'Dpto', 'Terreno', 'Local', 'Edificio' );
 		$sino = array('Si', 'No', 'No sé');
 		$dueno = array( 'Sólo yo', 'Otras personas y yo', 'Otras personas' );
 
-        $this->set_csv_header( 'Calc-Financiera Solicitudes' );
+		$this->set_csv_header( 'Calc-Financiera Solicitudes' );
 
         /**
          * PROCESS YOUR VALUES EXAMPLE
          */
         // Add header to csv
-        $header_values = array(
-            array(
-                'Nombres',
-                'Apellidos',
-				'DNI',
-				'Teléfono',
-				'Teléfono 2',
-				'Email',
-				'Departamento',
-				'Provincia',
-				'Distrito',
-				'Tipo de propiedad',
-				'Área de propiedad (m²)',
-				'Dueño de propiedad',
-				'¿La propiedad está inscrita en SUNARP?',
-				'¿Cuenta con un embargo vigente?',
-				'¿Cuenta con una hipoteca vigente?',
-			),
-		);
+        $header_values;
+
+		if ($tipo_de_solicitud == 'prestamo') {
+			$header_values = array(
+				array(
+					'Tipo de solicitud',
+					'Nombres',
+					'Apellidos',
+					'DNI',
+					'Teléfono',
+					'Teléfono 2',
+					'Email',
+					'Departamento',
+					'Provincia',
+					'Distrito',
+					'Tipo de propiedad',
+					'Área de propiedad (m²)',
+					'Dueño de propiedad',
+					'¿La propiedad está inscrita en SUNARP?',
+					'¿Cuenta con un embargo vigente?',
+					'¿Cuenta con una hipoteca vigente?',
+				)
+			);
+		} else {
+			$header_values = array(
+				array(
+					'Tipo de solicitud',
+					'Nombres',
+					'Apellidos',
+					'DNI',
+					'Teléfono',
+					'Teléfono 2',
+					'Email',
+				),
+			);
+		}
 
         // Get only IDs from all test post type sort by title.
         $args = array(
 			'posts_per_page'	=> -1,
 			'post_status' 		=> 'publish',
             'post_type'        	=> 'solicitud',
-	        'order'            	=> 'ASC',
+			'order'            	=> 'ASC',
+			'meta_query'        => array(
+				array(
+					'key'	=> $this->plugin_name . 'tipo_de_solicitud',
+					'value'	=> $tipo_de_solicitud,
+				)
+			),
+			'date_query'		=> array(
+				array(
+					'after'     => $desde,
+					'before'    => $hasta,
+					'inclusive' => true,
+				),
+			),
 		);
 
-        $solicitudes = get_posts( $args );
+		$solicitudes = get_posts( $args );
 
         // Loop IDs and get valuses what we want.
         $solicitudes_values = array();
         foreach ( $solicitudes as $solicitud ) {
-			array_push($solicitudes_values, array(
-				$solicitud->{$this->plugin_name . 'nombres'},
-				$solicitud->{$this->plugin_name . 'apellidos'},
-				$solicitud->{$this->plugin_name . 'dni'},
-				$solicitud->{$this->plugin_name . 'telefono1'},
-				$solicitud->{$this->plugin_name . 'telefono2'},
-				$solicitud->{$this->plugin_name . 'email'},
-				$solicitud->{$this->plugin_name . 'departamento'},
-				$solicitud->{$this->plugin_name . 'provincia'},
-				$solicitud->{$this->plugin_name . 'distrito'},
-				$tipo[(int)$solicitud->{$this->plugin_name . 'tipo_de_propiedad'}] ? $tipo[(int)$solicitud->{$this->plugin_name . 'tipo_de_propiedad'}] : 'No especificado',
-				$solicitud->{$this->plugin_name . 'area'},
-				$dueno[(int)$solicitud->{$this->plugin_name . 'dueno'}] ? $dueno[(int)$solicitud->{$this->plugin_name . 'dueno'}] : 'No especificado',
-				$sino[(int)$solicitud->{$this->plugin_name . 'sunarp'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'sunarp'}] : 'No especificado',
-				$sino[(int)$solicitud->{$this->plugin_name . 'embargo'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'embargo'}] : 'No especificado',
-				$sino[(int)$solicitud->{$this->plugin_name . 'hipoteca'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'hipoteca'}] : 'No especificado',
-			));
+			if ($tipo_de_solicitud == 'prestamo') {
+				$values1 = array(
+					$solicitud->{$this->plugin_name . 'tipo_de_solicitud'},
+					$solicitud->{$this->plugin_name . 'nombres'},
+					$solicitud->{$this->plugin_name . 'apellidos'},
+					$solicitud->{$this->plugin_name . 'dni'},
+					$solicitud->{$this->plugin_name . 'telefono1'},
+					$solicitud->{$this->plugin_name . 'telefono2'},
+					$solicitud->{$this->plugin_name . 'email'},
+					$solicitud->{$this->plugin_name . 'departamento'},
+					$solicitud->{$this->plugin_name . 'provincia'},
+					$solicitud->{$this->plugin_name . 'distrito'},
+					$tipo[(int)$solicitud->{$this->plugin_name . 'tipo_de_propiedad'}] ? $tipo[(int)$solicitud->{$this->plugin_name . 'tipo_de_propiedad'}] : 'No especificado',
+					$solicitud->{$this->plugin_name . 'area'},
+					$dueno[(int)$solicitud->{$this->plugin_name . 'dueno'}] ? $dueno[(int)$solicitud->{$this->plugin_name . 'dueno'}] : 'No especificado',
+					$sino[(int)$solicitud->{$this->plugin_name . 'sunarp'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'sunarp'}] : 'No especificado',
+					$sino[(int)$solicitud->{$this->plugin_name . 'embargo'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'embargo'}] : 'No especificado',
+					$sino[(int)$solicitud->{$this->plugin_name . 'hipoteca'}] ? $sino[(int)$solicitud->{$this->plugin_name . 'hipoteca'}] : 'No especificado',
+				);
+				array_push($solicitudes_values, $values1);
+			} else {
+				$values2 = array(
+					$solicitud->{$this->plugin_name . 'tipo_de_solicitud'},
+					$solicitud->{$this->plugin_name . 'nombres'},
+					$solicitud->{$this->plugin_name . 'apellidos'},
+					$solicitud->{$this->plugin_name . 'dni'},
+					$solicitud->{$this->plugin_name . 'telefono1'},
+					$solicitud->{$this->plugin_name . 'telefono2'},
+					$solicitud->{$this->plugin_name . 'email'},
+				);
+				array_push($solicitudes_values, $values2);
+			}
+			
 		}
 
         // // Merge them together.

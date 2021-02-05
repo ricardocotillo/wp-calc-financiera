@@ -1,32 +1,26 @@
-(function( $ ) {
-	'use strict';
-
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-})( jQuery );
+(function ($) {
+  'use strict';
+  const exportBtn = $('#export-btn');
+  $('.custom_date').datepicker({
+    dateFormat: 'yy-mm-dd',
+  });
+  let desde = $('#desde').val();
+  let hasta = $('#hasta').val();
+  let tipo = $('#tipo-de-solicitud').val();
+  $('#desde').change(function () {
+    desde = $(this).val();
+  });
+  $('#hasta').change(function () {
+    hasta = $(this).val();
+  });
+  $('#tipo-de-solicitud').change(function () {
+    tipo = $(this).val();
+  });
+  exportBtn.click(function (e) {
+    e.preventDefault();
+    let url = exportBtn.attr('href');
+    url = url.split('?')[0];
+    url = `${url}?action=csv_export&tipo_de_solicitud=${tipo}&desde=${desde}&hasta=${hasta}`;
+    window.location.href = url;
+  });
+})(jQuery);
