@@ -116,8 +116,7 @@ class Calc_Financiera_Admin {
 			'type'		=> 'select',
 			'options'	=> array(
 				'prestamo' => 'Préstamo', 
-				'inversion' => 'Inversíon', 
-				'factoring' => 'Factoring',
+				'inversion' => 'Inversíon',
 			),
 		));
 
