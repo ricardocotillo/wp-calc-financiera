@@ -104,7 +104,7 @@ class Calc_Financiera_Admin {
 		$cmb = new_cmb2_box( array(
 			'id'            => $this->plugin_name . '-meta',
 			'title'         => 'Datos del solicitante',
-			'object_types'  => array( 'solicitud', ), // Post type
+			'object_types'  => array( 'solicitud', ),
 			'context'       => 'normal',
 			'priority'      => 'high',
 			'show_names'    => true,

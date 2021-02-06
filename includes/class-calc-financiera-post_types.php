@@ -262,29 +262,6 @@ class Calc_Financiera_Post_Types {
                 ),
             ),
         );
-        // taxonomies:
-        // 'taxonomies'            => array(
-
-        //     array(
-        //         'taxonomy'          => 'test_category',
-        //         'plural'            => 'Test Categories',
-        //         'single'            => 'Test Category',
-        //         'post_types'        => array( 'test' ),
-        //     ),
-
-        // ),
-        // fields:
-        // 'title',
-        // 'editor',
-        // 'excerpt',
-        // 'author',
-        // 'thumbnail',
-        // 'comments',
-        // 'trackbacks',
-        // 'custom-fields',
-        // 'revisions',
-        // 'page-attributes',
-        // 'post-formats',
         foreach ( $post_types_fields as $fields ) {
 
             $this->register_single_post_type( $fields );

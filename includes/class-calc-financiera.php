@@ -128,6 +128,10 @@ class Calc_Financiera {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/cmb2/cmb2/init.php';
 
+		if ( is_readable( plugin_dir_path( dirname( __FILE__ ) ) . '/vendor/autoload.php' ) ) {
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
+		}
+
 		$this->loader = new Calc_Financiera_Loader();
 
 	}

@@ -73,7 +73,7 @@ class Calc_Financiera_Public {
 		wp_enqueue_script( $this->plugin_name . 'wp_vue2', plugin_dir_url( __FILE__ ) . 'dist/js/chunk-vendors.js', null, $this->version, true );
 		wp_localize_script( $this->plugin_name . 'wp_vue1', 'wp_ajax', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
-			'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0.3' ),
+			'_nonce' => wp_create_nonce( 'calc-financiera-ver=1.0.7' ),
 		) );
 	}
 
@@ -137,7 +137,12 @@ class Calc_Financiera_Public {
 		die( json_encode( array('status' => 201) ) );
 	}
 
-	public function array_to_csv( $array ) {
+	public function array_to_xlsx( $array ) {
+
+		$spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->fromArray($array, NULL, 'A1');
+		$writer = new PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 
         if (count($array) == 0) {
             return null;
@@ -147,9 +152,7 @@ class Calc_Financiera_Public {
 
         $df = fopen("php://output", 'w');
 
-        foreach ( $array as $row ) {
-            fputcsv( $df, $row );
-        }
+        $writer->save($df);
 
         fclose($df);
 
@@ -165,7 +168,7 @@ class Calc_Financiera_Public {
             $sitename .= '.';
         }
 
-        $filename = $sitename . $extra_file_name . '.' . date( 'Y-m-d-H-i-s' ) . '.csv';
+        $filename = $sitename . $extra_file_name . '.' . date( 'Y-m-d-H-i-s' ) . '.xlsx';
         $now = gmdate( "D, d M Y H:i:s" );
 
         // disable caching
@@ -180,9 +183,8 @@ class Calc_Financiera_Public {
         header( "Content-Type: application/octet-stream" );
         header( "Content-Type: application/download" );
 
-        header( "Content-Disposition: attachment; filename=" . $filename );
-        header( "Content-Transfer-Encoding: binary" );
-        header( "Content-Type: text/csv; charset=" . get_option( 'blog_charset' ), true );
+        header( "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		header( "Content-Disposition: attachment; filename=" . $filename );
 
 	}
 
@@ -304,7 +306,7 @@ class Calc_Financiera_Public {
          * END PROCESS YOUR VALUES EXAMPLE
          */
 
-        die($this->array_to_csv( $fields ));
+        die($this->array_to_xlsx( $fields ));
     }
 
 }
