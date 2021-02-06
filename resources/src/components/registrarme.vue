@@ -2,7 +2,7 @@
   <Modal :isOpen="isOpen" @close="close">
     <template v-slot:header>
       <div
-        class="max-w-sm font-black text-xl lg:text-2xl text-gray-500 mb-2 font-montserrat"
+        class="max-w-sm font-black text-xl lg:text-2xl text-gray-500 mb-2 font-montserrat text-center"
       >
         Regístrate para acceder a las opciones de inversión
       </div>
