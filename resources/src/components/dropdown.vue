@@ -1,5 +1,5 @@
 <template>
-  <div class="relative text-left" :class="`w-${w}`" @blur="close">
+  <div class="relative text-left" :class="`w-${w}`" >
     <div
       v-if="label"
       class="text-center font-bold py-2 rounded-t-md"
@@ -20,6 +20,7 @@
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
+        @blur="close"
       >
         {{ value !== null ? options[value].title : placeholder }}
         <img
