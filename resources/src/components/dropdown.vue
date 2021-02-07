@@ -20,7 +20,6 @@
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
-        @blur="close"
       >
         {{ value !== null ? options[value].title : placeholder }}
         <img
