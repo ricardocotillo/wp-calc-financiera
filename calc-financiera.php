@@ -16,7 +16,7 @@
  * Plugin Name:       calculadora financiera
  * Plugin URI:        https://portafolio.cotillo.tech/calc-financiera
  * Description:       Calculadora de cuotas de préstamo.
- * Version:           1.0.4
+ * Version:           1.0.7
  * Author:            Ricardo Cotillo
  * Author URI:        https://portafolio.cotillo.tech
  * License:           GPL-2.0+
