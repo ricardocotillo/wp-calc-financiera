@@ -1,5 +1,5 @@
 const formatAmount = (num, decimal = 0) => {
-    return num.toLocaleString("es-PE", {
+    return num.toLocaleString("en-US", {
         style: "decimal",
         maximumFractionDigits: decimal,
         minimumFractionDigits: decimal,
