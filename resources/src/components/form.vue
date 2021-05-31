@@ -307,16 +307,12 @@ import CardOptions from "./cardOptions";
 import PillOptions from "./pillOptions";
 import { isNumber } from "../mixins/isNumer";
 import { baseUrl } from "../mixins/calcData";
-import {
-  required,
-  email,
-  numeric,
-  maxLength,
-  minLength,
-} from "vuelidate/lib/validators";
+import useVuelidate from '@vuelidate/core';
+import { reactive, computed } from 'vue';
+import { required, email, numeric, maxLength, minLength, } from "@vuelidate/validators";
 export default {
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       baseUrl,
       step: 0,
       dni: "",
@@ -343,37 +339,40 @@ export default {
       propertyTypes: [],
       ubigeo: [],
       incomplete: false,
+    })
+
+    const rules = {
+      phone1: { required, numeric, minLength: minLength(7) },
+      phone2: { numeric, minLength: minLength(7) },
+      dni: {
+        required,
+        numeric,
+        maxLength: maxLength(8),
+        minLength: minLength(8),
+      },
+      nombre: { required, minLength: minLength(2) },
+      apellido: { required, minLength: minLength(2) },
+      email: { required, email },
+      typeOfProperty: { required },
+      area: { required },
+      owner: { required },
+      sunarp: { required },
+      embargo: { required },
+      hipoteca: { required },
+      departamento: { required },
+      provincia: { required },
+      distrito: { required },
     };
-  },
-  validations: {
-    phone1: { required, numeric, minLength: minLength(7) },
-    phone2: { numeric, minLength: minLength(7) },
-    dni: {
-      required,
-      numeric,
-      maxLength: maxLength(8),
-      minLength: minLength(8),
-    },
-    nombre: { required, minLength: minLength(2) },
-    apellido: { required, minLength: minLength(2) },
-    email: { required, email },
-    typeOfProperty: { required },
-    area: { required },
-    owner: { required },
-    sunarp: { required },
-    embargo: { required },
-    hipoteca: { required },
-    departamento: { required },
-    provincia: { required },
-    distrito: { required },
-  },
-  computed: {
-    provincias() {
-      if (this.departamento) {
-        return this.ubigeo
+
+    const $v = useVuelidate(rules, state)
+
+    // computed
+    const provincias = computed(() => {
+      if (state.departamento) {
+        return state.ubigeo
           .filter(
             (u) =>
-              u.departamento === this.departamentos[this.departamento].key &&
+              u.departamento === state.departamentos[state.departamento].key &&
               u.distrito === 0 &&
               u.provincia !== 0
           )
@@ -382,14 +381,15 @@ export default {
           });
       }
       return [];
-    },
-    distritos() {
-      if (this.provincia !== null) {
-        return this.ubigeo
+    })
+
+    const distritos = computed(() => {
+      if (state.provincia) {
+        return state.ubigeo
           .filter(
             (u) =>
-              u.departamento === this.departamentos[this.departamento].key &&
-              u.provincia === this.provincias[this.provincia].key &&
+              u.departamento === state.departamentos[state.departamento].key &&
+              u.provincia === state.provincias[state.provincia].key &&
               u.distrito !== 0
           )
           .map((d) => {
@@ -397,65 +397,68 @@ export default {
           });
       }
       return [];
-    },
-  },
-  methods: {
-    isNumber,
-    goBack() {
-      this.step = 0;
-      this.incomplete = false;
+    })
+
+    // methods
+    const goBack = () => {
+      state.step = 0;
+      state.incomplete = false;
       this.$emit("step", 0);
-    },
-    filterDepartamentos() {
-      return this.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
-    },
-    validateFirst() {
+    }
+
+    const filterDepartamentos = () => {
+      return state.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
+    }
+
+    const validateFirst = () => {
       if (
-        this.$v.dni.$invalid ||
-        this.$v.nombre.$invalid ||
-        this.$v.apellido.$invalid ||
-        this.$v.phone1.$invalid ||
-        this.$v.phone2.$invalid ||
-        this.$v.email.$invalid
+        $v.dni.$invalid ||
+        $v.nombre.$invalid ||
+        $v.apellido.$invalid ||
+        $v.phone1.$invalid ||
+        $v.phone2.$invalid ||
+        $v.email.$invalid
       ) {
-        this.incomplete = true;
+        state.incomplete = true;
       } else {
-        this.incomplete = false;
-        this.step = 1;
+        state.incomplete = false;
+        state.step = 1;
       }
       this.$emit("step", 1);
-    },
-    validateSecond() {
-      if (this.$v.$invalid) {
-        this.incomplete = true;
+    }
+
+    const validateSecond = () => {
+      if ($v.$invalid) {
+        state.incomplete = true;
       } else {
-        this.send();
+        send();
       }
-    },
-    send() {
+    }
+    
+    const send = () => {
       const solicitud = {
         tipo_de_solicitud: "prestamo",
-        nombres: this.nombre,
-        apellidos: this.apellido,
-        dni: this.dni,
-        telefono1: this.phone1,
-        telefono2: this.phone2,
-        email: this.email,
-        departamento: this.departamentos[this.departamento].title,
-        provincia: this.provincias[this.provincia].title,
-        distrito: this.distritos[this.distrito].title,
-        tipo_de_propiedad: this.typeOfProperty,
-        area: this.area,
-        dueno: this.owner,
-        sunarp: this.sunarp,
-        embargo: this.embargo,
-        hipoteca: this.hipoteca,
+        nombres: state.nombre,
+        apellidos: state.apellido,
+        dni: state.dni,
+        telefono1: state.phone1,
+        telefono2: state.phone2,
+        email: state.email,
+        departamento: state.departamentos[state.departamento].title,
+        provincia: provincias.value[state.provincia].title,
+        distrito: distritos.value[state.distrito].title,
+        tipo_de_propiedad: state.typeOfProperty,
+        area: state.area,
+        dueno: state.owner,
+        sunarp: state.sunarp,
+        embargo: state.embargo,
+        hipoteca: state.hipoteca,
       };
       this.$emit("submit", solicitud);
-    },
-  },
-  created() {
-    this.propertyTypes = [
+    }
+
+    // created
+    state.propertyTypes = [
       {
         key: 1,
         icon: `${this.baseUrl}/img/building.svg`,
@@ -481,7 +484,9 @@ export default {
         icon: `${this.baseUrl}/img/big-building.svg`,
         title: "Edificio",
       },
-    ];
+    ]
+
+
     fetch(`${this.baseUrl}/misc/ubigeo.json`)
       .then((res) => res.json())
       .then((data) => {
@@ -490,6 +495,9 @@ export default {
           return { key: d.departamento, title: d.nombre };
         });
       });
+
+
+    return { state, $v, provincias, distritos, isNumber, goBack, filterDepartamentos, validateFirst, validateSecond, send }
   },
   components: { Dropdown, CardOptions, PillOptions },
 };

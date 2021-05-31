@@ -29,12 +29,10 @@ export default {
   created() {
     const dataset = document.querySelector("#app").dataset;
     const direccion = dataset.direccion;
-    this.type = dataset.tipo;
+    this.type = dataset.tipo ?? 'prestamo';
     this.direction =
       direccion === "horizontal" ? 0 : direccion === "vertical" ? 1 : 0;
   },
   components: { Prestamo, Inversion },
 };
 </script>
-<style scoped>
-</style>

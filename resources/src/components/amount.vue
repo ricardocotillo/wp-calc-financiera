@@ -48,7 +48,7 @@ import { formatAmount } from "../mixins/formatAmount";
 import { isNumber } from "../mixins/isNumer";
 export default {
   props: {
-    value: Number,
+    modelValue: Number,
     label: String,
     min: {
       type: Number,
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       showFormatted: true,
-      ramount: this.value,
+      ramount: this.modelValue,
     };
   },
   methods: {
@@ -77,30 +77,30 @@ export default {
     },
     isNumber,
     increase() {
-      const amt = this.value + this.step;
+      const amt = this.modelValue + this.step;
       this.ramount = amt > this.max ? this.max : amt;
       this.emit();
     },
     decrease() {
-      const amt = this.value - this.step;
+      const amt = this.modelValue - this.step;
       this.ramount = amt < this.min ? this.min : amt;
       this.emit();
     },
     formatAmount,
     toggleInput() {
       this.showFormatted = !this.showFormatted;
-      if (this.value < this.min) {
+      if (this.modelValue < this.min) {
         this.ramount = this.min;
         this.emit();
       }
     },
     emit() {
-      this.$emit("input", this.ramount);
+      this.$emit("update:modelValue", this.ramount);
     },
   },
   computed: {
     formattedAmount() {
-      if (this.showFormatted) return this.formatAmount(Number(this.value));
+      if (this.showFormatted) return this.formatAmount(Number(this.modelValue));
       return this.ramount;
     },
   },

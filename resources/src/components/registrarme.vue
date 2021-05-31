@@ -142,19 +142,15 @@
 import Modal from "../layouts/modal";
 import { isNumber } from "../mixins/isNumer";
 import { baseUrl } from "../mixins/calcData";
-import {
-  required,
-  numeric,
-  maxLength,
-  minLength,
-  email,
-} from "vuelidate/lib/validators";
+import useVuelidate from '@vuelidate/core';
+import { required, numeric, maxLength, minLength, email } from "@vuelidate/validators";
+import { reactive } from 'vue';
 export default {
   props: {
     isOpen: Boolean,
   },
-  data() {
-    return {
+  setup() {
+    const state = reactive({
       dni: "",
       nombre: "",
       apellido: "",
@@ -163,27 +159,29 @@ export default {
       email: "",
       incomplete: false,
       baseUrl,
-    };
-  },
-  validations: {
-    dni: {
-      required,
-      numeric,
-      maxLength: maxLength(8),
-      minLength: minLength(8),
-    },
-    nombre: { required, minLength: minLength(2) },
-    apellido: { required, minLength: minLength(2) },
-    phone1: { required, numeric, minLength: minLength(7) },
-    phone2: { numeric, minLength: minLength(7) },
-    email: { required, email },
-  },
-  methods: {
-    isNumber,
-    close() {
+    });
+
+    const rules = {
+      dni: {
+        required,
+        numeric,
+        maxLength: maxLength(8),
+        minLength: minLength(8),
+      },
+      nombre: { required, minLength: minLength(2) },
+      apellido: { required, minLength: minLength(2) },
+      phone1: { required, numeric, minLength: minLength(7) },
+      phone2: { numeric, minLength: minLength(7) },
+      email: { required, email },
+    }
+
+    const $v = useVuelidate(rules, state);
+
+    // methods
+    const close = () => {
       this.$emit("close");
-    },
-    send() {
+    }
+    const send = () => {
       const solicitud = {
         tipo_de_solicitud: "inversion",
         nombres: this.nombre,
@@ -194,15 +192,18 @@ export default {
         email: this.email,
       };
       this.$emit("submit", solicitud);
-    },
-    validate() {
-      if (this.$v.$invalid) {
-        this.incomplete = true;
+    }
+
+    const validate = () => {
+      if ($v.$invalid) {
+        state.incomplete = true;
       } else {
-        this.incomplete = false;
-        this.send();
+        state.incomplete = false;
+        send();
       }
-    },
+    }
+
+    return { $v, state, close, send, validate, isNumber }
   },
   components: { Modal },
 };

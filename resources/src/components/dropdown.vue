@@ -21,7 +21,7 @@
         aria-haspopup="true"
         aria-expanded="true"
       >
-        {{ value !== null ? options[value].title : placeholder }}
+        {{ modelValue !== null ? options[modelValue].title : placeholder }}
         <img
           class="-mr-1 ml-2 h-5 w-5"
           :src="`${baseUrl}/img/arrow.svg`"
@@ -61,7 +61,7 @@
 import { baseUrl } from "../mixins/calcData";
 export default {
   props: {
-    value: Number,
+    modelValue: Number,
     options: {
       type: Array,
       default: () => [],
