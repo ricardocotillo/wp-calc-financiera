@@ -1,5 +1,5 @@
-const baseUrl = "/wp-content/plugins/calc-financiera/public";
-const initialMsg = "La simulación de la cuota y el cronograma puede variar según tu evaluación.";
+const baseUrl = "/wp-content/plugins/wp-calc-financiera/public"
+const initialMsg = "La simulación de la cuota y el cronograma puede variar según tu evaluación."
 const msgs = {
   0: "Las cuotas incluyen interés y amortización . La simulación de la cuota y el cronograma puede variar según tu evaluación.",
   1: "Las cuotas no incluyen amortización , reembolsas el capital a tu ritmo. La simulación de la cuota y el cronograma puede variar según tu evaluación.",
