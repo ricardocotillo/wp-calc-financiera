@@ -16,15 +16,15 @@
         type="text"
         name="dni"
         class="w-full border border-gray-300 focus:border-blue-900 focus:outline-none focus:ring-0 py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.dni.$model"
+        v-model="v$.dni.$model"
         @keypress="isNumber"
       />
-      <small v-if="$v.dni.$error || incomplete" class="text-red-500 block">{{
-        !$v.dni.required
+      <small v-if="v$.dni.$error || incomplete" class="text-red-500 block">{{
+        !v$.dni.required
           ? "Este campo es requerido"
-          : !$v.dni.minLength
+          : !v$.dni.minLength
           ? "Mínimo 8 dígitos"
-          : !$v.dni.maxLength
+          : !v$.dni.maxLength
           ? "Máximo 8 dígitos"
           : ""
       }}</small>
@@ -35,12 +35,12 @@
         type="text"
         name="nombre"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.nombre.$model"
+        v-model="v$.nombre.$model"
       />
-      <small v-if="$v.nombre.$error || incomplete" class="text-red-500 block">{{
-        !$v.nombre.required
+      <small v-if="v$.nombre.$error || incomplete" class="text-red-500 block">{{
+        !v$.nombre.required
           ? "Este campo es requerido"
-          : !$v.nombre.minLength
+          : !v$.nombre.minLength
           ? "Mínimo 2 caracteres"
           : ""
       }}</small>
@@ -50,15 +50,15 @@
         type="text"
         name="apellido"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.apellido.$model"
+        v-model="v$.apellido.$model"
       />
       <small
-        v-if="$v.apellido.$error || incomplete"
+        v-if="v$.apellido.$error || incomplete"
         class="text-red-500 block"
         >{{
-          !$v.apellido.required
+          !v$.apellido.required
             ? "Este campo es requerido"
-            : !$v.apellido.minLength
+            : !v$.apellido.minLength
             ? "Mínimo 2 caracteres"
             : ""
         }}</small
@@ -73,13 +73,13 @@
         type="tel"
         name="telefono1"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.phone1.$model"
+        v-model="v$.phone1.$model"
         @keypress="isNumber"
       />
-      <small v-if="$v.phone1.$error || incomplete" class="text-red-500 block">{{
-        !$v.phone1.required
+      <small v-if="v$.phone1.$error || incomplete" class="text-red-500 block">{{
+        !v$.phone1.required
           ? "Este campo es requerido"
-          : !$v.phone1.minLength
+          : !v$.phone1.minLength
           ? "Mínimo 7 dígitos"
           : ""
       }}</small>
@@ -92,8 +92,8 @@
         placeholder="(Opcional)"
         @keypress="isNumber"
       />
-      <small v-if="$v.phone2.$error || incomplete" class="text-red-500 block">{{
-        !$v.phone2.minLength ? "Mínimo 7 dígitos" : ""
+      <small v-if="v$.phone2.$error || incomplete" class="text-red-500 block">{{
+        !v$.phone2.minLength ? "Mínimo 7 dígitos" : ""
       }}</small>
       <div class="text-base">Correo electrónico *</div>
       <small class="text-xs block">Coloca un correo electrónico vigente</small>
@@ -104,10 +104,10 @@
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="email"
       />
-      <small v-if="$v.email.$error || incomplete" class="text-red-500 block">{{
-        !$v.email.required
+      <small v-if="v$.email.$error || incomplete" class="text-red-500 block">{{
+        !v$.email.required
           ? "Este campo es requerido"
-          : !$v.email.email
+          : !v$.email.email
           ? "El correo no es válido"
           : ""
       }}</small>
@@ -144,12 +144,13 @@ import { isNumber } from "../mixins/isNumer";
 import { baseUrl } from "../mixins/calcData";
 import useVuelidate from '@vuelidate/core';
 import { required, numeric, maxLength, minLength, email } from "@vuelidate/validators";
-import { reactive } from 'vue';
+import { reactive, ref, toRefs } from 'vue';
 export default {
   props: {
     isOpen: Boolean,
   },
-  setup() {
+  setup(_, {emit}) {
+    const incomplete = ref(false)
     const state = reactive({
       dni: "",
       nombre: "",
@@ -157,9 +158,7 @@ export default {
       phone1: "",
       phone2: "",
       email: "",
-      incomplete: false,
-      baseUrl,
-    });
+    })
 
     const rules = {
       dni: {
@@ -175,35 +174,35 @@ export default {
       email: { required, email },
     }
 
-    const $v = useVuelidate(rules, state);
+    const v$ = useVuelidate(rules, state)
 
     // methods
     const close = () => {
-      this.$emit("close");
+      emit("close")
     }
     const send = () => {
       const solicitud = {
         tipo_de_solicitud: "inversion",
-        nombres: this.nombre,
-        apellidos: this.apellido,
-        dni: this.dni,
-        telefono1: this.phone1,
-        telefono2: this.phone2,
-        email: this.email,
+        nombres: state.nombre,
+        apellidos: state.apellido,
+        dni: state.dni,
+        telefono1: state.phone1,
+        telefono2: state.phone2,
+        email: state.email,
       };
-      this.$emit("submit", solicitud);
+      emit("submit", solicitud)
     }
 
     const validate = () => {
-      if ($v.$invalid) {
-        state.incomplete = true;
+      if (v$.value.$invalid) {
+        incomplete.value = true
       } else {
-        state.incomplete = false;
-        send();
+        incomplete.value = false
+        send()
       }
     }
 
-    return { $v, state, close, send, validate, isNumber }
+    return { v$, close, send, validate, isNumber, baseUrl, incomplete, ...toRefs(state) }
   },
   components: { Modal },
 };
