@@ -91,7 +91,7 @@ export default {
       this.isOpen = false;
     },
     select(i) {
-      this.$emit("input", i);
+      this.$emit("update:modelValue", i);
       this.close();
     },
   },
