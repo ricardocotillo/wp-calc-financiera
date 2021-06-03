@@ -8,21 +8,21 @@
           <div class="lg:ml-10 lg:mr-0 ml-4 mr-4 mt-8">
             <div>
               <div class="text-xs">Quiero</div>
-              <Amount :value="amount" @input="$emit('change:amount', $event)" />
+              <Amount :modelValue="amount" @update:modelValue="$emit('change:amount', $event)" />
             </div>
             <div class="pt-2 pb-2">
               <div class="text-xs mb-3">Pagando con</div>
               <Dropdown
-                :value="type"
-                @input="$emit('change:type', $event)"
+                :modelValue="type"
+                @update:modelValue="$emit('change:type', $event)"
                 :options="typeOfPayments"
               />
             </div>
             <div class="pt-2 pb-2">
               <div class="text-xs mb-3">En un plazo de</div>
               <Dropdown
-                :value="period"
-                @input="$emit('change:period', $event)"
+                :modelValue="period"
+                @update:modelValue="$emit('change:period', $event)"
                 :options="type === null ? [] : periods[type]"
               />
             </div>

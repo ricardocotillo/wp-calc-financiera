@@ -14,15 +14,15 @@
         type="text"
         name="dni"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.dni.$model"
+        v-model="v$.dni.$model"
         @keypress="isNumber"
       />
-      <small v-if="$v.dni.$error || incomplete" class="text-red-500 block">{{
-        !$v.dni.required
+      <small v-if="v$.dni.$error || incomplete" class="text-red-500 block">{{
+        !v$.dni.required
           ? "Este campo es requerido"
-          : !$v.dni.minLength
+          : !v$.dni.minLength
           ? "Mínimo 8 dígitos"
-          : !$v.dni.maxLength
+          : !v$.dni.maxLength
           ? "Máximo 8 dígitos"
           : ""
       }}</small>
@@ -35,12 +35,12 @@
         type="text"
         name="nombre"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.nombre.$model"
+        v-model="v$.nombre.$model"
       />
-      <small v-if="$v.nombre.$error || incomplete" class="text-red-500 block">{{
-        !$v.nombre.required
+      <small v-if="v$.nombre.$error || incomplete" class="text-red-500 block">{{
+        !v$.nombre.required
           ? "Este campo es requerido"
-          : !$v.nombre.minLength
+          : !v$.nombre.minLength
           ? "Mínimo 2 caracteres"
           : ""
       }}</small>
@@ -52,15 +52,15 @@
         type="text"
         name="apellido"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.apellido.$model"
+        v-model="v$.apellido.$model"
       />
       <small
-        v-if="$v.apellido.$error || incomplete"
+        v-if="v$.apellido.$error || incomplete"
         class="text-red-500 block"
         >{{
-          !$v.apellido.required
+          !v$.apellido.required
             ? "Este campo es requerido"
-            : !$v.apellido.minLength
+            : !v$.apellido.minLength
             ? "Mínimo 2 caracteres"
             : ""
         }}</small
@@ -77,13 +77,13 @@
         type="tel"
         name="telefono1"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
-        v-model="$v.phone1.$model"
+        v-model="v$.phone1.$model"
         @keypress="isNumber"
       />
-      <small v-if="$v.phone1.$error || incomplete" class="text-red-500 block">{{
-        !$v.phone1.required
+      <small v-if="v$.phone1.$error || incomplete" class="text-red-500 block">{{
+        !v$.phone1.required
           ? "Este campo es requerido"
-          : !$v.phone1.minLength
+          : !v$.phone1.minLength
           ? "Mínimo 7 dígitos"
           : ""
       }}</small>
@@ -98,8 +98,8 @@
         placeholder="(Opcional)"
         @keypress="isNumber"
       />
-      <small v-if="$v.phone2.$error || incomplete" class="text-red-500 block">{{
-        !$v.phone2.minLength ? "Mínimo 7 dígitos" : ""
+      <small v-if="v$.phone2.$error || incomplete" class="text-red-500 block">{{
+        !v$.phone2.minLength ? "Mínimo 7 dígitos" : ""
       }}</small>
       <label for="email" class="font-black text-black text-base block mb-0"
         >Correo electrónico *</label
@@ -112,10 +112,10 @@
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         v-model="email"
       />
-      <small v-if="$v.email.$error || incomplete" class="text-red-500 block">{{
-        !$v.email.required
+      <small v-if="v$.email.$error || incomplete" class="text-red-500 block">{{
+        !v$.email.required
           ? "Este campo es requerido"
-          : !$v.email.email
+          : !v$.email.email
           ? "El correo no es válido"
           : ""
       }}</small>
@@ -163,7 +163,7 @@
       >
       <Dropdown
         v-if="departamentos.length > 0"
-        v-model="$v.departamento.$model"
+        v-model="v$.departamento.$model"
         @input="
           provincia = null;
           distrito = null;
@@ -172,36 +172,36 @@
         :options="departamentos"
       />
       <small
-        v-if="$v.departamento.$error || incomplete"
+        v-if="v$.departamento.$error || incomplete"
         class="text-red-500 block"
         >{{
-          !$v.departamento.required ? "Seleccione un departamento" : ""
+          !v$.departamento.required ? "Seleccione un departamento" : ""
         }}</small
       >
       <div class="h-4"></div>
       <Dropdown
-        v-model="$v.provincia.$model"
+        v-model="v$.provincia.$model"
         @input="distrito = null"
         w="full"
         :options="provincias"
         placeholder="Seleccionar provincia"
       />
       <small
-        v-if="$v.provincia.$error || incomplete"
+        v-if="v$.provincia.$error || incomplete"
         class="text-red-500 block"
-        >{{ !$v.provincia.required ? "Seleccione una provincia" : "" }}</small
+        >{{ !v$.provincia.required ? "Seleccione una provincia" : "" }}</small
       >
       <div class="h-4"></div>
       <Dropdown
-        v-model="$v.distrito.$model"
+        v-model="v$.distrito.$model"
         w="full"
         :options="distritos"
         placeholder="Seleccionar distrito"
       />
       <small
-        v-if="$v.distrito.$error || incomplete"
+        v-if="v$.distrito.$error || incomplete"
         class="text-red-500 block"
-        >{{ !$v.distrito.required ? "Seleccione un distrito" : "" }}</small
+        >{{ !v$.distrito.required ? "Seleccione un distrito" : "" }}</small
       >
       <label
         for="type-of-property"
@@ -210,8 +210,8 @@
       >
       <p class="mb-3">Selecciona un tipo de propiedad</p>
       <CardOptions
-        :error="incomplete && !$v.typeOfProperty.required"
-        v-model="$v.typeOfProperty.$model"
+        :error="incomplete && !v$.typeOfProperty.required"
+        v-model="v$.typeOfProperty.$model"
         :options="propertyTypes"
       />
       <label
@@ -223,13 +223,13 @@
         required
         type="text"
         name="area"
-        v-model.number="$v.area.$model"
+        v-model.number="v$.area.$model"
         class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
         placeholder="m²"
         @keypress="isNumber"
       />
-      <small v-if="$v.area.$error || incomplete" class="text-red-500 block"
-        >{{ !$v.area.required ? "El dato desde ser mayor o igual a 1 m²" : "" }}
+      <small v-if="v$.area.$error || incomplete" class="text-red-500 block"
+        >{{ !v$.area.required ? "El dato desde ser mayor o igual a 1 m²" : "" }}
       </small>
       <label
         for="type-of-property"
@@ -239,11 +239,11 @@
       <Dropdown
         :options="ownerOptions"
         w="full"
-        v-model="$v.owner.$model"
+        v-model="v$.owner.$model"
         placeholder="¿Quién es dueño de la propiedad?"
       />
-      <small v-if="$v.owner.$error || incomplete" class="text-red-500 block">{{
-        !$v.owner.required ? "Seleccione una opción" : ""
+      <small v-if="v$.owner.$error || incomplete" class="text-red-500 block">{{
+        !v$.owner.required ? "Seleccione una opción" : ""
       }}</small>
       <label
         for="type-of-property"
@@ -251,8 +251,8 @@
         >¿La propiedad está inscrita en SUNARP? *</label
       >
       <PillOptions
-        v-model="$v.sunarp.$model"
-        :error="incomplete && !$v.sunarp.required"
+        v-model="v$.sunarp.$model"
+        :error="incomplete && !v$.sunarp.required"
       />
 
       <label
@@ -261,9 +261,9 @@
         >¿Cuenta con un embargo vigente? *</label
       >
       <PillOptions
-        v-model="$v.embargo.$model"
+        v-model="v$.embargo.$model"
         :showThird="true"
-        :error="incomplete && !$v.embargo.required"
+        :error="incomplete && !v$.embargo.required"
       />
       <label
         for="type-of-property"
@@ -271,9 +271,9 @@
         >¿Cuenta con una hipoteca vigente? *</label
       >
       <PillOptions
-        v-model="$v.hipoteca.$model"
+        v-model="v$.hipoteca.$model"
         :showThird="true"
-        :error="incomplete && !$v.hipoteca.required"
+        :error="incomplete && !v$.hipoteca.required"
       />
       <small class="block mt-1" v-if="hipoteca == 0"
         >Recuerda que parte del préstamo será destinado a la cancelación total
@@ -307,14 +307,25 @@ import CardOptions from "./cardOptions";
 import PillOptions from "./pillOptions";
 import { isNumber } from "../mixins/isNumer";
 import { baseUrl } from "../mixins/calcData";
-import useVuelidate from '@vuelidate/core';
-import { reactive, computed } from 'vue';
-import { required, email, numeric, maxLength, minLength, } from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
+import { reactive, computed, ref, toRefs } from "vue";
+import {
+  required,
+  email,
+  numeric,
+  maxLength,
+  minLength
+} from "@vuelidate/validators";
 export default {
-  setup() {
+  setup(_, {emit}) {
+    const ownerOptions = [
+      { key: 1, title: 'Sólo yo' },
+      { key: 2, title: 'Otras personas y yo' },
+      { key: 3, title: 'Otras personas' },
+    ]
+    const step = ref(0)
+    const incomplete = ref(false)
     const state = reactive({
-      baseUrl,
-      step: 0,
       dni: "",
       nombre: "",
       apellido: "",
@@ -324,22 +335,16 @@ export default {
       sunarp: null,
       embargo: null,
       hipoteca: null,
-      area: "",
+      area: '',
       typeOfProperty: null,
       departamento: 15,
       provincia: null,
       distrito: null,
       departamentos: [],
       owner: null,
-      ownerOptions: [
-        { key: 1, title: "Sólo yo" },
-        { key: 2, title: "Otras personas y yo" },
-        { key: 3, title: "Otras personas" },
-      ],
       propertyTypes: [],
       ubigeo: [],
-      incomplete: false,
-    })
+    });
 
     const rules = {
       phone1: { required, numeric, minLength: minLength(7) },
@@ -348,7 +353,7 @@ export default {
         required,
         numeric,
         maxLength: maxLength(8),
-        minLength: minLength(8),
+        minLength: minLength(8)
       },
       nombre: { required, minLength: minLength(2) },
       apellido: { required, minLength: minLength(2) },
@@ -361,80 +366,80 @@ export default {
       hipoteca: { required },
       departamento: { required },
       provincia: { required },
-      distrito: { required },
+      distrito: { required }
     };
 
-    const $v = useVuelidate(rules, state)
+    const v$ = useVuelidate(rules, state);
 
     // computed
     const provincias = computed(() => {
       if (state.departamento) {
         return state.ubigeo
           .filter(
-            (u) =>
+            u =>
               u.departamento === state.departamentos[state.departamento].key &&
               u.distrito === 0 &&
               u.provincia !== 0
           )
-          .map((p) => {
+          .map(p => {
             return { key: p.provincia, title: p.nombre };
           });
       }
       return [];
-    })
+    });
 
     const distritos = computed(() => {
       if (state.provincia) {
         return state.ubigeo
           .filter(
-            (u) =>
+            u =>
               u.departamento === state.departamentos[state.departamento].key &&
               u.provincia === state.provincias[state.provincia].key &&
               u.distrito !== 0
           )
-          .map((d) => {
+          .map(d => {
             return { key: d.distrito, title: d.nombre };
           });
       }
       return [];
-    })
+    });
 
     // methods
     const goBack = () => {
-      state.step = 0;
-      state.incomplete = false;
-      this.$emit("step", 0);
-    }
+      step.value = 0
+      incomplete.value = false
+      emit("step", 0)
+    };
 
     const filterDepartamentos = () => {
-      return state.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0);
+      return state.ubigeo.filter(u => u.provincia === 0 && u.distrito === 0);
     }
 
     const validateFirst = () => {
       if (
-        $v.dni.$invalid ||
-        $v.nombre.$invalid ||
-        $v.apellido.$invalid ||
-        $v.phone1.$invalid ||
-        $v.phone2.$invalid ||
-        $v.email.$invalid
+        v$.value.dni.$invalid ||
+        v$.value.nombre.$invalid ||
+        v$.value.apellido.$invalid ||
+        v$.value.phone1.$invalid ||
+        v$.value.phone2.$invalid ||
+        v$.value.email.$invalid
       ) {
-        state.incomplete = true;
+        incomplete.value = true
       } else {
-        state.incomplete = false;
-        state.step = 1;
+        incomplete.value = false
+        step.value = 1
       }
-      this.$emit("step", 1);
+      emit("step", 1)
     }
 
     const validateSecond = () => {
-      if ($v.$invalid) {
-        state.incomplete = true;
+      if (v$.value.$invalid) {
+        incomplete.value = true
       } else {
-        send();
+        send()
       }
     }
-    
+
     const send = () => {
       const solicitud = {
         tipo_de_solicitud: "prestamo",
@@ -452,53 +457,66 @@ export default {
         dueno: state.owner,
         sunarp: state.sunarp,
         embargo: state.embargo,
-        hipoteca: state.hipoteca,
-      };
-      this.$emit("submit", solicitud);
+        hipoteca: state.hipoteca
+      }
+      emit("submit", solicitud)
     }
 
     // created
     state.propertyTypes = [
       {
         key: 1,
-        icon: `${this.baseUrl}/img/building.svg`,
-        title: "Casa",
+        icon: `${baseUrl}/img/building.svg`,
+        title: "Casa"
       },
       {
         key: 2,
-        icon: `${this.baseUrl}/img/building.svg`,
-        title: "Dpto",
+        icon: `${baseUrl}/img/building.svg`,
+        title: "Dpto"
       },
       {
         key: 3,
-        icon: `${this.baseUrl}/img/land.svg`,
-        title: "Terreno",
+        icon: `${baseUrl}/img/land.svg`,
+        title: "Terreno"
       },
       {
         key: 4,
-        icon: `${this.baseUrl}/img/local.svg`,
-        title: "Local",
+        icon: `${baseUrl}/img/local.svg`,
+        title: "Local"
       },
       {
         key: 5,
-        icon: `${this.baseUrl}/img/big-building.svg`,
-        title: "Edificio",
-      },
-    ]
+        icon: `${baseUrl}/img/big-building.svg`,
+        title: "Edificio"
+      }
+    ];
 
-
-    fetch(`${this.baseUrl}/misc/ubigeo.json`)
-      .then((res) => res.json())
-      .then((data) => {
+    fetch(`${baseUrl}/misc/ubigeo.json`)
+      .then(res => res.json())
+      .then(data => {
         this.ubigeo = data;
-        this.departamentos = this.filterDepartamentos().map((d) => {
+        this.departamentos = this.filterDepartamentos().map(d => {
           return { key: d.departamento, title: d.nombre };
         });
       });
 
-
-    return { state, $v, provincias, distritos, isNumber, goBack, filterDepartamentos, validateFirst, validateSecond, send }
+    return {
+      v$,
+      provincias,
+      distritos,
+      isNumber,
+      goBack,
+      filterDepartamentos,
+      validateFirst,
+      validateSecond,
+      send,
+      baseUrl,
+      ownerOptions,
+      step,
+      incomplete,
+      ...toRefs(state),
+    }
   },
-  components: { Dropdown, CardOptions, PillOptions },
+  components: { Dropdown, CardOptions, PillOptions }
 };
 </script>
