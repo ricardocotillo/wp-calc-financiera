@@ -99,6 +99,39 @@ class Calc_Financiera_Admin {
 		}
 	}
 
+	public function create_options() {
+		$cmb_options = new_cmb2_box( array(
+			'id' 			=> $this->plugin_name . '-options',
+			'title' 		=> 'Calc settings',
+			'object_types'	=> array( 'options-page' ),
+			'option_key'      => 'pr_services', // The option key and admin menu page slug.
+			'icon_url'        => 'dashicons-admin-generic', // Menu icon.
+			'capability'      => 'edit_posts', // Capability required to view this options page.
+			'position'        => 3, // Menu position.
+			'save_button'     => 'Save',
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Primary Color',
+			'id'      => $this->plugin_name . '-primary_color',
+			'type'    => 'colorpicker',
+			'default' => '#ffffff',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Secondary Color',
+			'id'      => $this->plugin_name . '-secondary_color',
+			'type'    => 'colorpicker',
+			'default' => '#ffffff',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+	}
+
 	public function create_metabox() {
 
 		$cmb = new_cmb2_box( array(
