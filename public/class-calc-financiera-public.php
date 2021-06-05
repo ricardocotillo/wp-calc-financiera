@@ -87,13 +87,20 @@ class Calc_Financiera_Public {
 	}
 
 	public function shortcode_prestamo( $atts = array() ) {
-		extract(shortcode_atts(array(
+		$options = get_option( $this->plugin_name . '-options');
+		$atts = shortcode_atts(array(
 			'direccion' => 'horizontal',
 			'cuotas_fijas_tea' => 0.36,
 			'solo_intereses_tasa' => 0.025,
 			'prestamo_puente_tasa' => 0.032,
-		), $atts));
-		return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
+		), $atts);
+
+		$settings = array_merge($options, $atts);
+		$settings['tipo'] = 'prestamo';
+		$json_settings = json_encode($settings);
+		
+		// return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
+		return '<div id="app" data-settings=' . $json_settings . ' ></div>';
 	}
 
 	public function shortcode_inversion( $atts = array() ) {

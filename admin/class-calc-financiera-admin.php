@@ -104,16 +104,16 @@ class Calc_Financiera_Admin {
 			'id' 			=> $this->plugin_name . '-options',
 			'title' 		=> 'Calc settings',
 			'object_types'	=> array( 'options-page' ),
-			'option_key'      => 'pr_services', // The option key and admin menu page slug.
-			'icon_url'        => 'dashicons-admin-generic', // Menu icon.
-			'capability'      => 'edit_posts', // Capability required to view this options page.
-			'position'        => 3, // Menu position.
-			'save_button'     => 'Save',
+			'option_key'    => $this->plugin_name . '-options', // The option key and admin menu page slug.
+			'icon_url'      => 'dashicons-admin-generic', // Menu icon.
+			'capability'    => 'edit_posts', // Capability required to view this options page.
+			'position'      => 3, // Menu position.
+			'save_button'   => 'Save',
 		) );
 
 		$cmb_options->add_field( array(
 			'name'    => 'Primary Color',
-			'id'      => $this->plugin_name . '-primary_color',
+			'id'      => $this->plugin_name . '_primary_color',
 			'type'    => 'colorpicker',
 			'default' => '#ffffff',
 			'options' => array(
@@ -123,7 +123,7 @@ class Calc_Financiera_Admin {
 
 		$cmb_options->add_field( array(
 			'name'    => 'Secondary Color',
-			'id'      => $this->plugin_name . '-secondary_color',
+			'id'      => $this->plugin_name . '_secondary_color',
 			'type'    => 'colorpicker',
 			'default' => '#ffffff',
 			'options' => array(

@@ -72,7 +72,7 @@ class Calc_Financiera {
 		} else {
 			$this->version = '1.0.9';
 		}
-		$this->plugin_name = 'calc-financiera';
+		$this->plugin_name = 'calc_financiera';
 
 		$this->load_dependencies();
 		$this->set_locale();
