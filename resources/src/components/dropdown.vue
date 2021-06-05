@@ -1,9 +1,9 @@
 <template>
-  <div class="relative text-left" :class="`w-${w}`" >
+  <div class="relative text-left" :class="`w-${w}`">
     <div
       v-if="label"
       class="text-center font-bold py-2 rounded-t-md"
-      :class="focused ? 'bg-yellow-400 text-white' : ' text-gray-600'"
+      :style="{backgroundColor: primaryColor}"
     >
       {{ label }}
     </div>
@@ -11,11 +11,27 @@
       <button
         @click="isOpen = !isOpen"
         type="button"
-        class="inline-flex justify-between w-full border shadow-sm px-4 py-3 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+        class="
+          inline-flex
+          justify-between
+          w-full
+          border
+          shadow-sm
+          px-4
+          py-3
+          bg-white
+          text-sm
+          font-medium
+          text-gray-700
+          hover:bg-gray-50
+          focus:outline-none
+          rounded-none
+          rounded-b-md
+        "
         :class="
           focused
-            ? 'border-yellow-400 rounded-b-md'
-            : 'border-gray-300 rounded-md'
+            ? 'border-yellow-400'
+            : 'border-gray-300'
         "
         id="options-menu"
         aria-haspopup="true"
@@ -39,13 +55,32 @@
     >
       <div
         v-show="isOpen"
-        class="origin-top-right absolute right-0 mt-2 w-full ounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+        class="
+          origin-top-right
+          absolute
+          right-0
+          mt-2
+          w-full
+          ounded-md
+          shadow-lg
+          bg-white
+          ring-1 ring-black ring-opacity-5
+          z-50
+        "
       >
         <div class="py-1 max-h-80 overflow-y-auto">
           <div
             v-for="(opt, i) in options"
             :key="opt.key + '-' + opt.title"
-            class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="
+              cursor-pointer
+              block
+              px-4
+              py-2
+              text-sm text-gray-700
+              hover:bg-gray-100
+              hover:text-gray-900
+            "
             role="menuitem"
             @click="select(i)"
           >
@@ -58,8 +93,15 @@
 </template>
 
 <script>
-import { baseUrl } from "../mixins/calcData";
+import { computed } from 'vue'
+import { baseUrl } from '../mixins/calcData'
+import { useState } from '../store/store'
 export default {
+  setup() {
+    const state = useState()
+
+    return { ...state }
+  },
   props: {
     modelValue: Number,
     options: {
@@ -68,11 +110,11 @@ export default {
     },
     w: {
       type: String,
-      default: "full",
+      default: 'full',
     },
     placeholder: {
       type: String,
-      default: "Seleccionar",
+      default: 'Seleccionar',
     },
     label: String,
     focused: {
@@ -84,16 +126,16 @@ export default {
     return {
       baseUrl,
       isOpen: false,
-    };
+    }
   },
   methods: {
     close() {
-      this.isOpen = false;
+      this.isOpen = false
     },
     select(i) {
-      this.$emit("update:modelValue", i);
-      this.close();
+      this.$emit('update:modelValue', i)
+      this.close()
     },
   },
-};
+}
 </script>

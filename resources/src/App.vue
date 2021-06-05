@@ -22,6 +22,12 @@ import { baseUrl } from './mixins/calcData'
 export default {
   setup() {
     const state = useState()
+    const dataset = document.querySelector('#app').dataset
+    const settings = JSON.parse(dataset.settings)
+    state.direction = settings.direccion
+    state.type = settings.tipo ?? 'prestamo'
+    state.primaryColor = settings.calc_financiera_primary_color
+    state.secondaryColor = settings.calc_financiera_secondary_color
   },
   data() {
     return {
@@ -31,8 +37,8 @@ export default {
     }
   },
   created() {
-    const dataset = document.querySelector('#app').dataset
-    const settings = JSON.parse(dataset.settings)
+    // const dataset = document.querySelector('#app').dataset
+    const settings = {direccion: null, tipo: null} //JSON.parse(dataset.settings)
     const direccion = settings.direccion
     this.type = settings.tipo ?? 'prestamo'
     this.direction =
