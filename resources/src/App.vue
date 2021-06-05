@@ -15,24 +15,29 @@
 </template>
 
 <script>
-import Prestamo from "./views/prestamo";
-import Inversion from "./views/inversion";
-import { baseUrl } from "./mixins/calcData";
+import Prestamo from './views/prestamo'
+import Inversion from './views/inversion'
+import { useState } from './store/store'
+import { baseUrl } from './mixins/calcData'
 export default {
+  setup() {
+    const state = useState()
+  },
   data() {
     return {
       type: null,
       direction: null,
       baseUrl,
-    };
+    }
   },
   created() {
-    const dataset = document.querySelector("#app").dataset;
-    const direccion = dataset.direccion;
-    this.type = dataset.tipo ?? 'prestamo';
+    const dataset = document.querySelector('#app').dataset
+    const settings = JSON.parse(dataset.settings)
+    const direccion = settings.direccion
+    this.type = settings.tipo ?? 'prestamo'
     this.direction =
-      direccion === "horizontal" ? 0 : direccion === "vertical" ? 1 : 0;
+      direccion === 'horizontal' ? 0 : direccion === 'vertical' ? 1 : 0
   },
   components: { Prestamo, Inversion },
-};
+}
 </script>
