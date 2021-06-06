@@ -18,7 +18,17 @@
       </div>
       <div
         @click="showSolicitar = true"
-        class="rounded-sm bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
+        class="
+          rounded-sm
+          bg-yellow-400
+          px-3
+          py-2
+          cursor-pointer
+          text-white
+          font-bold
+          text-sm
+          my-3
+        "
       >
         Precalifica aquí
       </div>
@@ -28,7 +38,7 @@
       @close="showPayTable = false"
       @solicitar="
         showPayTable = false;
-        showSolicitar = true;
+        showSolicitar = true
       "
       :isOpen="showPayTable"
       :typeText="typeText"
@@ -59,10 +69,12 @@
 
 <script>
 /*global wp_ajax*/
-import Cronograma from "./cronograma";
-import FormModal from "./formModal";
-import Waiting from "./waiting";
-import { formatAmount } from "../mixins/formatAmount";
+import Cronograma from './cronograma'
+import FormModal from './formModal'
+import Waiting from './waiting'
+import { formatAmount } from '../mixins/formatAmount'
+import { useState } from '../store/store'
+import { ref, computed, toRefs } from 'vue'
 export default {
   props: {
     amount: Number,
@@ -70,73 +82,74 @@ export default {
     typeText: String,
     periods: Number,
   },
-  data() {
-    return {
-      msg: "Tus cuota se calculará al ingresar los datos anteriores",
-      showPayTable: false,
-      showSolicitar: false,
-      showForm: false,
-      showWating: false,
-      tea: 0.36,
-      sitm: 0.025,
-      pptm: 0.032,
-      loading: true,
-    };
-  },
-  methods: {
-    formatAmount,
-    submit(solicitud) {
-      this.showWating = true;
-      this.loading = true;
-      this.showSolicitar = false;
-      const form = new FormData();
-      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]));
-      form.append("action", "calc_ajax_solicitud");
+  setup(props) {
+    const { amount, type, periods } = toRefs(props)
+    const state = useState()
+
+    const msg = 'Tus cuota se calculará al ingresar los datos anteriores'
+    const loading = ref(true)
+    const showWating = ref(false)
+    const showForm = ref(false)
+    const showSolicitar = ref(false)
+    const showPayTable = ref(false)
+
+    // computed
+    const tem = computed(() => Math.pow(1 + state.tea, 1 / 12) - 1)
+    const ramount = computed(() =>
+      amount.value < 20000 ? 20000 : amount.value
+    )
+    const cuota = computed(() => {
+      let c
+      switch (type.value) {
+        case 0:
+          c =
+            (tem.value * ramount.value) /
+            (1 - Math.pow(1 + tem.value, (periods.value + 1) * 12 * -1))
+          break
+        case 1:
+          c = ramount.value * state.sitm
+          break
+        default:
+          c = ramount.value * state.pptm * (periods.value + 1)
+          break
+      }
+      return c
+    })
+
+    // methods
+    const submit = (solicitud) => {
+      showWating.value = true
+      loading.value = true
+      showSolicitar.value = false
+      const form = new FormData()
+      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]))
+      form.append('action', 'calc_ajax_solicitud')
       fetch(wp_ajax.ajax_url, {
-        method: "POST",
-        credentials: "same-origin",
+        method: 'POST',
+        credentials: 'same-origin',
         headers: {
-          "Cache-Control": "no-cache",
+          'Cache-Control': 'no-cache',
         },
         body: form,
       }).then(() => {
-        this.loading = false;
-      });
-    },
-  },
-  computed: {
-    tem() {
-      return Math.pow(1 + this.tea, 1 / 12) - 1;
-    },
-    ramount() {
-      return this.amount < 20000 ? 20000 : this.amount;
-    },
-    cuota() {
-      let c;
-      switch (this.type) {
-        case 0:
-          c =
-            (this.tem * this.ramount) /
-            (1 - Math.pow(1 + this.tem, (this.periods + 1) * 12 * -1));
-          break;
-        case 1:
-          c = this.ramount * this.sitm;
-          break;
-        default:
-          c = this.ramount * this.pptm * (this.periods + 1);
-          break;
-      }
-      return c;
-    },
-  },
-  created() {
-    const app = document.querySelector("#app");
-    this.tea = Number(app.dataset.tea);
-    this.sitm = Number(app.dataset.sitm);
-    this.pptm = Number(app.dataset.pptm);
+        loading.value = false
+      })
+    }
+    return {
+      formatAmount,
+      msg,
+      loading,
+      showWating,
+      showForm,
+      showSolicitar,
+      showPayTable,
+      cuota,
+      submit,
+      ...state,
+    }
   },
   components: { Cronograma, FormModal, Waiting },
-};
+}
 </script>
 
 <style>

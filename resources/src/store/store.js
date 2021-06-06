@@ -4,7 +4,9 @@ export const stateSymbol = Symbol('state')
 export const createState = () => reactive({
   type: null,
   direction: null,
-  primaryColor: null,
+  tea: 0.36,
+  sitm: 0.025,
+  pptm: 0.032,
   secondaryColor: null,
 })
 

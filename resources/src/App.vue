@@ -26,6 +26,9 @@ export default {
     const settings = JSON.parse(dataset.settings)
     state.direction = settings.direccion
     state.type = settings.tipo ?? 'prestamo'
+    state.tea = settings.cuotas_fijas_tea
+    state.sitm = settings.solo_intereses_tasa
+    state.pptm = settings.prestamo_puente_tasa
     state.primaryColor = settings.calc_financiera_primary_color
     state.secondaryColor = settings.calc_financiera_secondary_color
   },
