@@ -8,10 +8,8 @@
         @click="decrease"
         class="
           rounded-full
-          bg-blue-900
           w-7
           h-7
-          text-white
           focus:outline-none
           cursor-pointer
           flex
@@ -21,6 +19,7 @@
           select-none
           justify-self-start
         "
+        :style="{backgroundColor: primaryColor}"
       >
         <div class="h-0.5 w-2 bg-white"></div>
       </div>
@@ -78,10 +77,8 @@
         @click="increase"
         class="
           rounded-full
-          bg-blue-900
           w-7
           h-7
-          text-white
           focus:outline-none
           cursor-pointer
           flex
@@ -89,9 +86,10 @@
           items-center
           font-bold
         "
+        :style="{backgroundColor: primaryColor}"
       >
-        <div class="h-0.5 w-2 bg-white transform translate-x-2/4"></div>
-        <div class="h-0.5 w-2 bg-white transform rotate-90 -translate-x-2/4"></div>
+        <div class="h-0.5 w-2 transform translate-x-2/4" :style="{backgroundColor: colorOverPrimary}"></div>
+        <div class="h-0.5 w-2 transform rotate-90 -translate-x-2/4" :style="{backgroundColor: colorOverPrimary}"></div>
       </div>
     </div>
     <p
@@ -106,7 +104,13 @@
 <script>
 import { formatAmount } from '../mixins/formatAmount'
 import { isNumber } from '../mixins/isNumer'
+import { useState } from '../store/store'
 export default {
+  setup() {
+    const state = useState()
+
+    return { ...state }
+  },
   props: {
     modelValue: Number,
     label: String,

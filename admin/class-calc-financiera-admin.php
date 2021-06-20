@@ -112,8 +112,18 @@ class Calc_Financiera_Admin {
 		) );
 
 		$cmb_options->add_field( array(
-			'name'    => 'Primary Color',
+			'name'    => 'Primary color',
 			'id'      => $this->plugin_name . '_primary_color',
+			'type'    => 'colorpicker',
+			'default' => '#1e73be',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Color over primary',
+			'id'      => $this->plugin_name . '_color_over_primary',
 			'type'    => 'colorpicker',
 			'default' => '#ffffff',
 			'options' => array(
@@ -122,8 +132,18 @@ class Calc_Financiera_Admin {
 		) );
 
 		$cmb_options->add_field( array(
-			'name'    => 'Secondary Color',
+			'name'    => 'Secondary color',
 			'id'      => $this->plugin_name . '_secondary_color',
+			'type'    => 'colorpicker',
+			'default' => '#dd9933',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Color over secondary',
+			'id'      => $this->plugin_name . '_color_over_secondary',
 			'type'    => 'colorpicker',
 			'default' => '#ffffff',
 			'options' => array(

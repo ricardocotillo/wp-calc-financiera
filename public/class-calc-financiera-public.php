@@ -94,12 +94,11 @@ class Calc_Financiera_Public {
 			'solo_intereses_tasa' => 0.025,
 			'prestamo_puente_tasa' => 0.032,
 		), $atts);
-
+		
 		$settings = array_merge($options, $atts);
 		$settings['tipo'] = 'prestamo';
 		$json_settings = json_encode($settings);
 		
-		// return '<div id="app" data-tipo="prestamo" data-tea="'.$cuotas_fijas_tea.'" data-sitm="'.$solo_intereses_tasa.'" data-pptm="'.$prestamo_puente_tasa.'" data-direccion="'. $direccion . '"></div>';
 		return '<div id="app" data-settings=' . $json_settings . ' ></div>';
 	}
 

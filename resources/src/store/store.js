@@ -8,6 +8,9 @@ export const createState = () => reactive({
   sitm: 0.025,
   pptm: 0.032,
   secondaryColor: null,
+  primaryColor: null,
+  colorOverPrimary: null,
+  colorOverSecondary: null,
 })
 
 export const useState = () => inject(stateSymbol)

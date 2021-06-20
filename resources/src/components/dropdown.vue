@@ -3,7 +3,7 @@
     <div
       v-if="label"
       class="text-center font-bold py-2 rounded-t-md"
-      :style="{backgroundColor: primaryColor}"
+      :style="{backgroundColor: primaryColor, color: colorOverPrimary}"
     >
       {{ label }}
     </div>
@@ -28,11 +28,7 @@
           rounded-none
           rounded-b-md
         "
-        :class="
-          focused
-            ? 'border-yellow-400'
-            : 'border-gray-300'
-        "
+        :style="{borderColor: focused ? `${primaryColor} !important` : 'border-gray-300'}"
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
@@ -93,7 +89,6 @@
 </template>
 
 <script>
-import { computed } from 'vue'
 import { baseUrl } from '../mixins/calcData'
 import { useState } from '../store/store'
 export default {
