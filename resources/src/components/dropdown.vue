@@ -8,6 +8,7 @@
     </div>
     <div>
       <button
+        ref="selectBtn"
         @click="isOpen = !isOpen"
         type="button"
         class="
@@ -116,6 +117,13 @@ export default {
       baseUrl,
       isOpen: false,
     }
+  },
+  mounted() {
+    document.addEventListener('click', (e) => {
+      if (e.target !== this.$refs.selectBtn) {
+        this.isOpen = false
+      }
+    })
   },
   methods: {
     close() {

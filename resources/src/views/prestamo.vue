@@ -124,7 +124,6 @@ export default {
     const changePeriod = () => {
       typeFocused.value = false
       periodFocused.value = true
-      console.log(periodFocused.value)
       selectedPeriod.value = null
     }
 
