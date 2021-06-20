@@ -20,15 +20,14 @@
         @click="showSolicitar = true"
         class="
           rounded-sm
-          bg-yellow-400
           px-3
           py-2
           cursor-pointer
-          text-white
           font-bold
           text-sm
           my-3
         "
+        :style="{backgroundColor: secondaryColor, color: colorOverSecondary}"
       >
         Precalifica aquí
       </div>

@@ -3,7 +3,6 @@
     <div
       v-if="label"
       class="text-center font-bold py-2 rounded-t-md"
-      :style="{backgroundColor: primaryColor, color: colorOverPrimary}"
     >
       {{ label }}
     </div>
@@ -22,13 +21,8 @@
           bg-white
           text-sm
           font-medium
-          text-gray-700
-          hover:bg-gray-50
-          focus:outline-none
-          rounded-none
-          rounded-b-md
+          rounded-md
         "
-        :style="{borderColor: focused ? `${primaryColor} !important` : 'border-gray-300'}"
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
@@ -134,3 +128,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+  button:hover, button:focus {
+    color: inherit
+  }
+</style>

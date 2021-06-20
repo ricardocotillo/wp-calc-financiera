@@ -31,7 +31,7 @@
                 <template v-if="type == 2">Pago único de:</template>
                 <template v-else>Tu cuota mensual sería:</template>
               </p>
-              <h2 class="text-blue-900 text-lg font-bold">
+              <h2 class="text-lg font-bold" :style="{color: primaryColor}">
                 S/
                 {{
                   type == 2
@@ -92,7 +92,12 @@ import { baseUrl } from "../mixins/calcData";
 import { formatAmount } from "../mixins/formatAmount";
 
 import { initialMsg, msgs, typeOfPayments, periods } from "../mixins/calcData";
+import { useState } from '../store/store';
 export default {
+  setup() {
+    const state = useState()
+    return {...state}
+  },
   props: {
     amount: {
       type: Number,

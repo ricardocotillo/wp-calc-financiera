@@ -24,7 +24,6 @@ export default {
     const state = useState()
     const dataset = document.querySelector('#app').dataset
     const settings = JSON.parse(dataset.settings)
-    console.log(settings)
     state.direction = settings.direccion
     state.type = settings.tipo ?? 'prestamo'
     state.tea = settings.cuotas_fijas_tea
@@ -34,7 +33,6 @@ export default {
     state.secondaryColor = settings.calc_financiera_secondary_color
     state.colorOverPrimary = settings.calc_financiera_color_over_primary
     state.colorOverSecondary = settings.calc_financiera_color_over_secondary
-    console.log(state)
   },
   data() {
     return {

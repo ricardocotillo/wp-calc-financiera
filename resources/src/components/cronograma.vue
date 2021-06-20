@@ -3,7 +3,15 @@
     <template v-slot:header>
       <div class="max-w-sm">
         <h3
-          class="font-black text-3xl lg:text-5xl text-blue-900 text-center mb-2 font-montserrat"
+          class="
+            font-black
+            text-3xl
+            lg:text-5xl
+            text-center
+            mb-2
+            font-montserrat
+          "
+          :style="{ color: primaryColor }"
         >
           Cronograma de pagos
         </h3>
@@ -71,7 +79,18 @@
         </template>
         <div
           @click="$emit('solicitar')"
-          class="rounded bg-blue-900 text-white font-bold px-4 py-3 mb-5 w-3/4 text-center cursor-pointer"
+          class="
+            rounded
+            text-white
+            font-bold
+            px-4
+            py-3
+            mb-5
+            w-3/4
+            text-center
+            cursor-pointer
+          "
+          :style="{backgroundColor: primaryColor, color: colorOverPrimary}"
         >
           SOLICITA TU PRÉSTAMO
         </div>
@@ -119,9 +138,15 @@
 </template>
 
 <script>
-import Modal from "../layouts/modal";
-import { formatAmount } from "../mixins/formatAmount";
+import Modal from '../layouts/modal'
+import { formatAmount } from '../mixins/formatAmount'
+import { useState } from '../store/store'
 export default {
+  setup() {
+    const state = useState()
+
+    return { ...state }
+  },
   props: {
     isOpen: Boolean,
     amount: Number,
@@ -132,12 +157,12 @@ export default {
   },
   methods: {
     close() {
-      this.$emit("close");
+      this.$emit('close')
     },
     formatAmount,
   },
   components: { Modal },
-};
+}
 </script>
 
 <style>

@@ -19,12 +19,13 @@
           select-none
           justify-self-start
         "
-        :style="{backgroundColor: primaryColor}"
+        :style="{ backgroundColor: primaryColor }"
       >
         <div class="h-0.5 w-2 bg-white"></div>
       </div>
       <div
         class="
+          input-amount-container
           mt-1
           relative
           inline-block
@@ -34,19 +35,18 @@
           w-full
         "
       >
-        <div
+        <!-- <div
           class="
             absolute
             inset-y-0
             left-0
-            pl-5
             flex
             items-center
             pointer-events-none
           "
         >
           <span class="text-gray-500 sm:text-sm"> S/ </span>
-        </div>
+        </div> -->
         <input
           @focus="toggleInput"
           @input="handleInput"
@@ -64,9 +64,6 @@
             focus:border-transparent
             block
             w-full
-            py-2
-            pl-7
-            pr-7
             sm:text-sm
             rounded
             text-center
@@ -86,10 +83,16 @@
           items-center
           font-bold
         "
-        :style="{backgroundColor: primaryColor}"
+        :style="{ backgroundColor: primaryColor }"
       >
-        <div class="h-0.5 w-2 transform translate-x-2/4" :style="{backgroundColor: colorOverPrimary}"></div>
-        <div class="h-0.5 w-2 transform rotate-90 -translate-x-2/4" :style="{backgroundColor: colorOverPrimary}"></div>
+        <div
+          class="h-0.5 w-2 transform translate-x-2/4"
+          :style="{ backgroundColor: colorOverPrimary }"
+        ></div>
+        <div
+          class="h-0.5 w-2 transform rotate-90 -translate-x-2/4"
+          :style="{ backgroundColor: colorOverPrimary }"
+        ></div>
       </div>
     </div>
     <p
@@ -171,5 +174,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.input-amount-container::before {
+  content: 'S/';
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  left: .5em;
+}
 </style>

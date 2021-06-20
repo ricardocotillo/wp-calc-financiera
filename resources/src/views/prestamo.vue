@@ -12,7 +12,7 @@
           label="Pagando con"
           :focused="typeFocused"
           v-model="selectedType"
-          @input="changePeriod"
+          @update:modelValue="changePeriod"
           :options="typeOfPayments"
         />
       </div>
@@ -21,7 +21,7 @@
           label="En un plazo de"
           :focused="periodFocused"
           v-model="selectedPeriod"
-          @input="periodFocused = false"
+          @update:modelValue="periodFocused = false"
           :options="selectedType === null ? [] : periods[selectedType]"
         />
       </div>
@@ -124,6 +124,7 @@ export default {
     const changePeriod = () => {
       typeFocused.value = false
       periodFocused.value = true
+      console.log(periodFocused.value)
       selectedPeriod.value = null
     }
 
