@@ -6,32 +6,66 @@
     <div class="grid grid-cols-6 gap-1 place-content-start place-items-center">
       <div
         @click="decrease"
-        class="rounded-full bg-blue-900 w-7 h-7 text-white focus:outline-none cursor-pointer flex justify-center items-center font-bold select-none justify-self-start"
+        class="
+          rounded-full
+          w-7
+          h-7
+          focus:outline-none
+          cursor-pointer
+          flex
+          justify-center
+          items-center
+          font-bold
+          select-none
+          justify-self-start
+        "
+        :style="{ backgroundColor: primaryColor }"
       >
-        -
+        <div class="h-0.5 w-2 bg-white"></div>
       </div>
       <div
-        class="mt-1 relative inline-block rounded-md shadow-sm col-span-4 w-full"
+        class="
+          input-amount-container
+          mt-1
+          relative
+          inline-block
+          col-span-4
+          w-full
+        "
       >
-        <div
-          class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none"
-        >
-          <span class="text-gray-500 sm:text-sm"> S/ </span>
-        </div>
         <input
           @focus="toggleInput"
           @input="handleInput"
           @blur="toggleInput"
           :value="formattedAmount"
           type="text"
-          class="border shadow-none border-gray-300 focus:ring-1 focus:ring-blue-900 :focus:ring-blue-900 bg-white focus:outline-none focus:border-transparent block w-full py-2 pl-7 pr-7 sm:text-sm rounded text-center"
+          class="block w-full sm:text-sm text-center"
         />
       </div>
       <div
         @click="increase"
-        class="rounded-full bg-blue-900 w-7 h-7 text-white focus:outline-none cursor-pointer flex justify-center items-center font-bold select-none justify-self-end"
+        class="
+          rounded-full
+          w-7
+          h-7
+          focus:outline-none
+          cursor-pointer
+          flex
+          justify-center
+          items-center
+          font-bold
+          justify-self-end
+        "
+        :style="{ backgroundColor: primaryColor }"
       >
-        +
+        <div
+          class="h-0.5 w-2 transform translate-x-2/4"
+          :style="{ backgroundColor: colorOverPrimary }"
+        ></div>
+        <div
+          class="h-0.5 w-2 transform rotate-90 -translate-x-2/4"
+          :style="{ backgroundColor: colorOverPrimary }"
+        ></div>
       </div>
     </div>
     <p
@@ -44,11 +78,17 @@
 </template>
 
 <script>
-import { formatAmount } from "../mixins/formatAmount";
-import { isNumber } from "../mixins/isNumer";
+import { formatAmount } from '../mixins/formatAmount'
+import { isNumber } from '../mixins/isNumer'
+import { useState } from '../store/store'
 export default {
+  setup() {
+    const state = useState()
+
+    return { ...state }
+  },
   props: {
-    value: Number,
+    modelValue: Number,
     label: String,
     min: {
       type: Number,
@@ -66,46 +106,54 @@ export default {
   data() {
     return {
       showFormatted: true,
-      ramount: this.value,
-    };
+      ramount: this.modelValue,
+    }
   },
   methods: {
     handleInput(e) {
-      const amount = Number(e.target.value);
-      this.ramount = amount;
-      this.emit();
+      const amount = Number(e.target.value)
+      this.ramount = amount
+      this.emit()
     },
     isNumber,
     increase() {
-      const amt = this.value + this.step;
-      this.ramount = amt > this.max ? this.max : amt;
-      this.emit();
+      const amt = this.modelValue + this.step
+      this.ramount = amt > this.max ? this.max : amt
+      this.emit()
     },
     decrease() {
-      const amt = this.value - this.step;
-      this.ramount = amt < this.min ? this.min : amt;
-      this.emit();
+      const amt = this.modelValue - this.step
+      this.ramount = amt < this.min ? this.min : amt
+      this.emit()
     },
     formatAmount,
     toggleInput() {
-      this.showFormatted = !this.showFormatted;
-      if (this.value < this.min) {
-        this.ramount = this.min;
-        this.emit();
+      this.showFormatted = !this.showFormatted
+      if (this.modelValue < this.min) {
+        this.ramount = this.min
+        this.emit()
       }
     },
     emit() {
-      this.$emit("input", this.ramount);
+      this.$emit('update:modelValue', this.ramount)
     },
   },
   computed: {
     formattedAmount() {
-      if (this.showFormatted) return this.formatAmount(Number(this.value));
-      return this.ramount;
+      if (this.showFormatted) return this.formatAmount(Number(this.modelValue))
+      return this.ramount
     },
   },
-};
+}
 </script>
 
-<style>
+<style scoped>
+.input-amount-container::before {
+  content: 'S/';
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  left: 0.5em;
+}
 </style>

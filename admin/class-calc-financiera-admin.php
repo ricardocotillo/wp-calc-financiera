@@ -99,7 +99,65 @@ class Calc_Financiera_Admin {
 		}
 	}
 
+	public function create_options() {
+		$cmb_options = new_cmb2_box( array(
+			'id' 			=> $this->plugin_name . '-options',
+			'title' 		=> 'Calc settings',
+			'object_types'	=> array( 'options-page' ),
+			'option_key'    => $this->plugin_name . '-options', // The option key and admin menu page slug.
+			'icon_url'      => 'dashicons-admin-generic', // Menu icon.
+			'capability'    => 'edit_posts', // Capability required to view this options page.
+			'position'      => 3, // Menu position.
+			'save_button'   => 'Save',
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Primary color',
+			'id'      => $this->plugin_name . '_primary_color',
+			'type'    => 'colorpicker',
+			'default' => '#1e73be',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Color over primary',
+			'id'      => $this->plugin_name . '_color_over_primary',
+			'type'    => 'colorpicker',
+			'default' => '#ffffff',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Secondary color',
+			'id'      => $this->plugin_name . '_secondary_color',
+			'type'    => 'colorpicker',
+			'default' => '#dd9933',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+
+		$cmb_options->add_field( array(
+			'name'    => 'Color over secondary',
+			'id'      => $this->plugin_name . '_color_over_secondary',
+			'type'    => 'colorpicker',
+			'default' => '#ffffff',
+			'options' => array(
+			    'alpha' => true, // Make this a rgba color picker.
+			),
+		) );
+	}
+
 	public function create_metabox() {
+
+		$attributes = array(
+			'readonly'	=> true,
+			'disabled'	=> true,
+		);
 
 		$cmb = new_cmb2_box( array(
 			'id'            => $this->plugin_name . '-meta',
@@ -108,6 +166,7 @@ class Calc_Financiera_Admin {
 			'context'       => 'normal',
 			'priority'      => 'high',
 			'show_names'    => true,
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -118,60 +177,70 @@ class Calc_Financiera_Admin {
 				'prestamo' => 'Préstamo', 
 				'inversion' => 'Inversíon',
 			),
+			'attributes'	=> $attributes
 		));
 
 		$cmb->add_field( array(
 			'name'       => 'Nombres',
 			'id'         => $this->plugin_name . 'nombres',
 			'type'       => 'text',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'apellidos',
 			'type'   => 'text',
 			'name'  => 'Apellidos',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'dni',
 			'type'   => 'text',
 			'name'  => 'DNI',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'telefono1',
 			'type'   => 'text',
 			'name'  => 'Teléfono',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'telefono2',
 			'type'   => 'text',
 			'name'  => 'Teléfono 2',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'email',
 			'type'   => 'text_email',
 			'name'  => 'Email',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'departamento',
 			'type'   => 'text',
 			'name'  => 'Departamento',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'provincia',
 			'type'   => 'text',
 			'name'  => 'Provincia',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'distrito',
 			'type'   => 'text',
 			'name'  => 'Distrito',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -180,12 +249,14 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Casa', 'Dpto', 'Terreno', 'Local', 'Edificio' ),
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'area',
 			'type'   => 'text',
-			'name'  => 'Área',
+			'name'  => 'Área (m²)',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -194,6 +265,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Sólo yo', 'Otras personas y yo', 'Otras personas' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿La propiedad está inscrita en SUNARP?',
@@ -201,6 +273,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿Cuenta con un embargo vigente?',
@@ -208,6 +281,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No', 'No sé' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿Cuenta con una hipoteca vigente?',
@@ -215,8 +289,27 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No', 'No sé' ),
+			'attributes'	=> $attributes
 		) );
 	
+	}
+
+	public function add_column_to_solicitud($columns) {
+		return array_merge(array_slice($columns, 0, 2), array('dni' => 'DNI', 'tipo' => 'Tipo de solicitud'), array_slice($columns, 2));
+	}
+
+	public function manage_solicitud_columns($column_key, $post_id) {
+		if ($column_key == 'dni') {
+			$dni = get_post_meta($post_id, $this->plugin_name . 'dni', true);
+			?>
+				<span><?php echo $dni; ?></span>
+			<?php
+		} else if ($column_key == 'tipo') {
+			$tipo = get_post_meta( $post_id, $this->plugin_name . 'tipo_de_solicitud', true );
+			?>
+				<span><?php echo $tipo == 'prestamo' ? 'Préstamo' : 'Inversión'; ?></span>
+			<?php
+		}
 	}
 
 }

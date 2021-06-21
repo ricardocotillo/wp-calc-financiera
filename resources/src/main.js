@@ -1,13 +1,7 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import Vuelidate from 'vuelidate'
-
+import { stateSymbol, createState } from './store/store'
 import './index.css'
-
-Vue.use(Vuelidate)
-
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+const app = createApp(App)
+app.provide(stateSymbol, createState())
+app.mount('#app')

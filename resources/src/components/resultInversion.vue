@@ -7,7 +7,8 @@
       </div>
       <div
         @click="registrarme = true"
-        class="rounded-sm w-32 bg-yellow-400 px-3 py-2 cursor-pointer text-white font-bold text-sm my-3"
+        class="rounded-sm w-32 px-3 py-2 cursor-pointer font-bold text-sm my-3"
+        :style="{ backgroundColor: secondaryColor, color: colorOverSecondary }"
       >
         Regístrate
       </div>
@@ -27,9 +28,11 @@
 
 <script>
 /*global wp_ajax*/
-import { formatAmount } from "../mixins/formatAmount";
-import Registrarme from "./registrarme";
-import Waiting from "./waiting";
+import { ref, toRefs, computed } from 'vue'
+import { formatAmount } from '../mixins/formatAmount'
+import Registrarme from './registrarme'
+import Waiting from './waiting'
+import { useState } from '../store/store'
 export default {
   props: {
     label: String,
@@ -37,61 +40,52 @@ export default {
     period: Number,
     amount: Number,
   },
-  data() {
-    return {
-      prestamoTea: 0.36,
-      factoringTea: 0.39,
-      registrarme: false,
-      showWaiting: false,
-      loading: false,
-    };
-  },
-  methods: {
-    formatAmount,
-    submit(solicitud) {
-      this.showWaiting = true;
-      this.loading = true;
-      this.registrarme = false;
-      const form = new FormData();
-      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]));
-      form.append("action", "calc_ajax_solicitud");
+  setup(props) {
+    const { type, period, amount } = toRefs(props)
+    const state = useState()
+    const registrarme = ref(false)
+    const showWaiting = ref(false)
+    const loading = ref(false)
+
+    // computed
+    const tem = computed(() => {
+      const tea = type.value === 1 ? state.prestamoTea : state.factoringTea
+      return Math.pow(1 + tea, 1 / 12) - 1
+    })
+    
+    const rperiod = computed(() => type.value === 1 ? period.value * 12 : period.value)
+
+    const cuota = computed(() => (
+        (tem.value * amount.value) /
+        (1 - Math.pow(1 + tem.value, rperiod.value * -1))
+      ))
+
+    const intereses = computed(() => cuota.value * rperiod.value - amount.value)
+
+    // methds
+    const submit = (solicitud) => {
+      showWaiting.value = true
+      loading.value = true
+      registrarme.value = false
+      const form = new FormData()
+      Object.keys(solicitud).forEach((k) => form.append(k, solicitud[k]))
+      form.append('action', 'calc_ajax_solicitud')
       fetch(wp_ajax.ajax_url, {
-        method: "POST",
-        credentials: "same-origin",
+        method: 'POST',
+        credentials: 'same-origin',
         headers: {
-          "Cache-Control": "no-cache",
+          'Cache-Control': 'no-cache',
         },
         body: form,
       }).then(() => {
-        this.loading = false;
-      });
-    },
-  },
-  computed: {
-    tem() {
-      const tea = this.type === 1 ? this.prestamoTea : this.factoringTea;
-      return Math.pow(1 + tea, 1 / 12) - 1;
-    },
-    rperiod() {
-      return this.type === 1 ? this.period * 12 : this.period;
-    },
-    intereses() {
-      return this.cuota * this.rperiod - this.amount;
-    },
-    cuota() {
-      return (
-        (this.tem * this.amount) /
-        (1 - Math.pow(1 + this.tem, this.rperiod * -1))
-      );
-    },
-  },
-  created() {
-    const app = document.querySelector("#app");
-    this.prestamoTea = Number(app.dataset.prestamoTea);
-    this.factoringTea = Number(app.dataset.factoringTea);
+        loading.value = false
+      })
+    }
+
+    return {formatAmount, registrarme, showWaiting, loading, submit, intereses, ...state }
   },
   components: { Registrarme, Waiting },
-};
+}
 </script>
 
 <style>

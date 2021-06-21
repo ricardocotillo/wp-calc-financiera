@@ -12,12 +12,11 @@
           id="radio1"
           type="radio"
           name="type"
-          class="hidden"
-          :checked="value == 1"
+          :checked="modelValue == 1"
         />
         <div
           class="w-3 h-3 rounded-full ring-1 ring-gray-300"
-          :class="value == 1 ? 'bg-blue-900 ring-offset-2' : 'ring-offset-1'"
+          :class="modelValue == 1 ? 'bg-blue-900 ring-offset-2' : 'ring-offset-1'"
         ></div>
         <div class="text-xs text-center font-bold mt-2">
           Préstamo con garantia hipotecaria
@@ -33,11 +32,11 @@
           type="radio"
           name="type"
           class="hidden"
-          :checked="value == 2"
+          :checked="modelValue == 2"
         />
         <div
           class="w-3 h-3 rounded-full ring-1 ring-gray-300"
-          :class="value == 2 ? 'bg-blue-900 ring-offset-2' : 'ring-offset-1'"
+          :class="modelValue == 2 ? 'bg-blue-900 ring-offset-2' : 'ring-offset-1'"
         ></div>
         <div class="text-xs text-center font-bold mt-2">Factoring</div>
       </div>
@@ -48,7 +47,7 @@
 <script>
 export default {
   props: {
-    value: {
+    modelValue: {
       type: Number,
       default: 1,
     },
@@ -56,11 +55,14 @@ export default {
   },
   methods: {
     change(e) {
-      this.$emit("input", e);
+      this.$emit("update:modelValue", e);
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+  input {
+    display: none;
+  }
 </style>

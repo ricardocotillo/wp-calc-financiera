@@ -1,27 +1,31 @@
 <template>
-  <div class="relative text-left" :class="`w-${w}`" >
-    <div
-      v-if="label"
-      class="text-center font-bold py-2 rounded-t-md"
-      :class="focused ? 'bg-yellow-400 text-white' : ' text-gray-600'"
-    >
+  <div class="relative text-left" :class="w">
+    <div v-if="label" class="text-center font-bold py-2 rounded-t-md">
       {{ label }}
     </div>
     <div>
       <button
+        ref="selectBtn"
         @click="isOpen = !isOpen"
         type="button"
-        class="inline-flex justify-between w-full border shadow-sm px-4 py-3 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
-        :class="
-          focused
-            ? 'border-yellow-400 rounded-b-md'
-            : 'border-gray-300 rounded-md'
+        class="
+          inline-flex
+          justify-between
+          w-full
+          border
+          shadow-sm
+          px-4
+          py-3
+          bg-white
+          text-sm
+          font-medium
+          rounded-md
         "
         id="options-menu"
         aria-haspopup="true"
         aria-expanded="true"
       >
-        {{ value !== null ? options[value].title : placeholder }}
+        {{ modelValue !== null ? options[modelValue].title : placeholder }}
         <img
           class="-mr-1 ml-2 h-5 w-5"
           :src="`${baseUrl}/img/arrow.svg`"
@@ -39,13 +43,32 @@
     >
       <div
         v-show="isOpen"
-        class="origin-top-right absolute right-0 mt-2 w-full ounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
+        class="
+          origin-top-right
+          absolute
+          right-0
+          mt-2
+          w-full
+          ounded-md
+          shadow-lg
+          bg-white
+          ring-1 ring-black ring-opacity-5
+          z-50
+        "
       >
         <div class="py-1 max-h-80 overflow-y-auto">
           <div
             v-for="(opt, i) in options"
             :key="opt.key + '-' + opt.title"
-            class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="
+              cursor-pointer
+              block
+              px-4
+              py-2
+              text-sm text-gray-700
+              hover:bg-gray-100
+              hover:text-gray-900
+            "
             role="menuitem"
             @click="select(i)"
           >
@@ -58,21 +81,27 @@
 </template>
 
 <script>
-import { baseUrl } from "../mixins/calcData";
+import { baseUrl } from '../mixins/calcData'
+import { useState } from '../store/store'
 export default {
+  setup() {
+    const state = useState()
+
+    return { ...state }
+  },
   props: {
-    value: Number,
+    modelValue: Number,
     options: {
       type: Array,
       default: () => [],
     },
     w: {
       type: String,
-      default: "full",
+      default: 'w-full',
     },
     placeholder: {
       type: String,
-      default: "Seleccionar",
+      default: 'Seleccionar',
     },
     label: String,
     focused: {
@@ -84,16 +113,29 @@ export default {
     return {
       baseUrl,
       isOpen: false,
-    };
+    }
+  },
+  mounted() {
+    document.addEventListener('click', (e) => {
+      if (e.target !== this.$refs.selectBtn) {
+        this.isOpen = false
+      }
+    })
   },
   methods: {
     close() {
-      this.isOpen = false;
+      this.isOpen = false
     },
     select(i) {
-      this.$emit("input", i);
-      this.close();
+      this.$emit('update:modelValue', i)
+      this.close()
     },
   },
-};
+}
 </script>
+<style scoped>
+button:hover,
+button:focus {
+  color: inherit;
+}
+</style>

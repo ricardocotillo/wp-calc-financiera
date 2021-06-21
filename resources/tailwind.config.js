@@ -6,7 +6,7 @@ module.exports = {
     },
   },
   darkMode: false, // or 'media' or 'class'
-  important: true,
+  // important: true,
   theme: {
     extend: {},
     fontFamily: {
@@ -16,5 +16,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    // require('@tailwindcss/forms'),
+  ],
 }

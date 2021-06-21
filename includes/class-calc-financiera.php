@@ -70,9 +70,9 @@ class Calc_Financiera {
 		if ( defined( 'CALC_FINANCIERA_VERSION' ) ) {
 			$this->version = CALC_FINANCIERA_VERSION;
 		} else {
-			$this->version = '1.0.9';
+			$this->version = '2.0.0';
 		}
-		$this->plugin_name = 'calc-financiera';
+		$this->plugin_name = 'calc_financiera';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -173,7 +173,11 @@ class Calc_Financiera {
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_metabox', 999 );
 
-		// $this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_option', 0 );
+		$this->loader->add_action( 'manage_solicitud_posts_columns', $plugin_admin, 'add_column_to_solicitud' );
+
+		$this->loader->add_action('manage_solicitud_posts_custom_column', $plugin_admin, 'manage_solicitud_columns', 10, 2);
+
+		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_options', 0 );
 
 		$this->loader->add_action('manage_posts_extra_tablenav', $plugin_admin, 'add_export_button', 20);
 	}

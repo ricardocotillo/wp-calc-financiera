@@ -3,21 +3,21 @@
     <div
       v-for="(opt, i) in options"
       :key="opt.key"
-      @click="$emit('input', i)"
+      @click="$emit('update:modelValue', i)"
       class="w-full p-2 border border-gray-300 rounded flex flex-col items-center justify-center cursor-pointer"
       :class="{
-        'bg-blue-900': value == i,
         'border-gray-300': !error,
         'border-red-500': error,
       }"
+      :style="{backgroundColor: modelValue == i ? primaryColor : null}"
     >
       <img
         :src="opt.icon"
-        :style="{ filter: `brightness(${value == i ? 100 : 1})` }"
+        :style="{ filter: `brightness(${modelValue == i ? 100 : 1})` }"
       />
       <span
-        class="font-bold"
-        :class="value == i ? 'text-white' : 'text-gray-500'"
+        class="font-bold text-gray-500"
+        :style="{color: modelValue == i ? colorOverPrimary : null}"
         >{{ opt.title }}</span
       >
     </div>
@@ -25,9 +25,14 @@
 </template>
 
 <script>
+import { useState } from '../store/store';
 export default {
+  setup() {
+    const state = useState()
+    return{...state}
+  },
   props: {
-    value: Number,
+    modelValue: Number,
     options: {
       type: Array,
       default() {
