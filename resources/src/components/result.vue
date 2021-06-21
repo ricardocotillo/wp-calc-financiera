@@ -16,29 +16,18 @@
             : formatAmount(cuota, 2)
         }}
       </div>
-      <div
+      <button
         @click="showSolicitar = true"
-        class="
-          rounded-sm
-          px-3
-          py-2
-          cursor-pointer
-          font-bold
-          text-sm
-          my-3
-        "
-        :style="{backgroundColor: secondaryColor, color: colorOverSecondary}"
+        class="block px-3 py-2 text-sm my-3"
+        :style="{ backgroundColor: secondaryColor, color: colorOverSecondary }"
       >
         Precalifica aquí
-      </div>
+      </button>
       <a href="#" @click.prevent="showPayTable = true">Ver cronograma</a>
     </div>
     <Cronograma
       @close="showPayTable = false"
-      @solicitar="
-        showPayTable = false;
-        showSolicitar = true
-      "
+      @solicitar="onSolicitar"
       :isOpen="showPayTable"
       :typeText="typeText"
       :type="type"
@@ -133,6 +122,10 @@ export default {
       }).then(() => {
         loading.value = false
       })
+    }
+    const onSolicitar = () => {
+      showPayTable = false
+      showSolicitar = true
     }
     return {
       formatAmount,

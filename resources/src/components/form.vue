@@ -193,7 +193,8 @@
       }}</small>
       <div class="flex justify-center mt-7">
         <button
-          class="rounded bg-blue-900 text-white font-bold px-4 py-2"
+          class="rounded font-bold px-4 py-2"
+          :style="{ backgroundColor: primaryColor, color: colorOverPrimary }"
           @click="validateFirst"
         >
           Continuar
@@ -256,21 +257,6 @@
               </g>
             </g>
           </g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
         </svg>
         <span
           >Recuerda que
@@ -435,8 +421,6 @@
           @click="validateSecond"
           class="
             rounded
-            bg-blue-900
-            text-white
             font-bold
             px-4
             py-2
@@ -445,6 +429,7 @@
             lg:col-span-2
             focus:outline-none
           "
+          :style="{ backgroundColor: primaryColor, color: colorOverPrimary }"
         >
           Enviar datos
         </button>

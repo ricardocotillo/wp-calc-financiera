@@ -1,9 +1,6 @@
 <template>
   <div class="relative text-left" :class="`w-${w}`">
-    <div
-      v-if="label"
-      class="text-center font-bold py-2 rounded-t-md"
-    >
+    <div v-if="label" class="text-center font-bold py-2 rounded-t-md">
       {{ label }}
     </div>
     <div>
@@ -137,7 +134,8 @@ export default {
 }
 </script>
 <style scoped>
-  button:hover, button:focus {
-    color: inherit
-  }
+button:hover,
+button:focus {
+  color: inherit;
+}
 </style>

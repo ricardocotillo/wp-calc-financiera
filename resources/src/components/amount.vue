@@ -35,18 +35,6 @@
           w-full
         "
       >
-        <!-- <div
-          class="
-            absolute
-            inset-y-0
-            left-0
-            flex
-            items-center
-            pointer-events-none
-          "
-        >
-          <span class="text-gray-500 sm:text-sm"> S/ </span>
-        </div> -->
         <input
           @focus="toggleInput"
           @input="handleInput"
@@ -57,11 +45,8 @@
             border
             shadow-none
             border-gray-300
-            focus:ring-1 focus:ring-blue-900
             :focus:ring-blue-900
             bg-white
-            focus:outline-none
-            focus:border-transparent
             block
             w-full
             sm:text-sm
@@ -181,6 +166,6 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
-  left: .5em;
+  left: 0.5em;
 }
 </style>
