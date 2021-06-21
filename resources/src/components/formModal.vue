@@ -127,7 +127,6 @@ import { useState } from '../store/store'
 export default {
   setup() {
     const state = useState()
-    console.log(state)
     return { ...state }
   },
   props: {
