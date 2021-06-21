@@ -39,12 +39,7 @@
           @blur="toggleInput"
           :value="formattedAmount"
           type="text"
-          class="
-            block
-            w-full
-            sm:text-sm
-            text-center
-          "
+          class="block w-full sm:text-sm text-center"
         />
       </div>
       <div
