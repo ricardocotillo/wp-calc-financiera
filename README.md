@@ -1,16 +1,16 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://portafolio.cotillo.tech
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+=== WP Calc-Financiera ===
+Contributors: rickmaster2008
+<!-- Donate link: https://portafolio.cotillo.tech -->
+<!-- Tags: comments, spam -->
+Requires at least: 5.0.0
+Tested up to: 5.7
+Stable tag: stable
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Calculadora financiera que permite al usuario calcular cuota de préstamo, monto futuro de inversión o factoring
 
-== Description ==
+<!-- == Description ==
 
 This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
 
@@ -35,80 +35,40 @@ your in-development version, without having that information incorrectly disclos
 that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
 
     If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+you put the stable version, in order to eliminate any doubt. -->
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-e.g.
+1. Descargar el zip de la rama stable. 
+1. Sube el zip en la sección plugins de tu página de WordPress
+1. Activa el plugin
 
-1. Upload `calc-financiera.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+== Como usar ==
 
-== Frequently Asked Questions ==
+1. Utiliza el shortcode `[calculadora-prestamo]` o `[calculadora-inversion]`.
 
-= A question that someone might have =
+1. Attributos de `[calculadora-inversion]`:
+    * dirección - string - (default: horizontal)
+    * cuotas_fijas_tea - float (default: 0.36)
+    * solo_intereses_tasa - float (default: 0.025)
+	* prestamo_puente_tasa - float (default: 0.032)
 
-An answer to that question.
+    Ejemplo: `[calculadora-prestamo direccion=horizontal cuotas_fijas_tea=0.40 solo_intereses_tasa=0.035 prestamo_puente_tasa=0.022]`
 
-= What about foo bar? =
+    ![Ejemplo Préstamo](./assets/ejemplo_prestamo.png)
+1. Atributos de `[calculadora-inversion]`
+    * dirección - string (default: horizontal)
+    * prestamo_tea - float (default: 0.36)
+    * factoring_tea - float (default: 0.39)
 
-Answer to foo bar dilemma.
+    Ejemplo:  `[calculadora-inversion direccion=vertical prestamo_tea=0.25 factoring_tea=0.45]`
 
-== Screenshots ==
+    ![Ejemplo Inversión](./assets/ejemplo_inversion.png)
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Las solicitudes se guardarán en el Post Type **Solicitud**
 
-== Changelog ==
+1. Puedes **Exportar** las solicitudes en un archivo excel escogiendo el rango de fechas y dando click al botón **Exportar**
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
-== Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+    ![Ejemplo Inversión](./assets/ejemplo_solicitudes.png)
