@@ -295,14 +295,19 @@ class Calc_Financiera_Admin {
 	}
 
 	public function add_column_to_solicitud($columns) {
-		return array_merge(array_slice($columns, 0, 2), array('DNI'), array_slice($columns, 2));
+		return array_merge(array_slice($columns, 0, 2), array('dni' => 'DNI', 'tipo' => 'Tipo de solicitud'), array_slice($columns, 2));
 	}
 
 	public function manage_solicitud_columns($column_key, $post_id) {
-		if ($column_key == 'DNI') {
+		if ($column_key == 'dni') {
 			$dni = get_post_meta($post_id, $this->plugin_name . 'dni', true);
 			?>
 				<span><?php echo $dni; ?></span>
+			<?php
+		} else if ($column_key == 'tipo') {
+			$tipo = get_post_meta( $post_id, $this->plugin_name . 'tipo_de_solicitud', true );
+			?>
+				<span><?php echo $tipo == 'prestamo' ? 'Préstamo' : 'Inversión'; ?></span>
 			<?php
 		}
 	}
