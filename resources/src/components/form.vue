@@ -13,18 +13,30 @@
         required
         type="text"
         name="dni"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model="v$.dni.$model"
         @keypress="isNumber"
       />
       <small v-if="v$.dni.$error || incomplete" class="text-red-500 block">{{
         !v$.dni.required
-          ? "Este campo es requerido"
+          ? 'Este campo es requerido'
           : !v$.dni.minLength
-          ? "Mínimo 8 dígitos"
+          ? 'Mínimo 8 dígitos'
           : !v$.dni.maxLength
-          ? "Máximo 8 dígitos"
-          : ""
+          ? 'Máximo 8 dígitos'
+          : ''
       }}</small>
 
       <label for="nombre" class="font-black text-black text-base"
@@ -34,15 +46,27 @@
         required
         type="text"
         name="nombre"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model="v$.nombre.$model"
       />
       <small v-if="v$.nombre.$error || incomplete" class="text-red-500 block">{{
         !v$.nombre.required
-          ? "Este campo es requerido"
+          ? 'Este campo es requerido'
           : !v$.nombre.minLength
-          ? "Mínimo 2 caracteres"
-          : ""
+          ? 'Mínimo 2 caracteres'
+          : ''
       }}</small>
       <label for="apellido" class="font-black text-black text-base"
         >Apellidos *</label
@@ -51,7 +75,19 @@
         required
         type="text"
         name="apellido"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model="v$.apellido.$model"
       />
       <small
@@ -59,10 +95,10 @@
         class="text-red-500 block"
         >{{
           !v$.apellido.required
-            ? "Este campo es requerido"
+            ? 'Este campo es requerido'
             : !v$.apellido.minLength
-            ? "Mínimo 2 caracteres"
-            : ""
+            ? 'Mínimo 2 caracteres'
+            : ''
         }}</small
       >
       <h1 class="text-xl font-bold text-center my-7">Datos de contacto</h1>
@@ -76,16 +112,28 @@
         required
         type="tel"
         name="telefono1"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model="v$.phone1.$model"
         @keypress="isNumber"
       />
       <small v-if="v$.phone1.$error || incomplete" class="text-red-500 block">{{
         !v$.phone1.required
-          ? "Este campo es requerido"
+          ? 'Este campo es requerido'
           : !v$.phone1.minLength
-          ? "Mínimo 7 dígitos"
-          : ""
+          ? 'Mínimo 7 dígitos'
+          : ''
       }}</small>
       <label for="telefono2" class="font-black text-black text-base"
         >Otro teléfono de contacto</label
@@ -93,13 +141,25 @@
       <input
         type="tel"
         name="telefono2"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model.number="phone2"
         placeholder="(Opcional)"
         @keypress="isNumber"
       />
       <small v-if="v$.phone2.$error || incomplete" class="text-red-500 block">{{
-        !v$.phone2.minLength ? "Mínimo 7 dígitos" : ""
+        !v$.phone2.minLength ? 'Mínimo 7 dígitos' : ''
       }}</small>
       <label for="email" class="font-black text-black text-base block mb-0"
         >Correo electrónico *</label
@@ -109,15 +169,27 @@
         required
         type="email"
         name="email"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         v-model="email"
       />
       <small v-if="v$.email.$error || incomplete" class="text-red-500 block">{{
         !v$.email.required
-          ? "Este campo es requerido"
+          ? 'Este campo es requerido'
           : !v$.email.email
-          ? "El correo no es válido"
-          : ""
+          ? 'El correo no es válido'
+          : ''
       }}</small>
       <div class="flex justify-center mt-7">
         <button
@@ -140,14 +212,66 @@
         Datos de la propedad en garantía
       </h1>
       <div
-        class="flex flex-row justify-between items-center py-10 px-5 bg-gray-100 rounded mb-5"
+        class="
+          flex flex-row
+          justify-between
+          items-center
+          py-10
+          px-5
+          bg-gray-100
+          rounded
+          mb-5
+        "
       >
-        <img
-          :src="`${baseUrl}/img/info.svg`"
+        <svg
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 330 330"
+          style="enable-background: new 0 0 330 330"
+          xml:space="preserve"
+          :fill="primaryColor"
           class="w-10 mr-3"
-          alt=""
-          srcset=""
-        />
+        >
+          <g>
+            <g>
+              <g>
+                <path
+                  d="M165,0.008C74.019,0.008,0,74.024,0,164.999c0,90.977,74.019,164.992,165,164.992s165-74.015,165-164.992
+				C330,74.024,255.981,0.008,165,0.008z M165,299.992c-74.439,0-135-60.557-135-134.992S90.561,30.008,165,30.008
+				s135,60.557,135,134.991C300,239.436,239.439,299.992,165,299.992z"
+                />
+                <path
+                  d="M165,130.008c-8.284,0-15,6.716-15,15v99.983c0,8.284,6.716,15,15,15s15-6.716,15-15v-99.983
+				C180,136.725,173.284,130.008,165,130.008z"
+                />
+                <path
+                  d="M165,70.011c-3.95,0-7.811,1.6-10.61,4.39c-2.79,2.79-4.39,6.66-4.39,10.61s1.6,7.81,4.39,10.61
+				c2.79,2.79,6.66,4.39,10.61,4.39s7.81-1.6,10.609-4.39c2.79-2.8,4.391-6.66,4.391-10.61s-1.601-7.82-4.391-10.61
+				C172.81,71.61,168.95,70.011,165,70.011z"
+                />
+              </g>
+            </g>
+          </g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+        </svg>
         <span
           >Recuerda que
           <span class="font-bold text-black"
@@ -164,10 +288,7 @@
       <Dropdown
         v-if="departamentos.length > 0"
         v-model="v$.departamento.$model"
-        @input="
-          provincia = null;
-          distrito = null;
-        "
+        @update:modelValue="updateUbicacion"
         w="full"
         :options="departamentos"
       />
@@ -175,13 +296,13 @@
         v-if="v$.departamento.$error || incomplete"
         class="text-red-500 block"
         >{{
-          !v$.departamento.required ? "Seleccione un departamento" : ""
+          !v$.departamento.required ? 'Seleccione un departamento' : ''
         }}</small
       >
       <div class="h-4"></div>
       <Dropdown
         v-model="v$.provincia.$model"
-        @input="distrito = null"
+        @update:modelValue="distrito = null"
         w="full"
         :options="provincias"
         placeholder="Seleccionar provincia"
@@ -189,7 +310,7 @@
       <small
         v-if="v$.provincia.$error || incomplete"
         class="text-red-500 block"
-        >{{ !v$.provincia.required ? "Seleccione una provincia" : "" }}</small
+        >{{ !v$.provincia.required ? 'Seleccione una provincia' : '' }}</small
       >
       <div class="h-4"></div>
       <Dropdown
@@ -201,7 +322,7 @@
       <small
         v-if="v$.distrito.$error || incomplete"
         class="text-red-500 block"
-        >{{ !v$.distrito.required ? "Seleccione un distrito" : "" }}</small
+        >{{ !v$.distrito.required ? 'Seleccione un distrito' : '' }}</small
       >
       <label
         for="type-of-property"
@@ -224,12 +345,24 @@
         type="text"
         name="area"
         v-model.number="v$.area.$model"
-        class="w-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-transparent block py-2 px-3 sm:text-sm rounded my-1"
+        class="
+          w-full
+          border border-gray-300
+          focus:outline-none
+          focus:ring-1 focus:ring-blue-900
+          focus:border-transparent
+          block
+          py-2
+          px-3
+          sm:text-sm
+          rounded
+          my-1
+        "
         placeholder="m²"
         @keypress="isNumber"
       />
       <small v-if="v$.area.$error || incomplete" class="text-red-500 block"
-        >{{ !v$.area.required ? "El dato desde ser mayor o igual a 1 m²" : "" }}
+        >{{ !v$.area.required ? 'El dato desde ser mayor o igual a 1 m²' : '' }}
       </small>
       <label
         for="type-of-property"
@@ -243,7 +376,7 @@
         placeholder="¿Quién es dueño de la propiedad?"
       />
       <small v-if="v$.owner.$error || incomplete" class="text-red-500 block">{{
-        !v$.owner.required ? "Seleccione una opción" : ""
+        !v$.owner.required ? 'Seleccione una opción' : ''
       }}</small>
       <label
         for="type-of-property"
@@ -281,7 +414,15 @@
       >
       <div class="grid grid-cols-7 lg:grid-cols-6 gap-2 mt-4">
         <div
-          class="flex flex-row items-center cursor-pointer pr-4 py-2 col-span-2 lg:col-span-2"
+          class="
+            flex flex-row
+            items-center
+            cursor-pointer
+            pr-4
+            py-2
+            col-span-2
+            lg:col-span-2
+          "
           @click="goBack"
         >
           <img
@@ -292,7 +433,18 @@
         </div>
         <button
           @click="validateSecond"
-          class="rounded bg-blue-900 text-white font-bold px-4 py-2 inline-block col-span-3 lg:col-span-2 focus:outline-none"
+          class="
+            rounded
+            bg-blue-900
+            text-white
+            font-bold
+            px-4
+            py-2
+            inline-block
+            col-span-3
+            lg:col-span-2
+            focus:outline-none
+          "
         >
           Enviar datos
         </button>
@@ -302,22 +454,24 @@
 </template>
 
 <script>
-import Dropdown from "./dropdown";
-import CardOptions from "./cardOptions";
-import PillOptions from "./pillOptions";
-import { isNumber } from "../mixins/isNumer";
-import { baseUrl } from "../mixins/calcData";
-import useVuelidate from "@vuelidate/core";
-import { reactive, computed, ref, toRefs } from "vue";
+import Dropdown from './dropdown'
+import CardOptions from './cardOptions'
+import PillOptions from './pillOptions'
+import { isNumber } from '../mixins/isNumer'
+import { baseUrl } from '../mixins/calcData'
+import useVuelidate from '@vuelidate/core'
+import { reactive, computed, ref, toRefs } from 'vue'
 import {
   required,
   email,
   numeric,
   maxLength,
-  minLength
-} from "@vuelidate/validators";
+  minLength,
+} from '@vuelidate/validators'
+import { useState } from '../store/store'
 export default {
-  setup(_, {emit}) {
+  setup(_, { emit }) {
+    const globalState = useState()
     const ownerOptions = [
       { key: 1, title: 'Sólo yo' },
       { key: 2, title: 'Otras personas y yo' },
@@ -326,12 +480,12 @@ export default {
     const step = ref(0)
     const incomplete = ref(false)
     const state = reactive({
-      dni: "",
-      nombre: "",
-      apellido: "",
-      phone1: "",
-      phone2: "",
-      email: "",
+      dni: '',
+      nombre: '',
+      apellido: '',
+      phone1: '',
+      phone2: '',
+      email: '',
       sunarp: null,
       embargo: null,
       hipoteca: null,
@@ -344,7 +498,7 @@ export default {
       owner: null,
       propertyTypes: [],
       ubigeo: [],
-    });
+    })
 
     const rules = {
       phone1: { required, numeric, minLength: minLength(7) },
@@ -353,7 +507,7 @@ export default {
         required,
         numeric,
         maxLength: maxLength(8),
-        minLength: minLength(8)
+        minLength: minLength(8),
       },
       nombre: { required, minLength: minLength(2) },
       apellido: { required, minLength: minLength(2) },
@@ -366,53 +520,53 @@ export default {
       hipoteca: { required },
       departamento: { required },
       provincia: { required },
-      distrito: { required }
-    };
+      distrito: { required },
+    }
 
-    const v$ = useVuelidate(rules, state);
+    const v$ = useVuelidate(rules, state)
 
     // computed
     const provincias = computed(() => {
-      if (state.departamento) {
+      if (state.departamento >= 0) {
         return state.ubigeo
           .filter(
-            u =>
+            (u) =>
               u.departamento === state.departamentos[state.departamento].key &&
               u.distrito === 0 &&
               u.provincia !== 0
           )
-          .map(p => {
-            return { key: p.provincia, title: p.nombre };
-          });
+          .map((p) => {
+            return { key: p.provincia, title: p.nombre }
+          })
       }
-      return [];
-    });
+      return []
+    })
 
     const distritos = computed(() => {
-      if (state.provincia) {
+      if (state.provincia !== null && state.provincia >= 0) {
         return state.ubigeo
           .filter(
-            u =>
+            (u) =>
               u.departamento === state.departamentos[state.departamento].key &&
-              u.provincia === state.provincias[state.provincia].key &&
+              u.provincia === provincias.value[state.provincia].key &&
               u.distrito !== 0
           )
-          .map(d => {
-            return { key: d.distrito, title: d.nombre };
-          });
+          .map((d) => {
+            return { key: d.distrito, title: d.nombre }
+          })
       }
-      return [];
-    });
+      return []
+    })
 
     // methods
     const goBack = () => {
       step.value = 0
       incomplete.value = false
-      emit("step", 0)
-    };
+      emit('step', 0)
+    }
 
     const filterDepartamentos = () => {
-      return state.ubigeo.filter(u => u.provincia === 0 && u.distrito === 0);
+      return state.ubigeo.filter((u) => u.provincia === 0 && u.distrito === 0)
     }
 
     const validateFirst = () => {
@@ -429,7 +583,7 @@ export default {
         incomplete.value = false
         step.value = 1
       }
-      emit("step", 1)
+      emit('step', 1)
     }
 
     const validateSecond = () => {
@@ -442,7 +596,7 @@ export default {
 
     const send = () => {
       const solicitud = {
-        tipo_de_solicitud: "prestamo",
+        tipo_de_solicitud: 'prestamo',
         nombres: state.nombre,
         apellidos: state.apellido,
         dni: state.dni,
@@ -457,9 +611,14 @@ export default {
         dueno: state.owner,
         sunarp: state.sunarp,
         embargo: state.embargo,
-        hipoteca: state.hipoteca
+        hipoteca: state.hipoteca,
       }
-      emit("submit", solicitud)
+      emit('submit', solicitud)
+    }
+
+    const updateUbicacion = () => {
+      state.provincia = null
+      state.distrito = null
     }
 
     // created
@@ -467,43 +626,44 @@ export default {
       {
         key: 1,
         icon: `${baseUrl}/img/building.svg`,
-        title: "Casa"
+        title: 'Casa',
       },
       {
         key: 2,
         icon: `${baseUrl}/img/building.svg`,
-        title: "Dpto"
+        title: 'Dpto',
       },
       {
         key: 3,
         icon: `${baseUrl}/img/land.svg`,
-        title: "Terreno"
+        title: 'Terreno',
       },
       {
         key: 4,
         icon: `${baseUrl}/img/local.svg`,
-        title: "Local"
+        title: 'Local',
       },
       {
         key: 5,
         icon: `${baseUrl}/img/big-building.svg`,
-        title: "Edificio"
-      }
-    ];
+        title: 'Edificio',
+      },
+    ]
 
     fetch(`${baseUrl}/misc/ubigeo.json`)
-      .then(res => res.json())
-      .then(data => {
-        this.ubigeo = data;
-        this.departamentos = this.filterDepartamentos().map(d => {
-          return { key: d.departamento, title: d.nombre };
-        });
-      });
+      .then((res) => res.json())
+      .then((data) => {
+        state.ubigeo = data
+        state.departamentos = filterDepartamentos().map((d) => {
+          return { key: d.departamento, title: d.nombre }
+        })
+      })
 
     return {
       v$,
       provincias,
       distritos,
+      updateUbicacion,
       isNumber,
       goBack,
       filterDepartamentos,
@@ -515,8 +675,9 @@ export default {
       step,
       incomplete,
       ...toRefs(state),
+      ...globalState,
     }
   },
-  components: { Dropdown, CardOptions, PillOptions }
-};
+  components: { Dropdown, CardOptions, PillOptions },
+}
 </script>

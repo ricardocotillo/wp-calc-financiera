@@ -52,7 +52,7 @@
           <div class="pb-4" :class="padding">
             <slot name="border-top"> </slot>
             <div class="sm:flex sm:items-start justify-center">
-              <div class="mt-3 sm:mt-0">
+              <div>
                 <slot name="header"></slot>
                 <div>
                   <slot name="body"></slot>

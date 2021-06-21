@@ -3,13 +3,12 @@
     <div
       v-for="(opt, i) in displayOptions"
       :key="opt"
-      class="rounded-full py-2 px-4 text-white text-center font-bold cursor-pointer"
+      class="rounded-full py-2 px-4 text-white text-center font-bold cursor-pointer bg-gray-400"
       :class="{
-        'bg-blue-900': i == value,
-        'bg-gray-400': i != value,
         'ring-1 ring-red-500': error,
       }"
-      @click="$emit('input', i)"
+      :style="{backgroundColor: i == modelValue ? primaryColor : null, color: i == modelValue ? colorOverPrimary : null}"
+      @click="$emit('update:modelValue', i)"
     >
       {{ opt }}
     </div>
@@ -17,13 +16,18 @@
 </template>
 
 <script>
+import { useState } from '../store/store';
 export default {
+  setup() {
+    const state = useState()
+    return {...state}
+  },
   props: {
     showThird: {
       type: Boolean,
       default: false,
     },
-    value: Number,
+    modelValue: Number,
     error: {
       type: Boolean,
       default: false,
