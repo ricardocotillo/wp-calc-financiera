@@ -128,6 +128,7 @@ export default {
       showSolicitar = true
     }
     return {
+      onSolicitar,
       formatAmount,
       msg,
       loading,
