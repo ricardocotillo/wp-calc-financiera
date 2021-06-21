@@ -29,8 +29,6 @@
           mt-1
           relative
           inline-block
-          rounded-md
-          shadow-sm
           col-span-4
           w-full
         "
@@ -42,15 +40,9 @@
           :value="formattedAmount"
           type="text"
           class="
-            border
-            shadow-none
-            border-gray-300
-            :focus:ring-blue-900
-            bg-white
             block
             w-full
             sm:text-sm
-            rounded
             text-center
           "
         />
@@ -67,6 +59,7 @@
           justify-center
           items-center
           font-bold
+          justify-self-end
         "
         :style="{ backgroundColor: primaryColor }"
       >

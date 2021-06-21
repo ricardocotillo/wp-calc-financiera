@@ -1,5 +1,5 @@
 <template>
-  <div class="relative text-left" :class="`w-${w}`">
+  <div class="relative text-left" :class="w">
     <div v-if="label" class="text-center font-bold py-2 rounded-t-md">
       {{ label }}
     </div>
@@ -97,7 +97,7 @@ export default {
     },
     w: {
       type: String,
-      default: 'full',
+      default: 'w-full',
     },
     placeholder: {
       type: String,

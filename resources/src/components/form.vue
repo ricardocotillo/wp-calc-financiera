@@ -275,7 +275,7 @@
         v-if="departamentos.length > 0"
         v-model="v$.departamento.$model"
         @update:modelValue="updateUbicacion"
-        w="full"
+        w="w-full"
         :options="departamentos"
       />
       <small
@@ -289,7 +289,7 @@
       <Dropdown
         v-model="v$.provincia.$model"
         @update:modelValue="distrito = null"
-        w="full"
+        w="w-full"
         :options="provincias"
         placeholder="Seleccionar provincia"
       />
@@ -301,7 +301,7 @@
       <div class="h-4"></div>
       <Dropdown
         v-model="v$.distrito.$model"
-        w="full"
+        w="w-full"
         :options="distritos"
         placeholder="Seleccionar distrito"
       />
@@ -357,7 +357,7 @@
       >
       <Dropdown
         :options="ownerOptions"
-        w="full"
+        w="w-full"
         v-model="v$.owner.$model"
         placeholder="¿Quién es dueño de la propiedad?"
       />
