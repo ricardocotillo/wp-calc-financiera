@@ -8,7 +8,7 @@
         <Checkboxes
           v-model="type"
           label="Tipo de inversión"
-          @input="period = 0"
+          @update:modelValue="period = 0"
         />
       </div>
       <div class="px-3 pt-3 pb-2">

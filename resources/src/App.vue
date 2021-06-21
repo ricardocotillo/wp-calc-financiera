@@ -24,30 +24,19 @@ export default {
     const state = useState()
     const dataset = document.querySelector('#app').dataset
     const settings = JSON.parse(dataset.settings)
-    state.direction = settings.direccion
+    state.direction = settings.direccion === 'horizontal' ? 0 : 1
     state.type = settings.tipo ?? 'prestamo'
     state.tea = settings.cuotas_fijas_tea
     state.sitm = settings.solo_intereses_tasa
     state.pptm = settings.prestamo_puente_tasa
+    state.prestamoTea = settings.prestamo_tea
+    state.factoringTea = settings.factoring_tea
     state.primaryColor = settings.calc_financiera_primary_color
     state.secondaryColor = settings.calc_financiera_secondary_color
     state.colorOverPrimary = settings.calc_financiera_color_over_primary
     state.colorOverSecondary = settings.calc_financiera_color_over_secondary
-  },
-  data() {
-    return {
-      type: null,
-      direction: null,
-      baseUrl,
-    }
-  },
-  created() {
-    // const dataset = document.querySelector('#app').dataset
-    const settings = {direccion: null, tipo: null} //JSON.parse(dataset.settings)
-    const direccion = settings.direccion
-    this.type = settings.tipo ?? 'prestamo'
-    this.direction =
-      direccion === 'horizontal' ? 0 : direccion === 'vertical' ? 1 : 0
+    console.log(state)
+    return { ...state, baseUrl }
   },
   components: { Prestamo, Inversion },
 }

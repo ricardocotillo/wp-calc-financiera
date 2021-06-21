@@ -7,6 +7,8 @@ export const createState = () => reactive({
   tea: 0.36,
   sitm: 0.025,
   pptm: 0.032,
+  prestamoTea: 0.36,
+  factoringTea: 0.39,
   secondaryColor: null,
   primaryColor: null,
   colorOverPrimary: null,

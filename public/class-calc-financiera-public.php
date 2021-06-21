@@ -103,13 +103,18 @@ class Calc_Financiera_Public {
 	}
 
 	public function shortcode_inversion( $atts = array() ) {
-		extract(shortcode_atts(array(
+		$options = get_option( $this->plugin_name . '-options');
+		$atts = shortcode_atts(array(
 			'direccion' => 'horizontal',
 			'prestamo_tea' => 0.36,
 			'factoring_tea' => 0.39,
-		), $atts));
+		), $atts);
 
-		return '<div id="app" data-tipo="inversion" data-prestamo-tea="'.$prestamo_tea.'" data-factoring-tea="'.$factoring_tea.'" data-direccion="'. $direccion.'"></div>';
+		$settings = array_merge($options, $atts);
+		$settings['tipo'] = 'inversion';
+		$json_settings = json_encode($settings);
+
+		return '<div id="app" data-settings=' . $json_settings . ' ></div>';
 	}
 
 	public function calc_ajax_solicitud() {

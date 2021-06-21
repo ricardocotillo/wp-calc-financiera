@@ -294,8 +294,17 @@ class Calc_Financiera_Admin {
 	
 	}
 
-	public function add_column_to_solicitudes($columns) {
-		return array_merge(array_slice($columns, 0, 1), array('ID'), array_slice($columns, 1));
+	public function add_column_to_solicitud($columns) {
+		return array_merge(array_slice($columns, 0, 2), array('DNI'), array_slice($columns, 2));
+	}
+
+	public function manage_solicitud_columns($column_key, $post_id) {
+		if ($column_key == 'DNI') {
+			$dni = get_post_meta($post_id, $this->plugin_name . 'dni', true);
+			?>
+				<span><?php echo $dni; ?></span>
+			<?php
+		}
 	}
 
 }

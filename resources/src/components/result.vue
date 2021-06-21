@@ -124,8 +124,8 @@ export default {
       })
     }
     const onSolicitar = () => {
-      showPayTable = false
-      showSolicitar = true
+      showPayTable.value = false
+      showSolicitar.value = true
     }
     return {
       onSolicitar,
