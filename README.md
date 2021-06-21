@@ -37,7 +37,7 @@ that lacks those changes -- as long as the trunk's `readme.txt` points to the co
     If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
 you put the stable version, in order to eliminate any doubt. -->
 
-== Installation ==
+== Instalación ==
 
 This section describes how to install the plugin and get it working.
 
