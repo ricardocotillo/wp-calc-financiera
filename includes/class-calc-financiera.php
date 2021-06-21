@@ -173,6 +173,8 @@ class Calc_Financiera {
 
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_metabox', 999 );
 
+		// $this->loader->add_action( 'manage_solicitud_posts_columns', $plugin_admin, 'add_column_to_solicitudes' );
+
 		$this->loader->add_action( 'cmb2_admin_init', $plugin_admin, 'create_options', 0 );
 
 		$this->loader->add_action('manage_posts_extra_tablenav', $plugin_admin, 'add_export_button', 20);

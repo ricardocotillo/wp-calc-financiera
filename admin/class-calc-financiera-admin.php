@@ -154,6 +154,11 @@ class Calc_Financiera_Admin {
 
 	public function create_metabox() {
 
+		$attributes = array(
+			'readonly'	=> true,
+			'disabled'	=> true,
+		);
+
 		$cmb = new_cmb2_box( array(
 			'id'            => $this->plugin_name . '-meta',
 			'title'         => 'Datos del solicitante',
@@ -161,6 +166,7 @@ class Calc_Financiera_Admin {
 			'context'       => 'normal',
 			'priority'      => 'high',
 			'show_names'    => true,
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -171,60 +177,70 @@ class Calc_Financiera_Admin {
 				'prestamo' => 'Préstamo', 
 				'inversion' => 'Inversíon',
 			),
+			'attributes'	=> $attributes
 		));
 
 		$cmb->add_field( array(
 			'name'       => 'Nombres',
 			'id'         => $this->plugin_name . 'nombres',
 			'type'       => 'text',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'apellidos',
 			'type'   => 'text',
 			'name'  => 'Apellidos',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'dni',
 			'type'   => 'text',
 			'name'  => 'DNI',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'telefono1',
 			'type'   => 'text',
 			'name'  => 'Teléfono',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'telefono2',
 			'type'   => 'text',
 			'name'  => 'Teléfono 2',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'email',
 			'type'   => 'text_email',
 			'name'  => 'Email',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'departamento',
 			'type'   => 'text',
 			'name'  => 'Departamento',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'provincia',
 			'type'   => 'text',
 			'name'  => 'Provincia',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'distrito',
 			'type'   => 'text',
 			'name'  => 'Distrito',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -233,12 +249,14 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Casa', 'Dpto', 'Terreno', 'Local', 'Edificio' ),
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
 			'id'     => $this->plugin_name . 'area',
 			'type'   => 'text',
-			'name'  => 'Área',
+			'name'  => 'Área (m²)',
+			'attributes'	=> $attributes
 		) );
 
 		$cmb->add_field( array(
@@ -247,6 +265,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Sólo yo', 'Otras personas y yo', 'Otras personas' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿La propiedad está inscrita en SUNARP?',
@@ -254,6 +273,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿Cuenta con un embargo vigente?',
@@ -261,6 +281,7 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No', 'No sé' ),
+			'attributes'	=> $attributes
 		) );
 		$cmb->add_field( array(
 			'name'             => '¿Cuenta con una hipoteca vigente?',
@@ -268,8 +289,13 @@ class Calc_Financiera_Admin {
 			'type'             => 'select',
 			'show_option_none' => true,
 			'options'          => array( 'Si', 'No', 'No sé' ),
+			'attributes'	=> $attributes
 		) );
 	
+	}
+
+	public function add_column_to_solicitudes($columns) {
+		return array_merge(array_slice($columns, 0, 1), array('ID'), array_slice($columns, 1));
 	}
 
 }
